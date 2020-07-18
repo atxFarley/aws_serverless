@@ -1,0 +1,1280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+         Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="0.9.2" last-position="0,38" last-zoom="1" max-obj-count="38"
+	 default-schema="public" default-owner="postgres">
+<role name="rds_superuser"
+      inherit="true"
+      encrypted="true"
+      password="********">
+	<roles names="postgres" role-type="member" />
+</role>
+
+<role name="rds_replication"
+      inherit="true"
+      encrypted="true"
+      password="********">
+	<roles names="rds_superuser" role-type="admin" />
+</role>
+
+<role name="rds_iam"
+      inherit="true"
+      encrypted="true"
+      password="********">
+</role>
+
+<role name="rds_password"
+      inherit="true"
+      encrypted="true"
+      password="********">
+	<roles names="rds_superuser" role-type="admin" />
+</role>
+
+<role name="rds_ad"
+      inherit="true"
+      encrypted="true"
+      password="********">
+</role>
+
+<role name="rdsrepladmin"
+      replication="true"
+      encrypted="true"
+      password="********">
+</role>
+
+<role name="rdsadmin"
+      superuser="true"
+      createdb="true"
+      replication="true"
+      createrole="true"
+      inherit="true"
+      login="true"
+      bypassrls="true"
+      encrypted="true"
+      password="********"
+      sql-disabled="true">
+</role>
+
+<database name="fieldtracker" encoding="UTF8" lc-collate="en_US.UTF-8" lc-ctype="en_US.UTF-8" is-template="false" allow-conns="true">
+	<role name="postgres"/>
+	<tablespace name="pg_default"/>
+</database>
+
+<schema name="public" layer="0" rect-visible="true" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<extension name="postgis" cur-version="3.0.0">
+	<schema name="public"/>
+	<comment><![CDATA[PostGIS geometry, geography, and raster spatial types and functions]]></comment>
+</extension>
+
+<extension name="fuzzystrmatch" cur-version="1.1">
+	<schema name="public"/>
+	<comment><![CDATA[determine similarities and distance between strings]]></comment>
+</extension>
+
+<extension name="postgis_raster" cur-version="3.0.0">
+	<schema name="public"/>
+	<comment><![CDATA[PostGIS raster types and functions]]></comment>
+</extension>
+
+<schema name="tiger" layer="0" rect-visible="true" fill-color="#d4388c">
+	<role name="rdsadmin"/>
+</schema>
+
+<extension name="postgis_tiger_geocoder" cur-version="3.0.0">
+	<schema name="tiger"/>
+	<comment><![CDATA[PostGIS tiger geocoder and reverse geocoder]]></comment>
+</extension>
+
+<schema name="tiger_data" layer="0" rect-visible="true" fill-color="#43fb9e">
+	<role name="rdsadmin"/>
+</schema>
+
+<schema name="topology" layer="0" rect-visible="true" fill-color="#d146a1">
+	<role name="rdsadmin"/>
+	<comment><![CDATA[PostGIS Topology schema]]></comment>
+</schema>
+
+<extension name="postgis_topology" cur-version="3.0.0">
+	<schema name="topology"/>
+	<comment><![CDATA[PostGIS topology spatial types and functions]]></comment>
+</extension>
+
+<extension name="pgcrypto" cur-version="1.3">
+	<schema name="public"/>
+	<comment><![CDATA[cryptographic functions]]></comment>
+</extension>
+
+<schema name="field_manage" layer="0" alias="field_manage" rect-visible="true" fill-color="#1590f3">
+	<role name="postgres"/>
+</schema>
+
+<sequence name="field_user_field_user_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="2147483647" cache="1">
+	<schema name="field_manage" alias="field_manage"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="field_user" layer="0" collapse-mode="2" pagination="true" attribs-page="0" ext-attribs-page="0" max-obj-count="10">
+	<schema name="field_manage" alias="field_manage"/>
+	<role name="postgres"/>
+	<position x="547" y="477"/>
+	<column name="field_user_id" not-null="true" sequence="field_manage.field_user_field_user_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="last_name" not-null="true">
+		<type name="character varying" length="50"/>
+	</column>
+	<column name="first_name" not-null="true">
+		<type name="character varying" length="50"/>
+	</column>
+	<column name="app_admin_b" not-null="true">
+		<type name="boolean" length="0"/>
+	</column>
+	<column name="app_login">
+		<type name="character varying" length="15"/>
+	</column>
+	<column name="app_encpassword">
+		<type name="text" length="0"/>
+		<comment><![CDATA[encrypted password with pgcrypto]]></comment>
+	</column>
+	<column name="email_address">
+		<type name="character varying" length="150"/>
+	</column>
+	<column name="created_datetz" not-null="true">
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
+	</column>
+	<column name="edit_datetz">
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
+	</column>
+	<constraint name="field_user_pk" type="pk-constr" table="field_manage.field_user">
+		<columns names="field_user_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="field_user_hist_field_user_hist_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="2147483647" cache="1">
+	<schema name="field_manage" alias="field_manage"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="field_user_hist" layer="0" collapse-mode="2" max-obj-count="8">
+	<schema name="field_manage" alias="field_manage"/>
+	<role name="postgres"/>
+	<position x="435.049" y="840"/>
+	<column name="field_user_hist_id" not-null="true" sequence="field_manage.field_user_hist_field_user_hist_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="field_user_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="column_name" not-null="true">
+		<type name="character varying" length="20"/>
+	</column>
+	<column name="old_value" not-null="true">
+		<type name="character varying" length="100"/>
+	</column>
+	<column name="new_value">
+		<type name="character varying" length="100"/>
+	</column>
+	<column name="created_datetz" not-null="true">
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
+	</column>
+	<column name="edit_user_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="field_user_hist_pk" type="pk-constr" table="field_manage.field_user_hist">
+		<columns names="field_user_hist_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<usertype name="geometry" configuration="base"
+ internal-length="0" by-value="false"
+ alignment="double precision" storage="main"
+ delimiter=":"
+ category="U" sql-disabled="true">
+	<schema name="public"/>
+	<role name="rdsadmin"/>
+	<comment><![CDATA[postgis type: The type representing spatial features with planar coordinate systems.]]></comment>
+</usertype>
+
+<sequence name="field_field_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="2147483647" cache="1">
+	<schema name="field_manage" alias="field_manage"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="field" layer="0" collapse-mode="2" max-obj-count="16">
+	<schema name="field_manage" alias="field_manage"/>
+	<role name="postgres"/>
+	<position x="57.0191" y="306"/>
+	<column name="field_id" not-null="true" sequence="field_manage.field_field_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="field_name">
+		<type name="character varying" length="50"/>
+	</column>
+	<column name="field_desc">
+		<type name="text" length="0"/>
+	</column>
+	<column name="address">
+		<type name="character varying" length="50"/>
+	</column>
+	<column name="adddress_2">
+		<type name="character varying" length="50"/>
+	</column>
+	<column name="city">
+		<type name="character varying" length="50"/>
+	</column>
+	<column name="state">
+		<type name="character varying" length="2"/>
+	</column>
+	<column name="zip">
+		<type name="character varying" length="10"/>
+	</column>
+	<column name="county">
+		<type name="character varying" length="50"/>
+	</column>
+	<column name="field_attributes">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="created_datetz" not-null="true">
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
+	</column>
+	<column name="edit_datetz">
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
+	</column>
+	<column name="last_edit_user_id">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="field_geom" not-null="true">
+		<type name="public.geometry" length="0"/>
+	</column>
+	<constraint name="field_pk" type="pk-constr" table="field_manage.field">
+		<columns names="field_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="field_geom_hist_field_geom_hist_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="2147483647" cache="1">
+	<schema name="field_manage" alias="field_manage"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="field_geom_hist" layer="0" collapse-mode="2" max-obj-count="6">
+	<schema name="field_manage" alias="field_manage"/>
+	<role name="postgres"/>
+	<position x="66.1302" y="838"/>
+	<column name="field_geom_hist_id" not-null="true" sequence="field_manage.field_geom_hist_field_geom_hist_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="field_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="created_datetz" not-null="true">
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
+	</column>
+	<column name="edit_user_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="old_geom" not-null="true">
+		<type name="public.geometry" length="0"/>
+	</column>
+	<constraint name="field_geom_hist_pk" type="pk-constr" table="field_manage.field_geom_hist">
+		<columns names="field_geom_hist_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="field_hist_field_hist_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="2147483647" cache="1">
+	<schema name="field_manage" alias="field_manage"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="field_hist" layer="0" collapse-mode="2" max-obj-count="9">
+	<schema name="field_manage" alias="field_manage"/>
+	<role name="postgres"/>
+	<position x="70.4131" y="636"/>
+	<column name="field_hist_id" not-null="true" sequence="field_manage.field_hist_field_hist_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="field_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="table_name" not-null="true">
+		<type name="character varying" length="25"/>
+	</column>
+	<column name="column_name" not-null="true">
+		<type name="character varying" length="20"/>
+	</column>
+	<column name="old_value" not-null="true">
+		<type name="character varying" length="100"/>
+	</column>
+	<column name="new_value">
+		<type name="character varying" length="100"/>
+	</column>
+	<column name="created_datetz" not-null="true">
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
+	</column>
+	<column name="edit_user_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="field_hist_pk" type="pk-constr" table="field_manage.field_hist">
+		<columns names="field_hist_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="field_grower_field_grower_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="2147483647" cache="1">
+	<schema name="field_manage" alias="field_manage"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="field_grower" layer="0" collapse-mode="2" max-obj-count="4">
+	<schema name="field_manage" alias="field_manage"/>
+	<role name="postgres"/>
+	<position x="381" y="63.25"/>
+	<column name="field_grower_id" not-null="true" sequence="field_manage.field_grower_field_grower_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="field_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="grower_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="created_datetz" not-null="true">
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
+	</column>
+	<constraint name="field_grower_pk" type="pk-constr" table="field_manage.field_grower">
+		<columns names="field_grower_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="field_attribute_hist_field_attribute_hist_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
+	<schema name="field_manage" alias="field_manage"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="field_attribute_hist" layer="0" collapse-mode="2" max-obj-count="6">
+	<schema name="field_manage" alias="field_manage"/>
+	<role name="postgres"/>
+	<position x="69.4236" y="1006.25"/>
+	<column name="field_attribute_hist_id" not-null="true" sequence="field_manage.field_attribute_hist_field_attribute_hist_id_seq">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="field_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="old_attributes" not-null="true">
+		<type name="jsonb" length="0"/>
+	</column>
+	<column name="created_datetz" not-null="true">
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
+	</column>
+	<column name="edit_user_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="field_attribute_hist_pk" type="pk-constr" table="field_manage.field_attribute_hist">
+		<columns names="field_attribute_hist_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="field_owner_field_owner_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="2147483647" cache="1">
+	<schema name="field_manage" alias="field_manage"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="field_owner" layer="0" collapse-mode="2" max-obj-count="4">
+	<schema name="field_manage" alias="field_manage"/>
+	<role name="postgres"/>
+	<position x="686.394" y="66.25"/>
+	<column name="field_owner_id" not-null="true" sequence="field_manage.field_owner_field_owner_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="field_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="owner_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="created_datetz" not-null="true">
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
+	</column>
+	<constraint name="field_owner_pk" type="pk-constr" table="field_manage.field_owner">
+		<columns names="field_owner_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="field_activity_type_field_activity_type_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="32767" cache="1">
+	<schema name="field_manage" alias="field_manage"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="field_activity_type" layer="0" collapse-mode="2" max-obj-count="8">
+	<schema name="field_manage" alias="field_manage"/>
+	<role name="postgres"/>
+	<position x="1010.72" y="436.25"/>
+	<column name="field_activity_type_id" not-null="true" sequence="field_manage.field_activity_type_field_activity_type_id_seq">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="activity_type" not-null="true">
+		<type name="character varying" length="50"/>
+	</column>
+	<column name="activity_desc">
+		<type name="text" length="0"/>
+	</column>
+	<column name="active_b" not-null="true">
+		<type name="boolean" length="0"/>
+	</column>
+	<column name="created_datetz" not-null="true">
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
+	</column>
+	<column name="edit_datetz">
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
+	</column>
+	<column name="last_edit_user_id">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="field_activity_type_pk" type="pk-constr" table="field_manage.field_activity_type">
+		<columns names="field_activity_type_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="field_activity_field_activity_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
+	<schema name="field_manage" alias="field_manage"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="field_activity" layer="0" collapse-mode="2" max-obj-count="10">
+	<schema name="field_manage" alias="field_manage"/>
+	<role name="postgres"/>
+	<position x="989.663" y="718.25"/>
+	<column name="field_activity_id" not-null="true" sequence="field_manage.field_activity_field_activity_id_seq">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="field_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="field_activity_type_id" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="description">
+		<type name="text" length="0"/>
+	</column>
+	<column name="activity_datetz" not-null="true">
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
+	</column>
+	<column name="created_datetz" not-null="true">
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
+	</column>
+	<column name="edit_datetz">
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
+	</column>
+	<column name="last_edit_user_id">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="activity_geom">
+		<type name="public.geometry" length="0"/>
+	</column>
+	<constraint name="field_activity_pk" type="pk-constr" table="field_manage.field_activity">
+		<columns names="field_activity_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="field_activity_file_type" layer="0" collapse-mode="2" max-obj-count="8">
+	<schema name="field_manage" alias="field_manage"/>
+	<role name="postgres"/>
+	<position x="1314" y="436.9"/>
+	<column name="field_activity_file_type_id" not-null="true" default-value="nextval('field_manage.field_activity_file_type_field_activity_file_type_id_seq'::regclass)">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="file_type" not-null="true">
+		<type name="character varying" length="50"/>
+	</column>
+	<column name="file_type_desc">
+		<type name="text" length="0"/>
+	</column>
+	<column name="active_b" not-null="true">
+		<type name="boolean" length="0"/>
+	</column>
+	<column name="created_datetz" not-null="true">
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
+	</column>
+	<column name="edit_datetz">
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
+	</column>
+	<column name="last_edit_user_id">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="field_activity_file_type_pk" type="pk-constr" table="field_manage.field_activity_file_type">
+		<columns names="field_activity_file_type_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="field_activity_file_type_field_activity_file_type_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="32767" cache="1">
+	<schema name="field_manage" alias="field_manage"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="field_activity_file_field_activity_file_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
+	<schema name="field_manage" alias="field_manage"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="field_activity_file" layer="0" collapse-mode="2" max-obj-count="14">
+	<schema name="field_manage" alias="field_manage"/>
+	<role name="postgres"/>
+	<position x="1325.72" y="689.9"/>
+	<column name="field_activity_file" not-null="true" sequence="field_manage.field_activity_file_field_activity_file_seq">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="field_activity_id" not-null="true">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="field_activity_file_type_id" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="file_size_mb">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="file_location" not-null="true">
+		<type name="character varying" length="500"/>
+	</column>
+	<column name="vendor_partner_id">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="filename">
+		<type name="character varying" length="100"/>
+	</column>
+	<column name="georeferenced_b" not-null="true">
+		<type name="boolean" length="0"/>
+	</column>
+	<column name="file_datetz">
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
+	</column>
+	<column name="created_datetz" not-null="true">
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
+	</column>
+	<column name="edit_datetz">
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
+	</column>
+	<column name="last_edit_user_id">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="field_activity_file_pk" type="pk-constr" table="field_manage.field_activity_file">
+		<columns names="field_activity_file" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="field_activity_hist_field_activity_hist_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
+	<schema name="field_manage" alias="field_manage"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="field_activity_hist" layer="0" collapse-mode="2" max-obj-count="9">
+	<schema name="field_manage" alias="field_manage"/>
+	<role name="postgres"/>
+	<position x="1144.36" y="977.9"/>
+	<column name="field_activity_hist_id" not-null="true" sequence="field_manage.field_activity_hist_field_activity_hist_id_seq">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="table_name" not-null="true">
+		<type name="character varying" length="25"/>
+	</column>
+	<column name="column_identifier" not-null="true">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="column_name">
+		<type name="character varying" length="25"/>
+	</column>
+	<column name="old_value" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<column name="new_value">
+		<type name="text" length="0"/>
+	</column>
+	<column name="created_datetz" not-null="true">
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
+	</column>
+	<column name="edit_user_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="field_activity_hist_pk" type="pk-constr" table="field_manage.field_activity_hist">
+		<columns names="field_activity_hist_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="field_access_field_access_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="2147483647" cache="1">
+	<schema name="field_manage" alias="field_manage"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="field_access" layer="0" collapse-mode="2" max-obj-count="9">
+	<schema name="field_manage" alias="field_manage"/>
+	<role name="postgres"/>
+	<position x="64.7552" y="57.9"/>
+	<column name="field_access_id" not-null="true" sequence="field_manage.field_access_field_access_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="field_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="access_point_desc">
+		<type name="text" length="0"/>
+	</column>
+	<column name="active_b" not-null="true">
+		<type name="boolean" length="0"/>
+	</column>
+	<column name="created_datetz" not-null="true">
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
+	</column>
+	<column name="edit_datetz">
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
+	</column>
+	<column name="last_edit_user_id">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="access_geom" not-null="true">
+		<type name="public.geometry" length="0"/>
+	</column>
+	<constraint name="field_access_pk" type="pk-constr" table="field_manage.field_access">
+		<columns names="field_access_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="field_attribute_field_attribute_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="2147483647" cache="1">
+	<schema name="field_manage" alias="field_manage"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="field_attribute" layer="0" collapse-mode="2" max-obj-count="8">
+	<schema name="field_manage" alias="field_manage"/>
+	<role name="postgres"/>
+	<position x="1333.18" y="67.9"/>
+	<column name="field_attribute_id" not-null="true" sequence="field_manage.field_attribute_field_attribute_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="attribute" not-null="true">
+		<type name="character varying" length="50"/>
+	</column>
+	<column name="attr_value" not-null="true">
+		<type name="character varying" length="75"/>
+	</column>
+	<column name="active_b" not-null="true">
+		<type name="boolean" length="0"/>
+	</column>
+	<column name="created_datetz" not-null="true">
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
+	</column>
+	<column name="edit_datetz">
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
+	</column>
+	<column name="last_edit_user_id">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="field_attribute_pk" type="pk-constr" table="field_manage.field_attribute">
+		<columns names="field_attribute_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="state_state_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="32767" cache="1">
+	<schema name="field_manage" alias="field_manage"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="state" layer="0" collapse-mode="2" max-obj-count="9">
+	<schema name="field_manage" alias="field_manage"/>
+	<role name="postgres"/>
+	<position x="1341" y="246.35"/>
+	<column name="state_id" not-null="true" sequence="field_manage.state_state_id_seq">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="fips_code" not-null="true">
+		<type name="character varying" length="2"/>
+	</column>
+	<column name="state_abbr" not-null="true">
+		<type name="character varying" length="2"/>
+	</column>
+	<column name="state_name" not-null="true">
+		<type name="character varying" length="35"/>
+	</column>
+	<column name="app_visible_b" not-null="true">
+		<type name="boolean" length="0"/>
+	</column>
+	<column name="created_datetz" not-null="true">
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
+	</column>
+	<column name="edit_datetz">
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
+	</column>
+	<column name="last_edit_user_id">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="state_pk" type="pk-constr" table="field_manage.state">
+		<columns names="state_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="county_county_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="32767" cache="1">
+	<schema name="field_manage" alias="field_manage"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="county" layer="0" collapse-mode="2" max-obj-count="8">
+	<schema name="field_manage" alias="field_manage"/>
+	<role name="postgres"/>
+	<position x="1026.11" y="253.35"/>
+	<column name="county_id" not-null="true" sequence="field_manage.county_county_id_seq">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="fips_code" not-null="true">
+		<type name="character varying" length="5"/>
+	</column>
+	<column name="county_name" not-null="true">
+		<type name="character varying" length="50"/>
+	</column>
+	<column name="app_visible_b" not-null="true">
+		<type name="boolean" length="0"/>
+	</column>
+	<column name="created_datetz" not-null="true">
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
+	</column>
+	<column name="edit_datetz">
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
+	</column>
+	<column name="last_edit_user_id">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="county_pk" type="pk-constr" table="field_manage.county">
+		<columns names="county_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="idx_last_name" table="field_manage.field_user"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="last_name"/>
+		</idxelement>
+</index>
+
+<index name="idx_address" table="field_manage.field"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="address"/>
+		</idxelement>
+</index>
+
+<index name="idx_field_name" table="field_manage.field"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="field_name"/>
+		</idxelement>
+</index>
+
+<index name="idx_field_geom" table="field_manage.field"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="gist" factor="90">
+		<idxelement use-sorting="false">
+			<column name="field_geom"/>
+		</idxelement>
+</index>
+
+<index name="idx_access_geom" table="field_manage.field_access"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="gist" factor="90">
+		<idxelement use-sorting="false">
+			<column name="access_geom"/>
+		</idxelement>
+</index>
+
+<index name="idx_old_geom" table="field_manage.field_geom_hist"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="gist" factor="90">
+		<idxelement use-sorting="false">
+			<column name="old_geom"/>
+		</idxelement>
+</index>
+
+<index name="idx_field_attributes" table="field_manage.field"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="gin" factor="0">
+		<idxelement use-sorting="false">
+			<column name="field_attributes"/>
+		</idxelement>
+</index>
+
+<index name="idx_old_attributes" table="field_manage.field_attribute_hist"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="gin" factor="0">
+		<idxelement use-sorting="false">
+			<column name="old_attributes"/>
+		</idxelement>
+</index>
+
+<index name="idx_activity_geom" table="field_manage.field_activity"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="gist" factor="90">
+		<idxelement use-sorting="false">
+			<column name="activity_geom"/>
+		</idxelement>
+</index>
+
+<sequence name="vendor_partner_vendor_partner_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="32767" cache="1">
+	<schema name="field_manage" alias="field_manage"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="vendor_partner" layer="0" collapse-mode="2" max-obj-count="8">
+	<schema name="field_manage" alias="field_manage"/>
+	<role name="postgres"/>
+	<position x="1009.22" y="71.35"/>
+	<column name="vendor_partner_id" not-null="true" sequence="field_manage.vendor_partner_vendor_partner_id_seq">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="vendor_name" not-null="true">
+		<type name="character varying" length="75"/>
+	</column>
+	<column name="vendor_desc">
+		<type name="text" length="0"/>
+	</column>
+	<column name="main_api_url">
+		<type name="character varying" length="250"/>
+	</column>
+	<column name="created_datetz" not-null="true">
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
+	</column>
+	<column name="edit_datetz">
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
+	</column>
+	<column name="last_edit_user_id">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="vendor_partner_pk" type="pk-constr" table="field_manage.vendor_partner">
+		<columns names="vendor_partner_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="field_user_vendor_field_user_vendor_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="2147483647" cache="1">
+	<schema name="field_manage" alias="field_manage"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="field_user_vendor" layer="0" collapse-mode="2" max-obj-count="9">
+	<schema name="field_manage" alias="field_manage"/>
+	<role name="postgres"/>
+	<position x="692.052" y="222.35"/>
+	<column name="field_user_vendor_id" not-null="true" sequence="field_manage.field_user_vendor_field_user_vendor_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="field_user_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="vendor_partner_id" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="vendor_login">
+		<type name="character varying" length="50"/>
+	</column>
+	<column name="vendor_encpassword">
+		<type name="text" length="0"/>
+	</column>
+	<column name="created_datetz" not-null="true">
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
+	</column>
+	<column name="edit_datetz">
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
+	</column>
+	<column name="last_edit_user_id">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="field_user_vendor_pk" type="pk-constr" table="field_manage.field_user_vendor">
+		<columns names="field_user_vendor_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<constraint name="field_user_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="RESTRICT" ref-table="field_manage.field_user" table="field_manage.field_user_hist">
+	<columns names="field_user_id" ref-type="src-columns"/>
+	<columns names="field_user_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="field_user_fk1" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="RESTRICT" ref-table="field_manage.field_user" table="field_manage.field_user_hist">
+	<columns names="edit_user_id" ref-type="src-columns"/>
+	<columns names="field_user_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="field_user_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="field_manage.field_user" table="field_manage.field">
+	<columns names="last_edit_user_id" ref-type="src-columns"/>
+	<columns names="field_user_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="field_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="RESTRICT" ref-table="field_manage.field" table="field_manage.field_geom_hist">
+	<columns names="field_id" ref-type="src-columns"/>
+	<columns names="field_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="field_user_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="RESTRICT" ref-table="field_manage.field_user" table="field_manage.field_geom_hist">
+	<columns names="edit_user_id" ref-type="src-columns"/>
+	<columns names="field_user_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="field_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="RESTRICT" ref-table="field_manage.field" table="field_manage.field_hist">
+	<columns names="field_id" ref-type="src-columns"/>
+	<columns names="field_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="field_user_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="RESTRICT" ref-table="field_manage.field_user" table="field_manage.field_hist">
+	<columns names="edit_user_id" ref-type="src-columns"/>
+	<columns names="field_user_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="field_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="RESTRICT" ref-table="field_manage.field" table="field_manage.field_grower">
+	<columns names="field_id" ref-type="src-columns"/>
+	<columns names="field_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="field_user_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="RESTRICT" ref-table="field_manage.field_user" table="field_manage.field_grower">
+	<columns names="grower_id" ref-type="src-columns"/>
+	<columns names="field_user_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="field_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="RESTRICT" ref-table="field_manage.field" table="field_manage.field_attribute_hist">
+	<columns names="field_id" ref-type="src-columns"/>
+	<columns names="field_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="field_user_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="RESTRICT" ref-table="field_manage.field_user" table="field_manage.field_attribute_hist">
+	<columns names="edit_user_id" ref-type="src-columns"/>
+	<columns names="field_user_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="field_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="RESTRICT" ref-table="field_manage.field" table="field_manage.field_owner">
+	<columns names="field_id" ref-type="src-columns"/>
+	<columns names="field_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="field_user_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="RESTRICT" ref-table="field_manage.field_user" table="field_manage.field_owner">
+	<columns names="owner_id" ref-type="src-columns"/>
+	<columns names="field_user_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="field_user_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="field_manage.field_user" table="field_manage.field_activity_type">
+	<columns names="last_edit_user_id" ref-type="src-columns"/>
+	<columns names="field_user_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="field_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="RESTRICT" ref-table="field_manage.field" table="field_manage.field_activity">
+	<columns names="field_id" ref-type="src-columns"/>
+	<columns names="field_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="field_activity_type_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="RESTRICT" ref-table="field_manage.field_activity_type" table="field_manage.field_activity">
+	<columns names="field_activity_type_id" ref-type="src-columns"/>
+	<columns names="field_activity_type_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="field_user_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="field_manage.field_user" table="field_manage.field_activity">
+	<columns names="last_edit_user_id" ref-type="src-columns"/>
+	<columns names="field_user_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="field_user_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="field_manage.field_user" table="field_manage.field_activity_file_type">
+	<columns names="last_edit_user_id" ref-type="src-columns"/>
+	<columns names="field_user_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="field_activity_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="RESTRICT" ref-table="field_manage.field_activity" table="field_manage.field_activity_file">
+	<columns names="field_activity_id" ref-type="src-columns"/>
+	<columns names="field_activity_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="field_activity_file_type_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="RESTRICT" ref-table="field_manage.field_activity_file_type" table="field_manage.field_activity_file">
+	<columns names="field_activity_file_type_id" ref-type="src-columns"/>
+	<columns names="field_activity_file_type_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="field_user_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="field_manage.field_user" table="field_manage.field_activity_file">
+	<columns names="last_edit_user_id" ref-type="src-columns"/>
+	<columns names="field_user_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="field_user_vendor_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="field_manage.field_user_vendor" table="field_manage.field_activity_file">
+	<columns names="vendor_partner_id" ref-type="src-columns"/>
+	<columns names="field_user_vendor_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="field_user_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="RESTRICT" ref-table="field_manage.field_user" table="field_manage.field_activity_hist">
+	<columns names="edit_user_id" ref-type="src-columns"/>
+	<columns names="field_user_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="field_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="RESTRICT" ref-table="field_manage.field" table="field_manage.field_access">
+	<columns names="field_id" ref-type="src-columns"/>
+	<columns names="field_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="field_user_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="field_manage.field_user" table="field_manage.field_access">
+	<columns names="last_edit_user_id" ref-type="src-columns"/>
+	<columns names="field_user_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="field_user_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="field_manage.field_user" table="field_manage.field_attribute">
+	<columns names="last_edit_user_id" ref-type="src-columns"/>
+	<columns names="field_user_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="field_user_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="field_manage.field_user" table="field_manage.state">
+	<columns names="last_edit_user_id" ref-type="src-columns"/>
+	<columns names="field_user_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="field_user_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="field_manage.field_user" table="field_manage.county">
+	<columns names="last_edit_user_id" ref-type="src-columns"/>
+	<columns names="field_user_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="field_user_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="field_manage.field_user" table="field_manage.vendor_partner">
+	<columns names="last_edit_user_id" ref-type="src-columns"/>
+	<columns names="field_user_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="field_user_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="RESTRICT" ref-table="field_manage.field_user" table="field_manage.field_user_vendor">
+	<columns names="field_user_id" ref-type="src-columns"/>
+	<columns names="field_user_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="vendor_partner_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="RESTRICT" ref-table="field_manage.vendor_partner" table="field_manage.field_user_vendor">
+	<columns names="vendor_partner_id" ref-type="src-columns"/>
+	<columns names="vendor_partner_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="field_user_fk1" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="field_manage.field_user" table="field_manage.field_user_vendor">
+	<columns names="last_edit_user_id" ref-type="src-columns"/>
+	<columns names="field_user_id" ref-type="dst-columns"/>
+</constraint>
+
+<relationship name="rel_field_user_hist_field_user" type="relfk" layer="0"
+	 custom-color="#0f5c9f"
+	 src-table="field_manage.field_user_hist"
+	 dst-table="field_manage.field_user" reference-fk="field_user_fk"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_field_user_hist_field_user1" type="relfk" layer="0"
+	 custom-color="#946978"
+	 src-table="field_manage.field_user_hist"
+	 dst-table="field_manage.field_user" reference-fk="field_user_fk1"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_field_field_user" type="relfk" layer="0"
+	 custom-color="#edcbb1"
+	 src-table="field_manage.field"
+	 dst-table="field_manage.field_user" reference-fk="field_user_fk"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_field_geom_hist_field" type="relfk" layer="0"
+	 custom-color="#5b69f5"
+	 src-table="field_manage.field_geom_hist"
+	 dst-table="field_manage.field" reference-fk="field_fk"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_field_geom_hist_field_user" type="relfk" layer="0"
+	 custom-color="#c4ef8d"
+	 src-table="field_manage.field_geom_hist"
+	 dst-table="field_manage.field_user" reference-fk="field_user_fk"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_field_hist_field" type="relfk" layer="0"
+	 custom-color="#060fa1"
+	 src-table="field_manage.field_hist"
+	 dst-table="field_manage.field" reference-fk="field_fk"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_field_hist_field_user" type="relfk" layer="0"
+	 custom-color="#3ac75a"
+	 src-table="field_manage.field_hist"
+	 dst-table="field_manage.field_user" reference-fk="field_user_fk"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_field_grower_field" type="relfk" layer="0"
+	 custom-color="#4eb5dc"
+	 src-table="field_manage.field_grower"
+	 dst-table="field_manage.field" reference-fk="field_fk"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_field_grower_field_user" type="relfk" layer="0"
+	 custom-color="#323142"
+	 src-table="field_manage.field_grower"
+	 dst-table="field_manage.field_user" reference-fk="field_user_fk"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_field_attribute_hist_field" type="relfk" layer="0"
+	 custom-color="#46fb5f"
+	 src-table="field_manage.field_attribute_hist"
+	 dst-table="field_manage.field" reference-fk="field_fk"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_field_attribute_hist_field_user" type="relfk" layer="0"
+	 custom-color="#41375c"
+	 src-table="field_manage.field_attribute_hist"
+	 dst-table="field_manage.field_user" reference-fk="field_user_fk"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_field_owner_field" type="relfk" layer="0"
+	 custom-color="#742303"
+	 src-table="field_manage.field_owner"
+	 dst-table="field_manage.field" reference-fk="field_fk"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_field_owner_field_user" type="relfk" layer="0"
+	 custom-color="#aec89c"
+	 src-table="field_manage.field_owner"
+	 dst-table="field_manage.field_user" reference-fk="field_user_fk"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_field_activity_type_field_user" type="relfk" layer="0"
+	 custom-color="#50f03a"
+	 src-table="field_manage.field_activity_type"
+	 dst-table="field_manage.field_user" reference-fk="field_user_fk"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_field_activity_field" type="relfk" layer="0"
+	 custom-color="#f92d8a"
+	 src-table="field_manage.field_activity"
+	 dst-table="field_manage.field" reference-fk="field_fk"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_field_activity_field_activity_type" type="relfk" layer="0"
+	 custom-color="#f54d6b"
+	 src-table="field_manage.field_activity"
+	 dst-table="field_manage.field_activity_type" reference-fk="field_activity_type_fk"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_field_activity_field_user" type="relfk" layer="0"
+	 custom-color="#b308d4"
+	 src-table="field_manage.field_activity"
+	 dst-table="field_manage.field_user" reference-fk="field_user_fk"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_field_activity_file_type_field_user" type="relfk" layer="0"
+	 custom-color="#4ebbfd"
+	 src-table="field_manage.field_activity_file_type"
+	 dst-table="field_manage.field_user" reference-fk="field_user_fk"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_field_activity_file_field_activity" type="relfk" layer="0"
+	 custom-color="#4bd768"
+	 src-table="field_manage.field_activity_file"
+	 dst-table="field_manage.field_activity" reference-fk="field_activity_fk"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_field_activity_file_field_activity_file_type" type="relfk" layer="0"
+	 custom-color="#0f9a4c"
+	 src-table="field_manage.field_activity_file"
+	 dst-table="field_manage.field_activity_file_type" reference-fk="field_activity_file_type_fk"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_field_activity_file_field_user" type="relfk" layer="0"
+	 custom-color="#01295d"
+	 src-table="field_manage.field_activity_file"
+	 dst-table="field_manage.field_user" reference-fk="field_user_fk"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_field_activity_file_field_user_vendor" type="relfk" layer="0"
+	 custom-color="#7106d4"
+	 src-table="field_manage.field_activity_file"
+	 dst-table="field_manage.field_user_vendor" reference-fk="field_user_vendor_fk"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_field_activity_hist_field_user" type="relfk" layer="0"
+	 custom-color="#5cd9c3"
+	 src-table="field_manage.field_activity_hist"
+	 dst-table="field_manage.field_user" reference-fk="field_user_fk"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_field_access_field" type="relfk" layer="0"
+	 custom-color="#b2280c"
+	 src-table="field_manage.field_access"
+	 dst-table="field_manage.field" reference-fk="field_fk"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_field_access_field_user" type="relfk" layer="0"
+	 custom-color="#c7245b"
+	 src-table="field_manage.field_access"
+	 dst-table="field_manage.field_user" reference-fk="field_user_fk"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_field_attribute_field_user" type="relfk" layer="0"
+	 custom-color="#1ec0b7"
+	 src-table="field_manage.field_attribute"
+	 dst-table="field_manage.field_user" reference-fk="field_user_fk"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_state_field_user" type="relfk" layer="0"
+	 custom-color="#ff9f71"
+	 src-table="field_manage.state"
+	 dst-table="field_manage.field_user" reference-fk="field_user_fk"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_county_field_user" type="relfk" layer="0"
+	 custom-color="#0e33b5"
+	 src-table="field_manage.county"
+	 dst-table="field_manage.field_user" reference-fk="field_user_fk"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_vendor_partner_field_user" type="relfk" layer="0"
+	 custom-color="#cc88c8"
+	 src-table="field_manage.vendor_partner"
+	 dst-table="field_manage.field_user" reference-fk="field_user_fk"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_field_user_vendor_field_user" type="relfk" layer="0"
+	 custom-color="#e4dddc"
+	 src-table="field_manage.field_user_vendor"
+	 dst-table="field_manage.field_user" reference-fk="field_user_fk"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_field_user_vendor_vendor_partner" type="relfk" layer="0"
+	 custom-color="#06c3cd"
+	 src-table="field_manage.field_user_vendor"
+	 dst-table="field_manage.vendor_partner" reference-fk="vendor_partner_fk"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_field_user_vendor_field_user1" type="relfk" layer="0"
+	 custom-color="#97517e"
+	 src-table="field_manage.field_user_vendor"
+	 dst-table="field_manage.field_user" reference-fk="field_user_fk1"
+	 src-required="false" dst-required="false"/>
+
+</dbmodel>
