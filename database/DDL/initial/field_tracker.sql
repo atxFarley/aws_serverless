@@ -297,7 +297,7 @@ create table field_manage."field_activity" (
 alter table field_manage."field_activity" owner to postgres;
 -- ddl-end --
 
-select addgeometrycolumn('field_manage', 'field_activity', 'activity_geom', 4326, 'POINT', 2);
+select addgeometrycolumn('field_manage', 'field_activity', 'activity_geom', 4326, 'POLYGON', 2);
 
 -- object: "field_fk" | type: constraint --
 -- alter table field_manage."field_activity" drop constraint if exists "field_fk" cascade;
