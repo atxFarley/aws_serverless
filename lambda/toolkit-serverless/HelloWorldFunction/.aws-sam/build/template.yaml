@@ -2,7 +2,7 @@ Resources:
   Function:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: helloworld.App
+      Handler: dbconnect.App
       CodeUri: Function
       Runtime: java8
       Timeout: 300
