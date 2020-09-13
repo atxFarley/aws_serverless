@@ -1,9 +1,0 @@
-Resources:
-  Function:
-    Type: AWS::Serverless::Function
-    Properties:
-      Handler: dbconnect.App
-      CodeUri: Function
-      Runtime: java8
-      Timeout: 300
-      MemorySize: 128

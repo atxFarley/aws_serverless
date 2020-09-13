@@ -1,0 +1,19 @@
+*.class
+target
+/bin/
+/.settings/
+.project
+.classpath
+DbConnectFunction/src/main/resources/application.yml
+DbConnectFunction/dependency-reduced-pom.xml
+*.iml
+
+# Package Files
+*.jar
+*.war
+*.ear
+
+
+# Serverless directories
+.serverless
+.aws-sam

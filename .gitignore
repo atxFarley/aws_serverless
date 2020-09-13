@@ -9,5 +9,8 @@ ehthumbs.db
 Thumbs.db
 .idea
 CapstoneWork.docx
+~$pstoneWork.docx
 database/USA_State_Plane_Zones_NAD83
 database/USA_State_Plane_Zones_NAD83.zip
+lambda/samples/dbconnect/DbConnectFunction/src/main/resources/application.yml
+lambda/samples/dbconnect/DbConnectFunction/dependency-reduced-pom.xml
