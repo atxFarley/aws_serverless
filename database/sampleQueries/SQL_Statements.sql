@@ -141,3 +141,27 @@ FROM field;
 •	SELECT fieldA.field_name, fieldB.field_name, ST_Distance(ST_Transform(fieldA.field_geom,26914),ST_Transform(fieldB.field_geom,26914)) * 0.000621371 as distance_miles 
 FROM field as fieldA CROSS JOIN field as fieldB WHERE fieldA.field_name != fieldB.field_name 
 and ST_DWithin(ST_Transform(fieldA.field_geom,26914), ST_Transform(fieldB.field_geom,26914),1609.34*2::double precision);
+
+
+******************
+
+For use in the app:
+
+SELECT jsonb_build_object(
+    'type',     'FeatureCollection',
+    'features', jsonb_agg(features.feature)
+) as geojson
+FROM (
+  SELECT jsonb_build_object(
+    'type',       'Feature',
+    'id',         'field_id',
+    'geometry',   ST_AsGeoJSON(ST_Transform(field_geom, 3857))::jsonb,
+    'properties', to_jsonb(inputs) - 'field_id' - 'field_geom'
+  ) AS feature
+  FROM (SELECT field.field_id, field_geom, field.field_name,field_user.first_name|| ' ' ||field_user.last_name as grower from field
+left outer join field_grower
+on field.field_id = field_grower.field_id
+inner join field_user
+on field_grower.grower_id = field_user.field_user_id ) inputs) features;
+
+SELECT jsonb_build_object( 'type',     'FeatureCollection',  'features', jsonb_agg(features.feature)) as geojson FROM (SELECT jsonb_build_object('type',       'Feature', 'id',         'field_id', 'geometry',   ST_AsGeoJSON(ST_Transform(field_geom, 3857))::jsonb, 'properties', to_jsonb(inputs) - 'field_id' - 'field_geom') AS feature FROM (SELECT field.field_id, field_geom, field.field_name,field_user.first_name|| ' ' ||field_user.last_name as grower from field left outer join field_grower on field.field_id = field_grower.field_id inner join field_user on field_grower.grower_id = field_user.field_user_id ) inputs) features;

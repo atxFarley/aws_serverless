@@ -42,13 +42,28 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
             String url = ds.getUrl();
             String user = ds.getUsername();
             String password = ds.getPassword();
-            String output = String.format("{ \"message\": \"db connect\", \"location\": \"%s\" }", "no one");
+            String output = "{}";
             try (Connection con = DriverManager.getConnection(url, user, password);
                  Statement st = con.createStatement();
-                 ResultSet rs = st.executeQuery("SELECT last_name from field_manage.field_user where field_user_id=1")) {
+                 ResultSet rs = st.executeQuery("SELECT jsonb_build_object(\n" +
+                         "    'type',     'FeatureCollection',\n" +
+                         "    'features', jsonb_agg(features.feature)\n" +
+                         ") as geojson\n" +
+                         "FROM (\n" +
+                         "  SELECT jsonb_build_object(\n" +
+                         "    'type',       'Feature',\n" +
+                         "    'id',         'field_id',\n" +
+                         "    'geometry',   ST_AsGeoJSON(ST_Transform(field_geom, 3857))::jsonb,\n" +
+                         "    'properties', to_jsonb(inputs) - 'field_id' - 'field_geom'\n" +
+                         "  ) AS feature\n" +
+                         "  FROM (SELECT field.field_id, field_geom, field.field_name,field_user.first_name|| ' ' ||field_user.last_name as grower from field_manage.field \n" +
+                         "left outer join field_manage.field_grower \n" +
+                         "on field.field_id = field_grower.field_id \n" +
+                         "inner join field_manage.field_user\n" +
+                         "on field_grower.grower_id = field_user.field_user_id ) inputs) features");) {
 
                 if (rs.next()) {
-                    output = String.format("{ \"message\": \"db connect\", \"location\": \"%s\" }", rs.getString("last_name"));
+                    output = rs.getString("geojson");
                 }
 
             } catch (SQLException ex) {
