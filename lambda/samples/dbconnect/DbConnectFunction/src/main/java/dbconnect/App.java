@@ -31,6 +31,7 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
         Map<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/json");
         headers.put("X-Custom-Header", "application/json");
+        headers.put("Access-Control-Allow-Origin", "*");
 
         APIGatewayProxyResponseEvent response = new APIGatewayProxyResponseEvent()
                 .withHeaders(headers);
@@ -52,8 +53,9 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
                          "FROM (\n" +
                          "  SELECT jsonb_build_object(\n" +
                          "    'type',       'Feature',\n" +
-                         "    'id',         'field_id',\n" +
-                         "    'geometry',   ST_AsGeoJSON(ST_Transform(field_geom, 3857))::jsonb,\n" +
+                         "    'id',         field_id,\n" +
+//                         "    'geometry',   ST_AsGeoJSON(ST_Transform(field_geom, 3857))::jsonb,\n" +
+                         "      'geometry',   ST_AsGeoJSON(field_geom)::jsonb,\n" +
                          "    'properties', to_jsonb(inputs) - 'field_id' - 'field_geom'\n" +
                          "  ) AS feature\n" +
                          "  FROM (SELECT field.field_id, field_geom, field.field_name,field_user.first_name|| ' ' ||field_user.last_name as grower from field_manage.field \n" +
