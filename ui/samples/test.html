@@ -9,7 +9,7 @@
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
             integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
             crossorigin=""></script>
-    <script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.3.0"></script>
+    <script type="text/javascript" src="https://maps.stamen.com/js/tile.stamen.js?v1.3.0"></script>
     <link rel="stylesheet" href="style.css" type="text/css">
     <script type="text/javascript">
         let map;
@@ -29,17 +29,16 @@
                 });
                 //go ahead and add this base layer now
                 osmLayer.addTo(map);
-                // let layer = new L.StamenTileLayer("toner");
-                // let layer2 = new L.StamenTileLayer("watercolor");
-                // let layer3 = new L.StamenTileLayer("terrain");
+                let layer = new L.StamenTileLayer("toner");
+                let layer2 = new L.StamenTileLayer("watercolor");
+                let layer3 = new L.StamenTileLayer("terrain");
 
 
                 let basemaps = {
-                    // "Stamen Toner": layer,
-                    "OpenStreetMap": osmLayer
-                    // ,
-                    // "Stamen Terrain": layer3,
-                    // "Stamen Watercolor": layer2,
+                    "Stamen Toner": layer,
+                    "OpenStreetMap": osmLayer,
+                    "Stamen Terrain": layer3,
+                    "Stamen Watercolor": layer2,
                 };
 
                 let fieldsLayer;
