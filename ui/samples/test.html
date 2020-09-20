@@ -29,16 +29,17 @@
                 });
                 //go ahead and add this base layer now
                 osmLayer.addTo(map);
-                let layer = new L.StamenTileLayer("toner");
-                let layer2 = new L.StamenTileLayer("watercolor");
-                let layer3 = new L.StamenTileLayer("terrain");
+                // let layer = new L.StamenTileLayer("toner");
+                // let layer2 = new L.StamenTileLayer("watercolor");
+                // let layer3 = new L.StamenTileLayer("terrain");
 
 
                 let basemaps = {
-                    "Stamen Toner": layer,
-                    "OpenStreetMap": osmLayer,
-                    "Stamen Terrain": layer3,
-                    "Stamen Watercolor": layer2,
+                    // "Stamen Toner": layer,
+                    "OpenStreetMap": osmLayer
+                    // ,
+                    // "Stamen Terrain": layer3,
+                    // "Stamen Watercolor": layer2,
                 };
 
                 let fieldsLayer;
@@ -83,7 +84,7 @@
                     return {
                         fill: true,
                         stroke: true,
-                        fillColor: '#e8fdfb',
+                        fillColor: '#095d58',
                         color: '#095d58',
                         fillOpacity: 0.75,
                         weight: 3,
