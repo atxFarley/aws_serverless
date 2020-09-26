@@ -1,0 +1,60 @@
+/* You can add global styles to this file, and also import other style files */
+
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:active {
+  text-decoration: underline;
+}
+
+a.navbarItemLink:link{
+  color: white;
+  font-size: small;
+}
+
+a.navbarItemLink:visited{
+  color: lightgrey;
+  font-size: small;
+}
+
+a.navbarItemLink:active{
+  color: ghostwhite;
+  font-size: small;
+}
+
+a.navbarItemLink:hover{
+  color: aliceblue;
+  font-size: small;
+}
+
+#mapid {
+  width: 50%;
+  height: 80%;
+  border: 1px solid #ccc;
+}
+
+.leaflet-container {
+  background: #fff;
+}
+
+footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  text-align: center;
+}
