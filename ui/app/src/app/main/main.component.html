@@ -1,11 +1,15 @@
-<div class="container-fluid">
-  <table border="0" cellpadding="3" cellspacing="0">
-  <tr>
-    <td valign="top">
-      <div id="mapid">
+<div class="container-fluid bodydiv">
+  <div class="row">
+    <div class="col-sm-5">
+      <div class="form-group has-search">
+        <span class="fa fa-search form-control-feedback"></span>
+        <input type="text" #searchbox class="form-control" placeholder="Search by Grower" (keyup.enter)="searchFields(searchbox.value)">
       </div>
-    </td>
-    <td valign="top">
+    </div>
+  </div>
+  <div class="row">
+    <div id=mapid class="col-sm-5"></div>
+    <div id=infoid class="col-sm-6">
       <div id="docs">
         <h3>Field Tracker info goes here...</h3>
         * Some important info about this app...
@@ -14,11 +18,9 @@
         <br/>
       </div>
       <div id="cropDiv">
-
       </div>
-    </td>
-  </tr>
-</table>
+    </div>
+  </div>
 </div>
 
 

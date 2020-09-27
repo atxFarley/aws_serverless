@@ -1,0 +1,23 @@
+<div class="container-fluid bodydiv">
+  <div class="container-fluid backlink">
+    <a routerLink="/main" class="backLink">&lt;&lt;-- Back to Main View</a>&nbsp;
+  </div>
+  <div class="container-fluid">
+    <div *ngIf="field" class="historyDiv">
+      <h2>{{field.fieldName | uppercase}} Field History</h2>
+      <div><span>Grower: </span>{{field.growerName}}</div>
+      <!--  <div>-->
+      <!--    <label>name:-->
+      <!--      <input [(ngModel)]="hero.name" placeholder="name"/>-->
+      <!--    </label>-->
+      <!--</div>-->
+      <ul>
+        <li *ngFor="let filedHistory of history">
+          <a routerLink="/detail/{{fieldHistory.fieldHistoryId}}">
+            <span class="badge">{{fieldHistory.fieldHistoryId}}</span> {{fieldHistory.fieldHistoryDate}}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

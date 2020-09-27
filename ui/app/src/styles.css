@@ -20,38 +20,118 @@ a:active {
   text-decoration: underline;
 }
 
-a.navbarItemLink:link{
+a.navbarItemLink:link {
   color: white;
   font-size: small;
 }
 
-a.navbarItemLink:visited{
+a.navbarItemLink:visited {
   color: lightgrey;
   font-size: small;
 }
 
-a.navbarItemLink:active{
-  color: ghostwhite;
-  font-size: small;
-}
-
-a.navbarItemLink:hover{
+a.navbarItemLink:active {
   color: aliceblue;
   font-size: small;
 }
 
+a.navbarItemLink:hover {
+  color: ghostwhite;
+  font-size: small;
+}
+
+a.adminLink:link {
+  color: goldenrod;
+  font-size: small;
+  font-weight: bold;
+}
+
+a.adminLink:visited {
+  color: darkgoldenrod;
+  font-size: small;
+  font-weight: bold;
+}
+
+a.adminLink:active {
+  color: gold;
+  font-size: small;
+  font-weight: bold;
+}
+
+a.adminLink:hover {
+  color: gold;
+  font-size: small;
+  font-weight: bold;
+}
+
+a.backLink:link {
+  color: navy;
+  font-size: small;
+}
+
+a.backLink:visited {
+  color: purple;
+  font-size: small;
+}
+
+a.backLink:active {
+  color: blue;
+  font-size: small;
+}
+
+a.backLink:hover {
+  color: blue;
+  font-size: small;
+}
+
+.backlink {
+  padding-bottom: 2%;
+}
+
+.historyDiv {
+  text-align: center;
+}
+
+.bodydiv {
+  margin-top: 5%;
+  padding-left: 3%;
+  padding-right: 3%;
+  height: 100%;
+}
+
 #mapid {
-  width: 50%;
-  height: 80%;
+  text-align: left;
+  height: 512px;
+  width: 100%;
   border: 1px solid #ccc;
+}
+
+#infoid {
+  padding-left: 3%;
 }
 
 .leaflet-container {
   background: #fff;
 }
 
-footer {
+.has-search .form-control {
+  padding-left: 2.375rem;
+}
+
+.has-search .form-control-feedback {
   position: absolute;
+  z-index: 2;
+  display: block;
+  width: 2.375rem;
+  height: 2.375rem;
+  line-height: 2.375rem;
+  text-align: center;
+  pointer-events: none;
+  color: #aaa;
+}
+
+footer {
+  position: relative;
   right: 0;
   bottom: 0;
   left: 0;
