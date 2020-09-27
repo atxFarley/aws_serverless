@@ -8,7 +8,7 @@ var leafletMap = (function () {
   let featureSelection;
   let featureLayer;
   let layerControl;
-  let searchFieldsURL = https://yby1ylek5b.execute-api.us-east-1.amazonaws.com/Prod/fields;
+  let searchFieldsURL = "https://yby1ylek5b.execute-api.us-east-1.amazonaws.com/Prod/fields";
 
   function init() {
     console.log("in leafletMap init()");
