@@ -3,6 +3,7 @@ var leafletMap = (function () {
 
   let map;
   let fieldsLayer;
+  let basemaps = {};
   let overlays = {};
   let featureSelection;
   let featureLayer;
@@ -29,53 +30,15 @@ var leafletMap = (function () {
       // let layer2 = new L.StamenTileLayer("watercolor");
       // let layer3 = new L.StamenTileLayer("terrain");
 
-
-      let basemaps = {
+      basemaps = {
         // "Stamen Toner": layer,
         "OpenStreetMap": osmLayer
         // "Stamen Terrain": layer3,
         // "Stamen Watercolor": layer2,
       };
 
-
-      // function to set the old selected feature back to its original symbol. Used when the map or a feature is clicked.
-      function resetStyles() {
-        console.log("inside resetStyles");
-        console.log("featureLayer: " + featureLayer);
-        try {
-          // if (featureLayer === radioactiveLayer) {
-          //     featureSelection.setIcon(radioactiveIcon);
-          // } else
-          if (featureLayer === fieldsLayer) {
-            console.log("resetting featureSelection");
-            featureLayer.resetStyle(featureSelection);
-          }
-          // $("#countyDiv").html('<h3>Texas Counties and Features</h3><ul><li>Use the Layer Control to select basemap and overalys</li><li>Zoom to see additional basemap details</li><li>Click on a county, airport, park, railroad, or radioactive site to see feature-specific information</li></ul>');
-        } catch (e) {
-          console.error("exception caught in resetStyles: " + e);
-        }
-      }
-
-      //field layer styles
-
-
-      function fieldSelectedStyle(feature) {
-        return {
-          fill: true,
-          stroke: true,
-          fillColor: '#095d58',
-          color: '#095d58',
-          fillOpacity: 0.75,
-          weight: 3,
-          opacity: 1
-        };
-      }
-
-
       layerControl = L.control.layers(basemaps, overlays).addTo(map);
 
-
-      //console.log(overlays);
     } catch (e) {
       console.log("Exception caught: " + e);
     }
@@ -118,6 +81,35 @@ var leafletMap = (function () {
       weight: 3,
       opacity: 1
     };
+  };
+
+  function fieldSelectedStyle(feature) {
+    return {
+      fill: true,
+      stroke: true,
+      fillColor: '#095d58',
+      color: '#095d58',
+      fillOpacity: 0.75,
+      weight: 3,
+      opacity: 1
+    };
+  };
+
+  function resetStyles() {
+    console.log("inside resetStyles");
+    console.log("featureLayer: " + featureLayer);
+    try {
+      // if (featureLayer === radioactiveLayer) {
+      //     featureSelection.setIcon(radioactiveIcon);
+      // } else
+      if (featureLayer === fieldsLayer) {
+        console.log("resetting featureSelection");
+        featureLayer.resetStyle(featureSelection);
+      }
+      // $("#countyDiv").html('<h3>Texas Counties and Features</h3><ul><li>Use the Layer Control to select basemap and overalys</li><li>Zoom to see additional basemap details</li><li>Click on a county, airport, park, railroad, or radioactive site to see feature-specific information</li></ul>');
+    } catch (e) {
+      console.error("exception caught in resetStyles: " + e);
+    }
   };
 
   // handle click events on county features
