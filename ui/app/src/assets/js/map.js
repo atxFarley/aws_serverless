@@ -8,6 +8,7 @@ var leafletMap = (function () {
   let featureSelection;
   let featureLayer;
   let layerControl;
+  let searchFieldsURL = https://yby1ylek5b.execute-api.us-east-1.amazonaws.com/Prod/fields;
 
   function init() {
     console.log("in leafletMap init()");
@@ -46,8 +47,8 @@ var leafletMap = (function () {
 
   function searchFields(searchboxValue) {
     console.log("searchFields(searchboxValue: " + searchboxValue + ")");
-    let url = "https://m3e7z1ahi2.execute-api.us-east-1.amazonaws.com/Prod/dbconnect";
-    fetch(url)
+    // let url = "https://m3e7z1ahi2.execute-api.us-east-1.amazonaws.com/Prod/dbconnect";
+    fetch(searchFieldsURL)
       .then(function (response) {
         //console.log("response: " + response);
         return response.json();

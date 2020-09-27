@@ -1,0 +1,4 @@
+!!dbconnect.Datasource
+url: "jdbc:postgresql://capstone-postgis.cuypkgqlnak2.us-east-1.rds.amazonaws.com:5432/fieldtracker"
+username: "fieldmanager"
+password: "w1drW0hm!"
