@@ -8,6 +8,13 @@ body {
   padding-top: 10rem;
 }
 
+.bodydiv {
+  /*margin-top: 5%;*/
+  padding-left: 3%;
+  padding-right: 3%;
+  height: 100%;
+}
+
 a:link {
   text-decoration: none;
 }
