@@ -8,7 +8,10 @@ var leafletMap = (function () {
   let featureSelection;
   let featureLayer;
   let layerControl;
-  let searchFieldsURL = "https://yby1ylek5b.execute-api.us-east-1.amazonaws.com/Prod/fields";
+  let listFieldsURL = "https://sdhu1tbrs5.execute-api.us-east-1.amazonaws.com/Prod/fields";
+  let searchFieldsURL = "https://sb1giwn42c.execute-api.us-east-1.amazonaws.com/Prod/fields";
+  let searchFieldsURLQueryParamName = "search";
+  let editableLayers;
 
   function init() {
     console.log("in leafletMap init()");
@@ -20,19 +23,115 @@ var leafletMap = (function () {
       map.options.minZoom = 5;
       // map.options.maxZoom = 12;
 
+
+      //https://leaflet.github.io/Leaflet.draw/docs/leaflet-draw-latest.html
+
+      //Initialise the FeatureGroup to store editable layers
+      editableLayers = new L.FeatureGroup();
+      editableLayers.addTo(map);
+
+
+      var drawPluginOptions = {
+        position: 'bottomleft',
+        draw: {
+          polyline: false,
+      // {
+      //       shapeOptions: {
+      //         color: '#f357a1',
+      //         weight: 10
+      //       }
+      //     },
+          polygon: {
+            allowIntersection: false, // Restricts shapes to simple polygons
+            showLength: true,
+            showArea: true,
+            metric: false,
+            drawError: {
+              color: '#e1e100', // Color the shape will turn when intersects
+              message: '<strong>Polygon draw does not allow intersections!<strong> (allowIntersection: false)' // Message that will show when intersect
+            },
+            shapeOptions: {
+              color: '#bada55'
+            }
+          },
+          circle: false, // Turns off this drawing tool
+          rectangle: false,
+      // {
+      //       shapeOptions: {
+      //         clickable: false
+      //       }
+      //     }
+        },
+        edit: {
+          featureGroup: editableLayers,
+          edit: false
+        }
+      };
+
+
+      //Initialise the draw control and pass it the FeatureGroup of editable layers
+      var drawControl = new L.Control.Draw(drawPluginOptions);
+      map.addControl(drawControl);
+
+
+      map.on('draw:created', function (e) {
+        let type = e.layerType;
+        let layer = e.layer;
+
+        if (type === 'marker') {
+          layer.bindPopup('A popup!');
+        }
+
+        console.log("layer: " + layer);
+        console.log("type: " + type);
+        console.log("layer: " + layer.getLatLngs());
+        console.log("layer: " + JSON.stringify(layer.toGeoJSON()));
+        editableLayers.addLayer(layer);
+        console.log("feature added");
+      });
+
+      map.on('draw:edited', function (e) {
+        let layers = e.layers;
+        layers.eachLayer(function (layer) {
+          console.log("layer: " + layer.getLatLngs());
+          console.log("layer: " + JSON.stringify(layer.toGeoJSON()));
+          //do whatever you want; most likely save back to db
+        });
+        // Update db to save latest changes.
+      });
+
+      map.on('draw:deleted', function (e) {
+        console.log("e: " + e);
+        let layers = e.layers;
+        layers.eachLayer(function (layer) {
+          console.log("layer: " + layer.getLatLngs());
+          console.log("layer: " + JSON.stringify(layer.toGeoJSON()));
+          //editableLayers.removeLayer(layer);
+          //do whatever you want; most likely save back to db
+        });
+        console.log("feature removed");
+        // Update db to save latest changes.
+      });
+
       //basemaps
+      console.log("add mapbox basemap");
+      let mapboxSatStreet = L.tileLayer("https://api.mapbox.com/styles/v1/alfarley/ckfu0q0fv07oz19lpffu7cjd6/tiles/256/{z}/{x}/{y}?access_token=\n" +
+        "pk.eyJ1IjoiYWxmYXJsZXkiLCJhIjoiOWgxTzVWRSJ9.wPUIEFeXYqsWzhTT8LlDng\n", {
+        attribution: '&copy; <a href="https://www.mapbox.com/about/maps/">Mapbox</a>, &copy; <a href="http://www.openstreetmap.org/about/">OpenStreetMap</a> and <a href="https://www.mapbox.com/map-feedback/#/-74.5/40/10">Improve this map</a>'
+      });
       console.log("add OSM as basemap");
       let osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       });
       //go ahead and add this base layer now
-      osmLayer.addTo(map);
+      mapboxSatStreet.addTo(map);
       // let layer = new L.StamenTileLayer("toner");
       // let layer2 = new L.StamenTileLayer("watercolor");
       // let layer3 = new L.StamenTileLayer("terrain");
 
       basemaps = {
         // "Stamen Toner": layer,
+        "Satellite Streets": mapboxSatStreet,
         "OpenStreetMap": osmLayer
         // "Stamen Terrain": layer3,
         // "Stamen Watercolor": layer2,
@@ -47,29 +146,47 @@ var leafletMap = (function () {
 
   function searchFields(searchboxValue) {
     console.log("searchFields(searchboxValue: " + searchboxValue + ")");
-    // let url = "https://m3e7z1ahi2.execute-api.us-east-1.amazonaws.com/Prod/dbconnect";
-    fetch(searchFieldsURL)
+    let lambdaURL = "";
+    // if (searchboxValue.trim().length == 0) {
+    //   lambdaURL = listFieldsURL;
+    // } else {
+    lambdaURL = searchFieldsURL + "?" + searchFieldsURLQueryParamName + "=" + searchboxValue;
+    // }
+    console.log("lambdaURL: " + lambdaURL);
+    fetch(lambdaURL, {
+      method: 'POST'
+    })
       .then(function (response) {
         //console.log("response: " + response);
         return response.json();
       })
       .then(function (data) {
         //console.log("data: " + data.toString());
-        addDataToMap(data);
-
+        addDataToMap(data, searchboxValue);
       });
   };
 
-  function addDataToMap(data) {
-    console.log("addDataToMap: " + JSON.stringify(data));
-    fieldsLayer = L.geoJSON(data, {
-      style: fieldStyle,
-      onEachFeature: fieldOnEachFeature
-    });
-    layerControl.addOverlay(fieldsLayer, "Grower Fields");
-    //console.log(overlays);
-    fieldsLayer.addTo(map);
-    // console.log("fieldsLayer added");
+  function addDataToMap(data, searchboxvalue) {
+    console.log("addDataToMap: " + JSON.stringify(data) + ", searchboxvalue: " + searchboxvalue);
+    let growerLabel = "All Grower";
+    if (searchboxvalue.trim().length > 0) {
+      growerLabel = searchboxvalue;
+    }
+    let growerFieldsLabel = growerLabel + " Fields";
+    try {
+      fieldsLayer = L.geoJSON(data, {
+        style: fieldStyle,
+        onEachFeature: fieldOnEachFeature
+      });
+      layerControl.addOverlay(fieldsLayer, growerFieldsLabel);
+      editableLayers.addLayer(fieldsLayer);
+      //console.log(overlays);
+      fieldsLayer.addTo(map);
+      editableLayers.addTo(map);
+      // console.log("fieldsLayer added");
+    } catch (e) {
+      console.log("Exception caught adding geoJson layer: " + e)
+    }
   };
 
   function fieldStyle(feature) {

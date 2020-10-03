@@ -6,14 +6,19 @@ Description: 'AWS
 
   '
 Globals:
+  Api:
+    Cors:
+      AllowMethods: '''OPTIONS,GET'''
+      AllowHeaders: '''Content-Type'''
+      AllowOrigin: '''*'''
   Function:
     Timeout: 20
 Resources:
   ListFieldHandler:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: s3://test-api-dev-serverlessdeploymentbucket-1fjdca73ir42/c86745fa12bdf55678a814aef1aca18f
-      Handler: listfield.App::handleRequest
+      CodeUri: s3://test-api-dev-serverlessdeploymentbucket-1fjdca73ir42/55f0016785852ea1631facd2eb3b66cf
+      Handler: fieldtracker.App::handleRequest
       Runtime: java8
       MemorySize: 512
       Environment:

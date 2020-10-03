@@ -7,6 +7,11 @@ Description: >
 
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
+  Api:
+    Cors:
+      AllowMethods: "'OPTIONS,GET'"
+      AllowHeaders: "'Content-Type'"
+      AllowOrigin: "'*'"
   Function:
     Timeout: 20
 
@@ -15,7 +20,7 @@ Resources:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
       CodeUri: ListFieldHandler
-      Handler: listfield.App::handleRequest
+      Handler: fieldtracker.App::handleRequest
       Runtime: java8
       MemorySize: 512
       Environment: # More info about Env Vars: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#environment-object
