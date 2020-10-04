@@ -8,8 +8,9 @@ var leafletMap = (function () {
   let featureSelection;
   let featureLayer;
   let layerControl;
-  let listFieldsURL = "https://sdhu1tbrs5.execute-api.us-east-1.amazonaws.com/Prod/fields";
-  let searchFieldsURL = "https://sb1giwn42c.execute-api.us-east-1.amazonaws.com/Prod/fields";
+  let apiURL = "https://ky1bp4f5sl.execute-api.us-east-1.amazonaws.com/Prod";
+  let fieldsURLPath = "/fields";
+  let searchFieldsURLPath = "/fields/search";
   let searchFieldsURLQueryParamName = "search";
   let editableLayers;
 
@@ -35,12 +36,12 @@ var leafletMap = (function () {
         position: 'bottomleft',
         draw: {
           polyline: false,
-      // {
-      //       shapeOptions: {
-      //         color: '#f357a1',
-      //         weight: 10
-      //       }
-      //     },
+          // {
+          //       shapeOptions: {
+          //         color: '#f357a1',
+          //         weight: 10
+          //       }
+          //     },
           polygon: {
             allowIntersection: false, // Restricts shapes to simple polygons
             showLength: true,
@@ -56,11 +57,11 @@ var leafletMap = (function () {
           },
           circle: false, // Turns off this drawing tool
           rectangle: false,
-      // {
-      //       shapeOptions: {
-      //         clickable: false
-      //       }
-      //     }
+          // {
+          //       shapeOptions: {
+          //         clickable: false
+          //       }
+          //     }
         },
         edit: {
           featureGroup: editableLayers,
@@ -81,12 +82,33 @@ var leafletMap = (function () {
         if (type === 'marker') {
           layer.bindPopup('A popup!');
         }
-
         console.log("layer: " + layer);
         console.log("type: " + type);
         console.log("layer: " + layer.getLatLngs());
         console.log("layer: " + JSON.stringify(layer.toGeoJSON()));
         editableLayers.addLayer(layer);
+        let lambdaURL = apiURL;
+        lambdaURL += fieldsURLPath;
+        console.log("lambdaURL: " + lambdaURL);
+        fetch(lambdaURL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(layer.toGeoJSON())
+        })
+          .then(function (response) {
+            //console.log("response: " + response);
+            return response.json();
+          })
+          .then(function (data) {
+            console.log("data: " + JSON.stringify(data));
+            // addDataToMap(data, searchboxValue);
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
+
         console.log("feature added");
       });
 
@@ -146,31 +168,60 @@ var leafletMap = (function () {
 
   function searchFields(searchboxValue) {
     console.log("searchFields(searchboxValue: " + searchboxValue + ")");
-    let lambdaURL = "";
-    // if (searchboxValue.trim().length == 0) {
-    //   lambdaURL = listFieldsURL;
-    // } else {
-    lambdaURL = searchFieldsURL + "?" + searchFieldsURLQueryParamName + "=" + searchboxValue;
-    // }
-    console.log("lambdaURL: " + lambdaURL);
-    fetch(lambdaURL, {
-      method: 'POST'
-    })
-      .then(function (response) {
-        //console.log("response: " + response);
-        return response.json();
+    let lambdaURL = apiURL;
+    if (searchboxValue.trim().length == 0) {
+      lambdaURL += fieldsURLPath;
+      console.log("lambdaURL: " + lambdaURL);
+      fetch(lambdaURL, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        }
       })
-      .then(function (data) {
-        //console.log("data: " + data.toString());
-        addDataToMap(data, searchboxValue);
-      });
+        .then(function (response) {
+          //console.log("response: " + response);
+          return response.json();
+        })
+        .then(function (data) {
+          //console.log("data: " + data.toString());
+          addDataToMap(data, searchboxValue);
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+    } else {
+      lambdaURL += searchFieldsURLPath;
+      console.log("lambdaURL: " + lambdaURL);
+      let searchData = {search: searchboxValue};
+      console.log("searchData" + JSON.stringify(searchData));
+      fetch(lambdaURL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(searchData)
+      })
+        .then(function (response) {
+          //console.log("response: " + response);
+          return response.json();
+        })
+        .then(function (data) {
+          //console.log("data: " + data.toString());
+          addDataToMap(data, searchboxValue);
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+    }
+
+
   };
 
   function addDataToMap(data, searchboxvalue) {
     console.log("addDataToMap: " + JSON.stringify(data) + ", searchboxvalue: " + searchboxvalue);
     let growerLabel = "All Grower";
     if (searchboxvalue.trim().length > 0) {
-      growerLabel = searchboxvalue;
+      growerLabel = searchboxvalue.charAt(0).toUpperCase() + searchboxvalue.slice(1);
     }
     let growerFieldsLabel = growerLabel + " Fields";
     try {

@@ -86,7 +86,7 @@ field_user.first_name|| ' ' ||field_user.last_name as grower
 from field 
 left outer join field_grower 
 on field.field_id = field_grower.field_id 
-inner join field_user
+left outer join field_user
 on field_grower.grower_id = field_user.field_user_id;
 
 ****************
@@ -97,7 +97,7 @@ field_user.first_name|| ' ' ||field_user.last_name as grower
 from field 
 left outer join field_grower 
 on field.field_id = field_grower.field_id 
-inner join field_user
+left outer join field_user
 on field_grower.grower_id = field_user.field_user_id
 union
 
@@ -107,7 +107,7 @@ field_user.first_name|| ' ' ||field_user.last_name as grower
 from field 
 left outer join field_grower 
 on field.field_id = field_grower.field_id 
-inner join field_user
+left outer join field_user
 on field_grower.grower_id = field_user.field_user_id
 
 order by field_name;
@@ -161,10 +161,10 @@ FROM (
   FROM (SELECT field.field_id, field_geom, field.field_name,field_user.first_name|| ' ' ||field_user.last_name as grower from field
 left outer join field_grower
 on field.field_id = field_grower.field_id
-inner join field_user
+left outer join field_user
 on field_grower.grower_id = field_user.field_user_id ) inputs) features;
 
-SELECT jsonb_build_object( 'type',     'FeatureCollection',  'features', jsonb_agg(features.feature)) as geojson FROM (SELECT jsonb_build_object('type',       'Feature', 'id',         'field_id', 'geometry',   ST_AsGeoJSON(ST_Transform(field_geom, 3857))::jsonb, 'properties', to_jsonb(inputs) - 'field_id' - 'field_geom') AS feature FROM (SELECT field.field_id, field_geom, field.field_name,field_user.first_name|| ' ' ||field_user.last_name as grower from field left outer join field_grower on field.field_id = field_grower.field_id inner join field_user on field_grower.grower_id = field_user.field_user_id ) inputs) features;
+SELECT jsonb_build_object( 'type',     'FeatureCollection',  'features', jsonb_agg(features.feature)) as geojson FROM (SELECT jsonb_build_object('type',       'Feature', 'id',         'field_id', 'geometry',   ST_AsGeoJSON(ST_Transform(field_geom, 3857))::jsonb, 'properties', to_jsonb(inputs) - 'field_id' - 'field_geom') AS feature FROM (SELECT field.field_id, field_geom, field.field_name,field_user.first_name|| ' ' ||field_user.last_name as grower from field left outer join field_grower on field.field_id = field_grower.field_id left outer join field_user on field_grower.grower_id = field_user.field_user_id ) inputs) features;
 
 
 Select last_name || ', '|| first_name as grower_name from field_user order by last_name asc;
