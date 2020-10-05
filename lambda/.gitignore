@@ -8,4 +8,4 @@ dependency-reduced-pom.xml
 
 # IntelliJ artifacts
 /.idea
-*.im
+*.iml
