@@ -19,6 +19,7 @@ Resources:
     Properties:
       CodeUri: s3://test-api-dev-serverlessdeploymentbucket-1fjdca73ir42/90b5e300b369dad00428d8f937d847c4
       Handler: fieldtracker.App::handleRequest
+      Role: arn:aws:iam::096173249382:role/lambda-basic-role
       Runtime: java8
       MemorySize: 512
       Environment:
@@ -33,8 +34,9 @@ Resources:
   SearchFieldHandler:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: s3://test-api-dev-serverlessdeploymentbucket-1fjdca73ir42/e94a14fcf26da1a97928150253a92fcd
+      CodeUri: s3://test-api-dev-serverlessdeploymentbucket-1fjdca73ir42/690c20fd59b5abba5668f88ea2677b7c
       Handler: fieldtracker.App::handleRequest
+      Role: arn:aws:iam::096173249382:role/lambda-basic-role
       Runtime: java8
       MemorySize: 512
       Environment:
@@ -51,6 +53,7 @@ Resources:
     Properties:
       CodeUri: s3://test-api-dev-serverlessdeploymentbucket-1fjdca73ir42/3816c847eb685b47b0e0b1c0e5b9e64f
       Handler: fieldtracker.App::handleRequest
+      Role: arn:aws:iam::096173249382:role/lambda-basic-role
       Runtime: java8
       MemorySize: 512
       Environment:
@@ -67,6 +70,7 @@ Resources:
     Properties:
       CodeUri: s3://test-api-dev-serverlessdeploymentbucket-1fjdca73ir42/ae9b404a44839e07bf988d52e5661233
       Handler: fieldtracker.App::handleRequest
+      Role: arn:aws:iam::096173249382:role/lambda-basic-role
       Runtime: java8
       MemorySize: 512
       Environment:
@@ -78,68 +82,3 @@ Resources:
           Properties:
             Path: /fields
             Method: post
-Outputs:
-  ListFieldApi:
-    Description: API Gateway endpoint URL for Prod stage for Hello World function
-    Value:
-      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/fieldtracker
-  ListFieldHandler:
-    Description: FieldTracker Lambda Function ARN
-    Value:
-      Fn::GetAtt:
-      - ListFieldHandler
-      - Arn
-  ListFieldHandlerIamRole:
-    Description: Implicit IAM Role created for function
-    Value:
-      Fn::GetAtt:
-      - ListFieldHandlerRole
-      - Arn
-  SearchFieldApi:
-    Description: API Gateway endpoint URL for Prod stage for Hello World function
-    Value:
-      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/fieldtracker
-  SearchFieldHandler:
-    Description: FieldTracker Lambda Function ARN
-    Value:
-      Fn::GetAtt:
-      - SearchFieldHandler
-      - Arn
-  SearchFieldHandlerIamRole:
-    Description: Implicit IAM Role created for function
-    Value:
-      Fn::GetAtt:
-      - SearchFieldHandlerRole
-      - Arn
-  ListFieldUserApi:
-    Description: API Gateway endpoint URL for Prod stage for Hello World function
-    Value:
-      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/fieldtracker
-  ListFieldUserHandler:
-    Description: FieldTracker Lambda Function ARN
-    Value:
-      Fn::GetAtt:
-      - ListFieldUserHandler
-      - Arn
-  ListFieldUserHandlerIamRole:
-    Description: Implicit IAM Role created for function
-    Value:
-      Fn::GetAtt:
-      - ListFieldUserHandlerRole
-      - Arn
-  AddFieldApi:
-    Description: API Gateway endpoint URL for Prod stage for Hello World function
-    Value:
-      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/fieldtracker
-  AddFieldHandler:
-    Description: FieldTracker Lambda Function ARN
-    Value:
-      Fn::GetAtt:
-      - AddFieldHandler
-      - Arn
-  AddFieldHandlerIamRole:
-    Description: Implicit IAM Role created for function
-    Value:
-      Fn::GetAtt:
-      - AddFieldHandlerRole
-      - Arn

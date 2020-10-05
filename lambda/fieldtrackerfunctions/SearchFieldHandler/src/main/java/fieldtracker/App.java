@@ -30,6 +30,7 @@ import org.json.simple.parser.ParseException;
  */
 public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
     private Logger lgr = Logger.getLogger(App.class.getName());
+    final static String NO_GROWER_ASSIGN = "NONE";
 
     public APIGatewayProxyResponseEvent handleRequest(final APIGatewayProxyRequestEvent input, final Context context) {
         Map<String, String> headers = new HashMap<>();
@@ -88,9 +89,13 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
             sql.append(" left outer join field_manage.field_user  ");
             sql.append(" on field_grower.grower_id = field_user.field_user_id  ");
             if (growerName != null && !(growerName.trim().isEmpty())) {
-                sql.append(" where (upper(field_manage.field_user.last_name) = upper('");
-                sql.append(growerName.trim());
-                sql.append("') )  ");
+                if (NO_GROWER_ASSIGN.equals(growerName.trim().toUpperCase())){
+                    sql.append(" where (field_manage.field_user.last_name is null) ");
+                } else {
+                    sql.append(" where (upper(field_manage.field_user.last_name) = upper('");
+                    sql.append(growerName.trim());
+                    sql.append("') )  ");
+                }
             }
             sql.append(" ) inputs) features ");
             lgr.log(Level.INFO, "sql: " + sql);

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="5" failures="0" name="fieldtracker.AppTest" time="4.07" errors="0" skipped="0">
+<testsuite tests="6" failures="0" name="fieldtracker.AppTest" time="4.628" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="java.vm.version" value="13.0.1+9"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk-13.0.1.jdk/Contents/Home/lib"/>
-    <property name="maven.multiModuleProjectDirectory" value="/Users/farley/workspace/aws_serverless/lambda/fieldtrackerfunctions/searchfield/SearchFieldHandler"/>
+    <property name="maven.multiModuleProjectDirectory" value="/Users/farley/workspace/aws_serverless/lambda/fieldtrackerfunctions/SearchFieldHandler"/>
     <property name="java.vm.vendor" value="Oracle Corporation"/>
     <property name="java.vendor.url" value="https://java.oracle.com/"/>
     <property name="guice.disable.misplaced.annotation.check" value="true"/>
@@ -13,7 +13,7 @@
     <property name="user.country" value="US"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="user.dir" value="/Users/farley/workspace/aws_serverless/lambda/fieldtrackerfunctions/searchfield/SearchFieldHandler"/>
+    <property name="user.dir" value="/Users/farley/workspace/aws_serverless/lambda/fieldtrackerfunctions/SearchFieldHandler"/>
     <property name="java.vm.compressedOopsMode" value="Zero based"/>
     <property name="java.runtime.version" value="13.0.1+9"/>
     <property name="os.arch" value="x86_64"/>
@@ -57,9 +57,10 @@
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
   </properties>
-  <testcase classname="fieldtracker.AppTest" name="emptyResponse" time="1.115"/>
-  <testcase classname="fieldtracker.AppTest" name="successfulInputBodyResponse" time="0.69"/>
-  <testcase classname="fieldtracker.AppTest" name="successfulResponse" time="0.718"/>
-  <testcase classname="fieldtracker.AppTest" name="emptyInputBodyResponse" time="0.666"/>
-  <testcase classname="fieldtracker.AppTest" name="allRecordsResponse" time="0.881"/>
+  <testcase classname="fieldtracker.AppTest" name="emptyResponse" time="1.074"/>
+  <testcase classname="fieldtracker.AppTest" name="successfulInputBodyResponse" time="0.684"/>
+  <testcase classname="fieldtracker.AppTest" name="successfulResponse" time="0.808"/>
+  <testcase classname="fieldtracker.AppTest" name="emptyInputBodyResponse" time="0.655"/>
+  <testcase classname="fieldtracker.AppTest" name="allRecordsResponse" time="0.71"/>
+  <testcase classname="fieldtracker.AppTest" name="successfulNoneInputBodyResponse" time="0.697"/>
 </testsuite>

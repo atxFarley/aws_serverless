@@ -98,4 +98,22 @@ public class AppTest {
         assertFalse(content.contains("Polygon"));
         assertFalse(content.contains("field_name"));
     }
+
+    @Test
+    public void successfulNoneInputBodyResponse() {
+        App app = new App();
+        APIGatewayProxyRequestEvent input = new APIGatewayProxyRequestEvent();
+//    Map<String, String> queryStringParameters = new HashMap<String, String>();
+//    queryStringParameters.put ("search", "Farley");
+//    input.setQueryStringParameters(queryStringParameters);
+        input.setBody("{\"search\":\"none\"}");
+        APIGatewayProxyResponseEvent result = app.handleRequest(input, null);
+        assertEquals(result.getStatusCode().intValue(), 200);
+        assertEquals(result.getHeaders().get("Content-Type"), "application/json");
+        String content = result.getBody();
+        assertNotNull(content);
+//    assertTrue(content.contains("EPSG:3857"));
+        assertTrue(content.contains("Polygon"));
+        assertTrue(content.contains("\"grower\": null"));
+    }
 }
