@@ -1,0 +1,11 @@
+.aws-sam
+.classpath
+.project
+.settings/
+target/
+*/target
+dependency-reduced-pom.xml
+
+# IntelliJ artifacts
+/.idea
+*.im
