@@ -17,6 +17,7 @@ export class HistoryComponent implements OnInit {
   field: Field = {
     fieldId: 1,
     fieldName: "Test Field",
+    fieldDesc: "This is a field description",
     growerName: "Amy Farley",
     ownerName: "",
     acres: 40,
