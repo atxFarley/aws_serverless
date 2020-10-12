@@ -52,12 +52,12 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
             sql.append(" FROM ( ");
             sql.append("   SELECT jsonb_build_object( ");
             sql.append("    'type',       'Feature', ");
-            sql.append("   'id',         field_id,  ");
+            sql.append("   'fieldId',         field_id,  ");
             //sql.append("   'geometry',   ST_AsGeoJSON(ST_Transform(field_geom, 3857))::jsonb, ");
             sql.append("     'geometry',   ST_AsGeoJSON(field_geom)::jsonb, ");
             sql.append("   'properties', to_jsonb(inputs) - 'field_id' - 'field_geom' ");
             sql.append("   ) AS feature ");
-            sql.append(" FROM (SELECT field.field_id, field_geom, field.field_name,field_user.first_name|| ' ' ||field_user.last_name as grower from field_manage.field ");
+            sql.append(" FROM (SELECT field.field_id, field_geom, field.field_name as fieldName,field_user.first_name|| ' ' ||field_user.last_name as growerName from field_manage.field ");
             sql.append(" left outer join field_manage.field_grower ");
             sql.append(" on field.field_id = field_grower.field_id  ");
             sql.append(" left outer join field_manage.field_user  ");

@@ -6,6 +6,7 @@ export interface Field {
 
   fieldId: number;
   fieldName: string;
+  fieldDesc: string;
   growerName: string;
   ownerName: string;
   acres: number;

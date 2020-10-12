@@ -1,25 +1,50 @@
 <div class="container-fluid bodydiv">
   <div class="row">
-    <div class="col-sm-5">
-      <div class="form-group has-search">
-        <span class="fa fa-search form-control-feedback"></span>
-        <input type="text" #searchbox class="form-control" placeholder="Search by Grower" (keyup.enter)="searchFields(searchbox.value)">
+    <div id="leftcol" class="col-sm-5">
+      <div id=mapsearch>
+        <div class="form-group has-search">
+          <span class="fa fa-search form-control-feedback"></span>
+          <input type="text" #searchbox class="form-control" placeholder="Search by Grower"
+                 (keyup.enter)="searchFields(searchbox.value)">
+        </div>
       </div>
+      <div id=mapid></div>
     </div>
-  </div>
-  <div class="row">
-    <div id=mapid class="col-sm-5"></div>
-    <div id=infoid class="col-sm-6">
-      <div id="docs">
-        <h3>Field Tracker info goes here...</h3>
-        * Some important info about this app...
-        <br/>
-        * Instructions...
-        <br/>
+    <div id="rightcol" class="col-sm-6">
+      <div id=infoid>
+        <div id="docs">
+          <h3>Field Tracker</h3>
+          <ul>
+            <li>Use Search to display field by Grower (Hint: Type Last Name only, "none" for unassigned fields, or leave
+              blank for all fields
+            </li>
+            <li>Use the Layer Control in the upper-right corner of the map to select basemap and overalys</li>
+            <li>Zoom to see additional basemap details</li>
+            <li>On the map, click a field to display basic information</li>
+            <li>Click the <i class="fa fa-pencil-square-o" aria-hidden="true"></i> icon to view and edit field details
+            </li>
+          </ul>
+          <br/>
+        </div>
       </div>
-      <div id="cropDiv">
+      <div id="fieldDiv">
       </div>
+      <div id="fieldDetailsButton" style="display: none;">
+        <button (click)="getFieldDetails()"><i class="fa fa-pencil-square-o"
+                                               aria-hidden="true"></i></button>
+        <input id="fieldID" name="fieldID" type="hidden" [(ngModel)]="selectedFieldId"/>
+      </div>
+      <div *ngIf="selectedField">
+        <div><span>ID: </span>{{selectedField.fieldId}}</div>
+        <div>
+          <label>Field Name:
+            <input [(ngModel)]="selectedField.fieldName" placeholder="name"/>
+          </label>
+        </div>
+      </div>
+
     </div>
+
   </div>
 </div>
 

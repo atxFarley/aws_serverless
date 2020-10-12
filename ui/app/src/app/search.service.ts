@@ -12,6 +12,8 @@ export class SearchService {
     console.log("search service searchFields(" + searchboxValue + ")");
     leafletMap.searchFields(searchboxValue);
     return of();
+
+    //maybe add another search here for json
   }
 
   constructor() { }

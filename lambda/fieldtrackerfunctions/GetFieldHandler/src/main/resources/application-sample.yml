@@ -1,0 +1,4 @@
+!!fieldtracker.Datasource
+url: "jdbc:postgresql://xxxxx.us-xxx-1.rds.amazonaws.com:5432/dbname"
+username: "username"
+password: "password"

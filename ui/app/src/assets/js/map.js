@@ -185,6 +185,7 @@ var leafletMap = (function () {
         .then(function (data) {
           //console.log("data: " + data.toString());
           addDataToMap(data, searchboxValue);
+          return JSON.stringify(data);
         })
         .catch((error) => {
           console.error('Error:', error);
@@ -208,6 +209,7 @@ var leafletMap = (function () {
         .then(function (data) {
           //console.log("data: " + data.toString());
           addDataToMap(data, searchboxValue);
+          return JSON.stringify(data);
         })
         .catch((error) => {
           console.error('Error:', error);
@@ -234,6 +236,7 @@ var leafletMap = (function () {
       //console.log(overlays);
       fieldsLayer.addTo(map);
       editableLayers.addTo(map);
+      map.fitBounds(fieldsLayer.getBounds());
       // console.log("fieldsLayer added");
     } catch (e) {
       console.log("Exception caught adding geoJson layer: " + e)
@@ -284,6 +287,8 @@ var leafletMap = (function () {
   // handle click events on county features
   function fieldOnEachFeature(feature, layer) {
     try {
+      layer.bindPopup("<b> Field ID: </b>" + feature.fieldId + "<br/> <b>Field Name: </b>" + feature.properties.fieldname + "<br/><b>Grower: </b>" + feature.properties.growername);
+
       layer.on({
         add: function () {
           layer.bringToBack();
@@ -300,11 +305,8 @@ var leafletMap = (function () {
             featureSelection = e.target;
             featureLayer = fieldsLayer;
             // Insert some HTML with the feature name
-            // writeCountyDiv(feature);
+            writeFieldDiv(feature);
 
-            //reset the summary label for all other features
-            // $("#summaryLabel").html('<br/>');
-            // $("#legend").html("<br/>");
             // stop click event from being propagated further
             L.DomEvent.stopPropagation(e);
           } catch (e) {
@@ -313,7 +315,7 @@ var leafletMap = (function () {
         },
         mouseover: function (e) {
           try {
-            // writeCountyDiv(feature);
+            // writeFieldDiv(feature);
           } catch (e) {
             console.error("Exception caught in county click function: " + e);
           }
@@ -323,6 +325,26 @@ var leafletMap = (function () {
       log.error("Exception caught in countyOnEachFeature: " + e);
     }
   };
+
+  function writeFieldDiv(currentFeature) {
+    console.log("writeFieldDiv");
+    $("#fieldDiv").html("")
+    let propertiesObject = currentFeature.properties;
+    let growerName = propertiesObject["growername"];
+    let fieldName = propertiesObject["fieldname"];
+    console.log("fieldName: " + fieldName);
+
+    let fieldDivHTML = "<b>Grower: </b>" + growerName + "<br/><b>Field Name: </b>" + fieldName;
+
+    // <i class="fa fa-pencil-square-o" aria-hidden="true" ></i>
+    // <i class="fa fa-info-circle" aria-hidden="true"></i>
+    console.log("fieldDivHTML: " + fieldDivHTML);
+    $("#fieldDiv").html(fieldDivHTML);
+    $("#fieldDetailsButton").css("display", "block");
+    $("#fieldID").val(currentFeature.fieldId).trigger('input').trigger('change');
+
+    console.log("fieldID value: " + $("#fieldID").val())
+  }
 
   return {
     init: init,

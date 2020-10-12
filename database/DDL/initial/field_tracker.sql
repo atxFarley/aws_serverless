@@ -83,7 +83,7 @@ create table field_manage."field" (
 	"field_name" varchar(50),
 	"field_desc" text,
 	"address" varchar(50),
-	"adddress_2" varchar(50),
+	"address_2" varchar(50),
 	"city" varchar(50),
 	"state" varchar(2),
 	"zip" varchar(10),

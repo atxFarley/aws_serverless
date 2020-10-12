@@ -25,7 +25,7 @@ public class AppTest {
         assertNotNull(content);
 //    assertTrue(content.contains("EPSG:3857"));
         assertTrue(content.contains("Polygon"));
-        assertTrue(content.contains("field_name"));
+        assertTrue(content.contains("fieldname"));
     }
 
     @Test
@@ -42,7 +42,7 @@ public class AppTest {
         assertNotNull(content);
 //    assertTrue(content.contains("EPSG:3857"));
         assertTrue(content.contains("Polygon"));
-        assertTrue(content.contains("field_name"));
+        assertTrue(content.contains("fieldname"));
     }
 
     @Test
@@ -59,7 +59,7 @@ public class AppTest {
         assertNotNull(content);
 //    assertTrue(content.contains("EPSG:3857"));
         assertFalse(content.contains("Polygon"));
-        assertFalse(content.contains("field_name"));
+        assertFalse(content.contains("fieldname"));
     }
 
 
@@ -78,7 +78,7 @@ public class AppTest {
         assertNotNull(content);
 //    assertTrue(content.contains("EPSG:3857"));
         assertTrue(content.contains("Polygon"));
-        assertTrue(content.contains("field_name"));
+        assertTrue(content.contains("fieldname"));
     }
 
     @Test
@@ -96,7 +96,7 @@ public class AppTest {
         assertNotNull(content);
 //    assertTrue(content.contains("EPSG:3857"));
         assertFalse(content.contains("Polygon"));
-        assertFalse(content.contains("field_name"));
+        assertFalse(content.contains("fieldname"));
     }
 
     @Test
@@ -114,6 +114,6 @@ public class AppTest {
         assertNotNull(content);
 //    assertTrue(content.contains("EPSG:3857"));
         assertTrue(content.contains("Polygon"));
-        assertTrue(content.contains("\"grower\": null"));
+        assertTrue(content.contains("\"growername\": null"));
     }
 }
