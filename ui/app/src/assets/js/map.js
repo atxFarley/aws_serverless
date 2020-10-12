@@ -13,6 +13,7 @@ var leafletMap = (function () {
   let searchFieldsURLPath = "/fields/search";
   let searchFieldsURLQueryParamName = "search";
   let editableLayers;
+  let recentSearchBoxValue;
 
   function init() {
     console.log("in leafletMap init()");
@@ -110,6 +111,7 @@ var leafletMap = (function () {
           });
 
         console.log("feature added");
+        searchFields(recentSearchBoxValue);
       });
 
       map.on('draw:edited', function (e) {
@@ -168,6 +170,7 @@ var leafletMap = (function () {
 
   function searchFields(searchboxValue) {
     console.log("searchFields(searchboxValue: " + searchboxValue + ")");
+    recentSearchBoxValue = searchboxValue;
     let lambdaURL = apiURL;
     if (searchboxValue.trim().length == 0) {
       lambdaURL += fieldsURLPath;
@@ -341,6 +344,7 @@ var leafletMap = (function () {
     console.log("fieldDivHTML: " + fieldDivHTML);
     $("#fieldDiv").html(fieldDivHTML);
     $("#fieldDetailsButton").css("display", "block");
+    $ ("#fieldDetails").css("display", "none");
     $("#fieldID").val(currentFeature.fieldId).trigger('input').trigger('change');
 
     console.log("fieldID value: " + $("#fieldID").val())

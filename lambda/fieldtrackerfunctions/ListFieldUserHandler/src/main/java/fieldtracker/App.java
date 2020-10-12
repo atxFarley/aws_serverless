@@ -72,7 +72,7 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
                     fieldUser.setEmail(rs.getString("email_address"));
                     fieldUser.setCreatedDate(rs.getTimestamp("created_datetz"));
                     fieldUser.setEditDate(rs.getTimestamp("edit_datetz"));
-                    fieldUser.setListDisplayName("field_user");
+                    fieldUser.setListDisplayName(fieldUser.getLastName() + ", " + fieldUser.getFirstName());
                     fieldUserList.add(fieldUser);
                 }
 

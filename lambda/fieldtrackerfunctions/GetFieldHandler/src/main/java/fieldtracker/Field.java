@@ -1,16 +1,22 @@
 package fieldtracker;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
-public class Field {
+public class Field  implements Serializable, Cloneable {
+
+
+    private static final long serialVersionUID = -6827579876203291225L;
 
     private Integer fieldId;
     private String fieldName;
     private String fieldDesc;
     private String growerName;
+    private Integer growerId;
     private String ownerName;
+    private Integer ownerId;
     private BigDecimal acres;
     private String addressStreet;
     private String addressCity;
@@ -140,6 +146,22 @@ public class Field {
 
     public void setFieldDesc(String fieldDesc) {
         this.fieldDesc = fieldDesc;
+    }
+
+    public Integer getGrowerId() {
+        return growerId;
+    }
+
+    public void setGrowerId(Integer growerId) {
+        this.growerId = growerId;
+    }
+
+    public Integer getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(Integer ownerId) {
+        this.ownerId = ownerId;
     }
 
 

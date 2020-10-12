@@ -34,12 +34,26 @@
                                                aria-hidden="true"></i></button>
         <input id="fieldID" name="fieldID" type="hidden" [(ngModel)]="selectedFieldId"/>
       </div>
-      <div *ngIf="selectedField">
-        <div><span>ID: </span>{{selectedField.fieldId}}</div>
-        <div>
-          <label>Field Name:
-            <input [(ngModel)]="selectedField.fieldName" placeholder="name"/>
-          </label>
+      <div id="fieldDetails">
+        <div *ngIf="selectedField">
+          <form (ngSubmit)="save()" #main="ngForm">
+          <div><span>ID: </span>{{selectedField.fieldId}}</div>
+          <div>
+            <label>Field Name:
+              <input name = "fieldName" [(ngModel)]="selectedField.fieldName" placeholder="name"/>
+            </label>
+          </div>
+          <div><span>Acres: </span>{{selectedField.acres}}</div>
+          <div>
+            <label>Grower</label>
+            <select id="grower"
+                    required
+                    [(ngModel)]="selectedField.growerId" name="grower">
+              <option *ngFor="let user of fieldUsers" [value]="user.fieldUserId">{{user.listDisplayName}}</option>
+            </select>
+          </div>
+            <button type="submit" class="btn btn-success" [disabled]="!main.form.valid">Submit</button>
+          </form>
         </div>
       </div>
 

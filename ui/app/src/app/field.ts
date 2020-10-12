@@ -8,7 +8,9 @@ export interface Field {
   fieldName: string;
   fieldDesc: string;
   growerName: string;
+  growerId: number;
   ownerName: string;
+  ownerId: number;
   acres: number;
   addressStreet: string;
   addressCity: string;
@@ -16,8 +18,8 @@ export interface Field {
   addressZip: string;
   addressCounty: string;
   addressDesc: string;
-  attributes: FieldAttribute[];
-  activities: FieldActivity[];
-  history: FieldHistory[];
+  fieldAttributes: FieldAttribute[];
+  fieldActivities: FieldActivity[];
+  fieldHistory: FieldHistory[];
 
 }

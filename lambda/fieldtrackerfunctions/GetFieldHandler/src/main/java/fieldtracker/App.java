@@ -83,16 +83,19 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
                 String password = ds.getPassword();
                 ObjectMapper objectMapper = new ObjectMapper();
                 StringBuilder sql = new StringBuilder();
-                sql.append("select field.*, grower.first_name || grower.last_name as growername, owner.first_name || owner.last_name as ownername, ");
+                sql.append("select field.*, grower.first_name || grower.last_name as growername, ");
+                sql.append(" grower.field_user_id as growerId, ");
+                sql.append(" owner.first_name || owner.last_name as ownername, ");
+                sql.append(" owner.field_user_id as ownerId, ");
                 sql.append(" (st_area(st_transform(field_geom,26914)) * 0.00024710538146717) as area_acres ");
                 sql.append("from field_manage.field  ");
                 sql.append("left outer join field_manage.field_grower ");
                 sql.append("on field.field_id = field_grower.field_id ");
-                sql.append("inner join field_manage.field_user as grower ");
+                sql.append("left outer join field_manage.field_user as grower ");
                 sql.append("on field_grower.grower_id = grower.field_user_id ");
                 sql.append(" left outer join field_manage.field_owner ");
                 sql.append(" on field.field_id = field_owner.field_id ");
-                sql.append(" inner join field_manage.field_user as owner ");
+                sql.append(" left outer join field_manage.field_user as owner ");
                 sql.append(" on field_owner.owner_id = owner.field_user_id ");
                 sql.append("  where field.field_id =  ? ");
                 lgr.log(Level.INFO, "sql: " + sql.toString());
@@ -113,7 +116,9 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
                             fieldDetail.setAddressCounty(rs.getString("county"));
                             fieldDetail.setAcres(rs.getBigDecimal("area_acres"));
                             fieldDetail.setGrowerName(rs.getString("growername"));
+                            fieldDetail.setGrowerId(rs.getInt("growerId"));
                             fieldDetail.setOwnerName(rs.getString("ownername"));
+                            fieldDetail.setOwnerId(rs.getInt("ownerId"));
                             String attributesString = rs.getString("field_attributes");
                             if (attributesString != null) {
 

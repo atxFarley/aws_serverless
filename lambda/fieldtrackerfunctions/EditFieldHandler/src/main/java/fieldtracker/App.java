@@ -43,110 +43,142 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
         headers.put("X-Custom-Header", "application/json");
         headers.put("Access-Control-Allow-Origin", "*");
         headers.put("Access-Control-Allow-Methods", "OPTIONS,PUT");
-//        String fieldId = null;
-//        if (input != null) {
-//            Map<String, String> queryStringParameters = input.getQueryStringParameters();
-//            Map<String, String> pathParameters = input.getPathParameters();
-//            if (pathParameters != null) {
-//                fieldId = pathParameters.get("fieldid");
-//            } else if (queryStringParameters != null) {
-//                fieldId = queryStringParameters.get("fieldid");
-//            } else {
-//                lgr.log(Level.INFO, "fieldId from AWS Console Test Event: " + fieldId);
-//                try {
-//                    String requestString = input.getBody();
-//                    JSONParser parser = new JSONParser();
-//                    JSONObject requestJsonObject = (JSONObject) parser.parse(requestString);
-//                    if (requestJsonObject != null) {
-//                        if (requestJsonObject.get("fieldid") != null) {
-//                            fieldId = requestJsonObject.get("fieldid").toString();
-//                        }
-//                    }
-//                } catch (ParseException ex) {
-//                    lgr.log(Level.SEVERE, "ParseException caught: " + ex.getMessage(), ex);
-//                }
-//            }
-//        }
-//        lgr.log(Level.INFO, "fieldId: " + fieldId);
+        String fieldId = null;
+        String editFieldName = null;
+        String editFieldDesc = null;
+        String editGrowerId = null;
+        if (input != null) {
+            try {
+                Map<String, String> queryStringParameters = input.getQueryStringParameters();
+                Map<String, String> pathParameters = input.getPathParameters();
+                String requestString = input.getBody();
+                JSONParser parser = new JSONParser();
+                JSONObject requestJsonObject = (JSONObject) parser.parse(requestString);
+                if (pathParameters != null) {
+                    fieldId = pathParameters.get("fieldid");
+                } else if (queryStringParameters != null) {
+                    fieldId = queryStringParameters.get("fieldid");
+                } else {
+                    lgr.log(Level.INFO, "fieldId from AWS Console Test Event: " + fieldId);
+                    if (requestJsonObject != null) {
+                        if (requestJsonObject.get("fieldId") != null) {
+                            fieldId = requestJsonObject.get("fieldId").toString();
+                        }
+                    }
+                }
+
+                if (requestJsonObject != null) {
+                    if (requestJsonObject.get("fieldName") != null) {
+                        editFieldName = requestJsonObject.get("fieldName").toString();
+                    }
+                    if (requestJsonObject.get("fieldDesc") != null) {
+                        editFieldDesc = requestJsonObject.get("fieldDec").toString();
+                    }
+                    if (requestJsonObject.get("growerId") != null) {
+                        editGrowerId = requestJsonObject.get("growerId").toString();
+                    }
+                }
+            } catch (ParseException ex) {
+                lgr.log(Level.SEVERE, "ParseException caught: " + ex.getMessage(), ex);
+            }
+        }
+        lgr.log(Level.INFO, "fieldId: " + fieldId);
+        lgr.log(Level.INFO, "input: " + input.getBody());
+        lgr.log(Level.INFO, "editFieldName: " + editFieldName);
+        lgr.log(Level.INFO, "editFieldDesc: " + editFieldDesc);
+        lgr.log(Level.INFO, "editFieldGrowerId: " + editGrowerId);
         APIGatewayProxyResponseEvent response = new APIGatewayProxyResponseEvent()
                 .withHeaders(headers);
 
         String output = "{}";
         try {
-//            if (fieldId != null && fieldId.trim() != null && Integer.valueOf(fieldId) != null && Integer.valueOf(fieldId) > 0) {
-//                Yaml yaml = new Yaml(new Constructor(Datasource.class));
-//                InputStream inputStream = this.getClass()
-//                        .getResourceAsStream("/application.yml");
-//                Datasource ds = yaml.load(inputStream);
-//                String url = ds.getUrl();
-//                String user = ds.getUsername();
-//                String password = ds.getPassword();
-//                ObjectMapper objectMapper = new ObjectMapper();
-//                StringBuilder sql = new StringBuilder();
-//                sql.append("select field.*, grower.first_name || grower.last_name as growername, owner.first_name || owner.last_name as ownername, ");
-//                sql.append(" (st_area(st_transform(field_geom,26914)) * 0.00024710538146717) as area_acres ");
-//                sql.append("from field_manage.field  ");
-//                sql.append("left outer join field_manage.field_grower ");
-//                sql.append("on field.field_id = field_grower.field_id ");
-//                sql.append("inner join field_manage.field_user as grower ");
-//                sql.append("on field_grower.grower_id = grower.field_user_id ");
-//                sql.append(" left outer join field_manage.field_owner ");
-//                sql.append(" on field.field_id = field_owner.field_id ");
-//                sql.append(" inner join field_manage.field_user as owner ");
-//                sql.append(" on field_owner.owner_id = owner.field_user_id ");
-//                sql.append("  where field.field_id =  ? ");
-//                lgr.log(Level.INFO, "sql: " + sql.toString());
-//                try (Connection con = DriverManager.getConnection(url, user, password);
-//                     PreparedStatement ps = con.prepareStatement(sql.toString());) {
-//
-//                    ps.setInt(1, Integer.valueOf(fieldId));
-//                    try (ResultSet rs = ps.executeQuery();) {
-//                        if (rs.next()) {
-//                            Field fieldDetail = new Field();
-//                            fieldDetail.setFieldId(rs.getInt("field_id"));
-//                            fieldDetail.setFieldName(rs.getString("field_name"));
-//                            fieldDetail.setFieldDesc(rs.getString("field_desc"));
-//                            fieldDetail.setAddressStreet(rs.getString("address") + " " + rs.getString("adddress_2"));
-//                            fieldDetail.setAddressCity(rs.getString("city"));
-//                            fieldDetail.setAddressState(rs.getString("state"));
-//                            fieldDetail.setAddressZip(rs.getString("zip"));
-//                            fieldDetail.setAddressCounty(rs.getString("county"));
-//                            fieldDetail.setAcres(rs.getBigDecimal("area_acres"));
-//                            fieldDetail.setGrowerName(rs.getString("growername"));
-//                            fieldDetail.setOwnerName(rs.getString("ownername"));
-//                            String attributesString = rs.getString("field_attributes");
-//                            if (attributesString != null) {
-//
-//                                Map<String, String> attributes = objectMapper.readValue(attributesString, new TypeReference<Map<String, String>>() {
-//                                });
-//                                ArrayList<Field.FieldAttribute> fieldAttributeArrayList = new ArrayList<Field.FieldAttribute>();
-//                                for (String key : attributes.keySet()) {
-//                                    Field.FieldAttribute fieldAttribute = fieldDetail.new FieldAttribute();
-//                                    fieldAttribute.setFieldId(fieldDetail.getFieldId());
-//                                    fieldAttribute.setAttributeName(key);
-//                                    fieldAttribute.setAttributeValue(attributes.get(key));
-//                                    fieldAttributeArrayList.add(fieldAttribute);
-//                                }
-//                                fieldDetail.setFieldAttributes(fieldAttributeArrayList);
-//                            }
-//                            //get fieldActivities and activity files
-//                            try {
-//
-//                                output = objectMapper.writeValueAsString(fieldDetail);
-//
-//                            } catch (Exception jsonEx) {
-//                                lgr.log(Level.SEVERE, "Exception caught: " + jsonEx.getMessage(), jsonEx);
-//                            }
-//
-//                            lgr.log(Level.INFO, "output: " + output);
-//                        }
-//                    } catch (SQLException innerEx) {
-//                        lgr.log(Level.SEVERE, "SQLException caught: " + innerEx.getMessage(), innerEx);
-//                    }
-//                } catch (SQLException ex) {
-//                    lgr.log(Level.SEVERE, "SQLException caught: " + ex.getMessage(), ex);
-//                }
-//            }
+            if (fieldId != null && fieldId.trim() != null && Integer.valueOf(fieldId) != null && Integer.valueOf(fieldId) > 0) {
+                Yaml yaml = new Yaml(new Constructor(Datasource.class));
+                InputStream inputStream = this.getClass()
+                        .getResourceAsStream("/application.yml");
+                Datasource ds = yaml.load(inputStream);
+                String url = ds.getUrl();
+                String user = ds.getUsername();
+                String password = ds.getPassword();
+                ObjectMapper objectMapper = new ObjectMapper();
+                StringBuilder deleteGrowerSql = new StringBuilder();
+                StringBuilder insertGrowerSql = new StringBuilder();
+                StringBuilder updateFieldSql = new StringBuilder();
+                deleteGrowerSql.append(" Delete from field_manage.field_grower where field_id= ? ");
+                insertGrowerSql.append("insert into field_manage.field_grower (field_id, grower_id, created_datetz) values (?, ?, current_timestamp) ");
+                updateFieldSql.append("update field_manage.field set edit_datetz = current_timestamp, ");
+                if (editFieldName != null) {
+                    updateFieldSql.append("  field_name = ? ");
+                } else {
+                    updateFieldSql.append(" field_name == null ");
+                }
+                if (editFieldDesc != null) {
+                    updateFieldSql.append(" ,field_desc = ? ");
+                }
+
+                updateFieldSql.append("  where field_id = ?");
+
+
+                if (editGrowerId != null && Integer.valueOf(editGrowerId) != null && Integer.valueOf(editGrowerId) > 0) {
+                    try (Connection con = DriverManager.getConnection(url, user, password);
+                         PreparedStatement ps = con.prepareStatement(deleteGrowerSql.toString());) {
+                        ps.setInt(1, Integer.valueOf(fieldId));
+                        lgr.log(Level.INFO, "deleteGrowerSql: " + deleteGrowerSql);
+                        try {
+                            int rowCount = ps.executeUpdate();
+                        } catch (SQLException innerSQLEx) {
+                            lgr.log(Level.SEVERE, "SQLException caught deleting grower : " + innerSQLEx.getMessage(), innerSQLEx);
+                        }
+                    } catch (SQLException ex) {
+                        lgr.log(Level.SEVERE, "SQLException caught: " + ex.getMessage(), ex);
+                    }
+                    try (Connection con = DriverManager.getConnection(url, user, password);
+                         PreparedStatement ps = con.prepareStatement(insertGrowerSql.toString());) {
+                        ps.setInt(1, Integer.valueOf(fieldId));
+                        ps.setInt(2, Integer.valueOf(editGrowerId));
+                        lgr.log(Level.INFO, "insertGrowerSql: " + insertGrowerSql);
+                        try {
+                            int rowCount = ps.executeUpdate();
+                        } catch (SQLException innerSQLEx) {
+                            lgr.log(Level.SEVERE, "SQLException caught inserting grower : " + innerSQLEx.getMessage(), innerSQLEx);
+                        }
+                    } catch (SQLException ex) {
+                        lgr.log(Level.SEVERE, "SQLException caught: " + ex.getMessage(), ex);
+                    }
+
+                }
+
+
+                try (Connection con = DriverManager.getConnection(url, user, password);
+                     PreparedStatement ps = con.prepareStatement(updateFieldSql.toString());) {
+                    int idx = 1;
+                    if (editFieldName != null) {
+                        ps.setString(idx, editFieldName);
+                        idx++;
+                    }
+                    if (editFieldDesc != null) {
+                        updateFieldSql.append(" ,field_desc = ? ");
+                        ps.setString(idx, editFieldDesc);
+                        idx++;
+                    }
+                    ps.setInt(idx, Integer.valueOf(fieldId));
+                    lgr.log(Level.INFO, "updateFieldSql: " + updateFieldSql);
+                    try {
+                        int rowCount = ps.executeUpdate();
+                        Map<String, Integer> updateFieldMap = new HashMap<String, Integer>();
+                        updateFieldMap.put("updateFieldId", Integer.valueOf(fieldId));
+                        ObjectMapper mapper = new ObjectMapper();
+                        output = mapper.writeValueAsString(updateFieldMap);
+                        lgr.log(Level.INFO, "output: " + output);
+                    } catch (SQLException innerSQLEx) {
+                        lgr.log(Level.SEVERE, "SQLException caught updating field : " + innerSQLEx.getMessage(), innerSQLEx);
+                    }
+                } catch (SQLException ex) {
+                    lgr.log(Level.SEVERE, "SQLException caught: " + ex.getMessage(), ex);
+                }
+
+
+            }
             return response
                     .withStatusCode(200)
                     .withBody(output);

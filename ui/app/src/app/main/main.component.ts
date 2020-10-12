@@ -5,8 +5,12 @@ import {
   OnInit,
   SimpleChanges
 } from '@angular/core';
+
 import {Field} from '../field';
+import {FieldUser} from "../fieldUser";
 import {SearchService} from '../search.service';
+import {FieldService} from "../field.service";
+import {FielduserService} from "../fielduser.service";
 import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
 
@@ -22,17 +26,19 @@ export class MainComponent implements OnInit, OnChanges {
 
   searchResults: Field[] = [];
   selectedField: Field;
+  fieldUsers: FieldUser[];
   @Input() selectedFieldId: number;
 
 
   constructor(private searchService: SearchService, private route: ActivatedRoute,
-              private location: Location) {
+              private location: Location, private fieldService: FieldService, private fieldUserService: FielduserService) {
 
 
   }
 
   ngOnInit(): void {
     leafletMap.init();
+    this.getFieldUsers();
 
   }
 
@@ -48,6 +54,11 @@ export class MainComponent implements OnInit, OnChanges {
     }
   }
 
+  getFieldUsers(): void {
+    this.fieldUserService.getFieldUsers()
+      .subscribe(fieldUsers => this.fieldUsers = fieldUsers);
+  }
+
 
   searchFields(searchboxValue: string): void {
     console.log("searchboxValue: " + searchboxValue);
@@ -61,13 +72,26 @@ export class MainComponent implements OnInit, OnChanges {
 
   getFieldDetails(): void {
     let value = this.selectedFieldId;
-    // if (undefined == value) {
     let element: HTMLInputElement = document.getElementById("fieldID") as HTMLInputElement;
     value = parseInt(element.value);
     this.selectedFieldId = value;
-    // }
+    this.selectedField = null;
     console.log("selectedFieldId: " + this.selectedFieldId);
+    document.getElementById("fieldDetails").style.display= "block";
+    this.fieldService.getField(this.selectedFieldId).subscribe(field => this.selectedField = field);
+    // console.log("Field Size: " + this.selectedField.acres);
+    // console.log("Field Desc: " + this.selectedField.fieldDesc);
+
   }
 
+  goBack(): void {
+    //this.location.back();
+  }
+
+  save(): void {
+    console.log("selected fieldId: " + this.selectedField.fieldId);
+    this.fieldService.updateField(this.selectedField)
+      .subscribe(() => this.goBack());
+  }
 
 }

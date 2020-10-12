@@ -14,72 +14,40 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AppTest {
-//
-//
-//    @Test
-//    public void noFieldIdResponse() {
-//        App app = new App();
-//        APIGatewayProxyResponseEvent result = app.handleRequest(null, null);
-//        assertEquals(result.getStatusCode().intValue(), 200);
-//        assertEquals(result.getHeaders().get("Content-Type"), "application/json");
-//        String content = result.getBody();
-//        assertEquals(content, "{}");
-//
-//    }
-//
-//    @Test
-//    public void successfulResponse() {
-//        App app = new App();
-//        APIGatewayProxyRequestEvent input = new APIGatewayProxyRequestEvent();
-//        Map<String, String> queryStringParameters = new HashMap<String, String>();
-//        queryStringParameters.put("fieldid", "4");
-//        input.setQueryStringParameters(queryStringParameters);
-//        APIGatewayProxyResponseEvent result = app.handleRequest(input, null);
-//        assertEquals(result.getStatusCode().intValue(), 200);
-//        assertEquals(result.getHeaders().get("Content-Type"), "application/json");
-//        String content = result.getBody();
-//        assertNotNull(content);
-//        assertTrue(content.contains("fieldId"));
-//        assertTrue(content.contains("acres"));
-//    }
-//
-//
-//
-//
-//    @Test
-//    public void successfulInputBodyResponse() {
-//        App app = new App();
-//        APIGatewayProxyRequestEvent input = new APIGatewayProxyRequestEvent();
-////    Map<String, String> queryStringParameters = new HashMap<String, String>();
-////    queryStringParameters.put ("search", "Farley");
-////    input.setQueryStringParameters(queryStringParameters);
-//        input.setBody("{\"fieldid\":\"4\"}");
-//        APIGatewayProxyResponseEvent result = app.handleRequest(input, null);
-//        assertEquals(result.getStatusCode().intValue(), 200);
-//        assertEquals(result.getHeaders().get("Content-Type"), "application/json");
-//        String content = result.getBody();
-//        assertNotNull(content);
-//        assertTrue(content.contains("fieldId"));
-//        assertTrue(content.contains("acres"));
-//    }
-//
-//    @Test
-//    public void pathParametersResponse() {
-//        App app = new App();
-//        APIGatewayProxyRequestEvent input = new APIGatewayProxyRequestEvent();
-//
-//        Map<String, String> pathParameters = new HashMap<String, String>();
-//        pathParameters.put("fieldid", "4");
-//        input.setPathParameters(pathParameters);
-//        APIGatewayProxyResponseEvent result = app.handleRequest(input, null);
-//        assertEquals(result.getStatusCode().intValue(), 200);
-//        assertEquals(result.getHeaders().get("Content-Type"), "application/json");
-//        String content = result.getBody();
-//        assertNotNull(content);
-//        assertTrue(content.contains("fieldId"));
-//        assertTrue(content.contains("acres"));
-//    }
-//
+
+
+
+    @Test
+    public void successfulInputBodyResponse() {
+        App app = new App();
+        APIGatewayProxyRequestEvent input = new APIGatewayProxyRequestEvent();
+        String layerJSON = "{\n" +
+                "    \"fieldId\": 20,\n" +
+                "    \"fieldName\": \"Amy's Field\",\n" +
+                "    \"fieldDesc\": null,\n" +
+                "    \"growerName\": null,\n" +
+                "    \"growerId\": \"2\",\n" +
+                "    \"ownerName\": null,\n" +
+                "    \"ownerId\": 0,\n" +
+                "    \"acres\": 1550.9238210668125,\n" +
+                "    \"addressStreet\": \"null null\",\n" +
+                "    \"addressCity\": null,\n" +
+                "    \"addressState\": null,\n" +
+                "    \"addressZip\": null,\n" +
+                "    \"addressCounty\": null,\n" +
+                "    \"addressDesc\": null,\n" +
+                "    \"fieldAttributes\": null,\n" +
+                "    \"fieldHistory\": null,\n" +
+                "    \"fieldActivities\": null\n" +
+                "}";
+        input.setBody(layerJSON);
+        APIGatewayProxyResponseEvent result = app.handleRequest(input, null);
+        assertEquals(result.getStatusCode().intValue(), 200);
+        assertEquals(result.getHeaders().get("Content-Type"), "application/json");
+        String content = result.getBody();
+        assertNotNull(content);
+        assertTrue(content.contains("updateFieldId"));
+    }
 
 
 }

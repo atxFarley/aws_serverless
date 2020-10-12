@@ -19,7 +19,9 @@ export class HistoryComponent implements OnInit {
     fieldName: "Test Field",
     fieldDesc: "This is a field description",
     growerName: "Amy Farley",
+    growerId: 1,
     ownerName: "",
+    ownerId: 1,
     acres: 40,
     addressStreet: "",
     addressCity: "",
@@ -27,9 +29,9 @@ export class HistoryComponent implements OnInit {
     addressZip: "",
     addressCounty: "",
     addressDesc: "",
-    attributes: this.attributes,
-    activities: this.activities,
-    history: this.history
+    fieldAttributes: this.attributes,
+    fieldActivities: this.activities,
+    fieldHistory: this.history
   };
 
   constructor() {
