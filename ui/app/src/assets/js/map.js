@@ -13,7 +13,7 @@ var leafletMap = (function () {
   let searchFieldsURLPath = "/fields/search";
   let searchFieldsURLQueryParamName = "search";
   let editableLayers;
-  let recentSearchBoxValue;
+  let recentSearchBoxValue = "";
 
   function init() {
     console.log("in leafletMap init()");
@@ -44,7 +44,7 @@ var leafletMap = (function () {
           //       }
           //     },
           polygon: {
-            allowIntersection: false, // Restricts shapes to simple polygons
+            allowIntersection: true, // Restricts shapes to simple polygons
             showLength: true,
             showArea: true,
             metric: false,
@@ -104,14 +104,16 @@ var leafletMap = (function () {
           })
           .then(function (data) {
             console.log("data: " + JSON.stringify(data));
-            // addDataToMap(data, searchboxValue);
+            searchFields(recentSearchBoxValue);
+            map.removeLayer(layer);
+            //addDataToMap(data, "");
           })
           .catch((error) => {
             console.error('Error:', error);
           });
 
         console.log("feature added");
-        searchFields(recentSearchBoxValue);
+
       });
 
       map.on('draw:edited', function (e) {
@@ -172,7 +174,7 @@ var leafletMap = (function () {
     console.log("searchFields(searchboxValue: " + searchboxValue + ")");
     recentSearchBoxValue = searchboxValue;
     let lambdaURL = apiURL;
-    if (searchboxValue.trim().length == 0) {
+    if (searchboxValue != undefined && searchboxValue.trim().length == 0) {
       lambdaURL += fieldsURLPath;
       console.log("lambdaURL: " + lambdaURL);
       fetch(lambdaURL, {
@@ -223,7 +225,14 @@ var leafletMap = (function () {
   };
 
   function addDataToMap(data, searchboxvalue) {
-    console.log("addDataToMap: " + JSON.stringify(data) + ", searchboxvalue: " + searchboxvalue);
+    //console.log("addDataToMap: " + JSON.stringify(data) + ", searchboxvalue: " + searchboxvalue);
+    console.log("addDataToMap ");
+    //console.log("existing overlays: " + overlays.size);
+    for (let name in overlays) {
+      console.log("overlay: " + name);
+      map.removeLayer(overlays[name]);
+      layerControl.removeLayer(overlays[name]);
+    }
     let growerLabel = "All Grower";
     if (searchboxvalue.trim().length > 0) {
       growerLabel = searchboxvalue.charAt(0).toUpperCase() + searchboxvalue.slice(1);
@@ -234,6 +243,7 @@ var leafletMap = (function () {
         style: fieldStyle,
         onEachFeature: fieldOnEachFeature
       });
+      overlays[growerFieldsLabel] = fieldsLayer;
       layerControl.addOverlay(fieldsLayer, growerFieldsLabel);
       editableLayers.addLayer(fieldsLayer);
       //console.log(overlays);
@@ -344,7 +354,7 @@ var leafletMap = (function () {
     console.log("fieldDivHTML: " + fieldDivHTML);
     $("#fieldDiv").html(fieldDivHTML);
     $("#fieldDetailsButton").css("display", "block");
-    $ ("#fieldDetails").css("display", "none");
+    $("#fieldDetails").css("display", "none");
     $("#fieldID").val(currentFeature.fieldId).trigger('input').trigger('change');
 
     console.log("fieldID value: " + $("#fieldID").val())

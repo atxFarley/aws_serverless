@@ -27,6 +27,7 @@ export class MainComponent implements OnInit, OnChanges {
   searchResults: Field[] = [];
   selectedField: Field;
   fieldUsers: FieldUser[];
+  recentSearchBoxValue: string;
   @Input() selectedFieldId: number;
 
 
@@ -62,6 +63,7 @@ export class MainComponent implements OnInit, OnChanges {
 
   searchFields(searchboxValue: string): void {
     console.log("searchboxValue: " + searchboxValue);
+    this.recentSearchBoxValue  = searchboxValue;
     this.searchService.searchFields(searchboxValue)
       .subscribe(searchVal => {
         this.searchVal = searchboxValue
@@ -84,14 +86,15 @@ export class MainComponent implements OnInit, OnChanges {
 
   }
 
-  goBack(): void {
-    //this.location.back();
+  refreshSearch(): void {
+    this.searchFields(this.recentSearchBoxValue);
+    this.getFieldDetails();
   }
 
   save(): void {
     console.log("selected fieldId: " + this.selectedField.fieldId);
     this.fieldService.updateField(this.selectedField)
-      .subscribe(() => this.goBack());
+      .subscribe(() => this.refreshSearch());
   }
 
 }
