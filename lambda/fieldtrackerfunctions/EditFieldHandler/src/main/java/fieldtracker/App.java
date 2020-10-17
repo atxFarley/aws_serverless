@@ -72,7 +72,7 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
                         editFieldName = requestJsonObject.get("fieldName").toString();
                     }
                     if (requestJsonObject.get("fieldDesc") != null) {
-                        editFieldDesc = requestJsonObject.get("fieldDec").toString();
+                        editFieldDesc = requestJsonObject.get("fieldDesc").toString();
                     }
                     if (requestJsonObject.get("growerId") != null) {
                         editGrowerId = requestJsonObject.get("growerId").toString();

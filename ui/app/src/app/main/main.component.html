@@ -13,46 +13,54 @@
     <div id="rightcol" class="col-sm-6">
       <div id=infoid>
         <div id="docs">
-          <h3>Field Tracker</h3>
-          <ul>
-            <li>Use Search to display field by Grower (Hint: Type Last Name only, "none" for unassigned fields, or leave
-              blank for all fields
-            </li>
-            <li>Use the Layer Control in the upper-right corner of the map to select basemap and overalys</li>
-            <li>Zoom to see additional basemap details</li>
-            <li>On the map, click a field to display basic information</li>
-            <li>Click the <i class="fa fa-pencil-square-o" aria-hidden="true"></i> icon to view and edit field details
-            </li>
-          </ul>
+          <ng-template #tipContent>
+            <ul class="square">
+              <li>Use Search to display field by Grower<br/> (Hint: Type Last Name only, 'none' for unassigned fields, or
+                leave blank for all fields)
+              </li>
+              <li>Use the Layer Control in the upper-right corner of the map to select basemap and overalys</li>
+              <li>Zoom to see additional basemap details</li>
+              <li>On the map, click a field to display basic information</li>
+              <li>Click the <i class='fa fa-pencil-square-o' aria-hidden='true'></i> icon to view and edit field
+                details
+              </li>
+            </ul>
+          </ng-template>
+          <em><h4>Field Tracker Tips&nbsp;&nbsp;
+            <button type="button" class="btn btn-outline-secondary" placement="bottom" [ngbTooltip]="tipContent" container="body"><i
+              class="fa fa-question-circle fa-2x" aria-hidden="true"></i></button>
+          </h4></em>
           <br/>
         </div>
       </div>
       <div id="fieldDiv">
       </div>
       <div id="fieldDetailsButton" style="display: none;">
-        <button (click)="getFieldDetails()"><i class="fa fa-pencil-square-o"
-                                               aria-hidden="true"></i></button>
+        <button type="button" class="btn btn-outline-secondary" (click)="getFieldDetails()"><i
+          class="fa fa-pencil-square-o"
+          aria-hidden="true"></i></button>
         <input id="fieldID" name="fieldID" type="hidden" [(ngModel)]="selectedFieldId"/>
       </div>
+      <br/><br/>
       <div id="fieldDetails">
         <div *ngIf="selectedField">
           <form (ngSubmit)="save()" #main="ngForm">
-          <div><span>ID: </span>{{selectedField.fieldId}}</div>
-          <div>
-            <label>Field Name:
-              <input name = "fieldName" [(ngModel)]="selectedField.fieldName" placeholder="name"/>
-            </label>
-          </div>
-          <div><span>Acres: </span>{{selectedField.acres}}</div>
-          <div>
-            <label>Grower</label>
-            <select id="grower"
-                    required
-                    [(ngModel)]="selectedField.growerId" name="grower">
-              <option *ngFor="let user of fieldUsers" [value]="user.fieldUserId">{{user.listDisplayName}}</option>
-            </select>
-          </div>
-            <button type="submit" class="btn btn-success" [disabled]="!main.form.valid">Submit</button>
+            <div><span>Field ID: </span>{{selectedField.fieldId}}</div>
+            <div>
+              <label>Field Name:
+                <input name="fieldName" [(ngModel)]="selectedField.fieldName" placeholder="name"/>
+              </label>
+            </div>
+            <div><span>Acres: </span>{{selectedField.acres}}</div>
+            <div>
+              <label>Grower</label>
+              <select id="grower"
+                      required
+                      [(ngModel)]="selectedField.growerId" name="grower">
+                <option *ngFor="let user of fieldUsers" [value]="user.fieldUserId">{{user.listDisplayName}}</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-dark" [disabled]="!main.form.valid">Submit</button>
           </form>
         </div>
       </div>

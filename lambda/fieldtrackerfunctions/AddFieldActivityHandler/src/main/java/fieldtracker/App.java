@@ -10,6 +10,15 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.util.Date;
+import java.time.format.DateTimeFormatter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -43,120 +52,120 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
         headers.put("X-Custom-Header", "application/json");
         headers.put("Access-Control-Allow-Origin", "*");
         headers.put("Access-Control-Allow-Methods", "OPTIONS,POST");
-//        String fieldId = null;
-//        if (input != null) {
-//            Map<String, String> queryStringParameters = input.getQueryStringParameters();
-//            Map<String, String> pathParameters = input.getPathParameters();
-//            if (pathParameters != null) {
-//                fieldId = pathParameters.get("fieldid");
-//            } else if (queryStringParameters != null) {
-//                fieldId = queryStringParameters.get("fieldid");
-//            } else {
-//                lgr.log(Level.INFO, "fieldId from AWS Console Test Event: " + fieldId);
-//                try {
-//                    String requestString = input.getBody();
-//                    JSONParser parser = new JSONParser();
-//                    JSONObject requestJsonObject = (JSONObject) parser.parse(requestString);
-//                    if (requestJsonObject != null) {
-//                        if (requestJsonObject.get("fieldid") != null) {
-//                            fieldId = requestJsonObject.get("fieldid").toString();
-//                        }
-//                    }
-//                } catch (ParseException ex) {
-//                    lgr.log(Level.SEVERE, "ParseException caught: " + ex.getMessage(), ex);
-//                }
-//            }
-//        }
-//        lgr.log(Level.INFO, "fieldId: " + fieldId);
+        String fieldId = null;
+        String fieldActivityTypeId = null;
+        String activityDesc = null;
+        String activityDate = null;
+        if (input != null) {
+            try {
+                Map<String, String> queryStringParameters = input.getQueryStringParameters();
+                Map<String, String> pathParameters = input.getPathParameters();
+                String requestString = input.getBody();
+                JSONParser parser = new JSONParser();
+                JSONObject requestJsonObject = (JSONObject) parser.parse(requestString);
+                if (pathParameters != null) {
+                    fieldId = pathParameters.get("fieldid");
+                } else if (queryStringParameters != null) {
+                    fieldId = queryStringParameters.get("fieldid");
+                } else {
+                    lgr.log(Level.INFO, "fieldId from AWS Console Test Event: " + fieldId);
+                    if (requestJsonObject != null) {
+                        if (requestJsonObject.get("fieldId") != null) {
+                            fieldId = requestJsonObject.get("fieldId").toString();
+                        }
+                    }
+                }
+
+                if (requestJsonObject != null) {
+                    if (requestJsonObject.get("fieldActivityType") != null) {
+                        fieldActivityTypeId = requestJsonObject.get("fieldActivityType").toString();
+                    }
+                    if (requestJsonObject.get("fieldActivityDesc") != null) {
+                        activityDesc = requestJsonObject.get("fieldActivityDesc").toString();
+                    }
+                    if (requestJsonObject.get("fieldActivityDate") != null) {
+                        activityDate = requestJsonObject.get("fieldActivityDate").toString();
+                    }
+                }
+            } catch (ParseException ex) {
+                lgr.log(Level.SEVERE, "ParseException caught: " + ex.getMessage(), ex);
+            }
+        }
+        lgr.log(Level.INFO, "fieldId: " + fieldId);
+        lgr.log(Level.INFO, "input: " + input.getBody());
+        lgr.log(Level.INFO, "fieldActivityTypeId: " + fieldActivityTypeId);
+        lgr.log(Level.INFO, "activityDesc: " + activityDesc);
+        lgr.log(Level.INFO, "activityDate: " + activityDate);
         APIGatewayProxyResponseEvent response = new APIGatewayProxyResponseEvent()
                 .withHeaders(headers);
 
         String output = "{}";
         try {
-//            if (fieldId != null && fieldId.trim() != null && Integer.valueOf(fieldId) != null && Integer.valueOf(fieldId) > 0) {
-//                Yaml yaml = new Yaml(new Constructor(Datasource.class));
-//                InputStream inputStream = this.getClass()
-//                        .getResourceAsStream("/application.yml");
-//                Datasource ds = yaml.load(inputStream);
-//                String url = ds.getUrl();
-//                String user = ds.getUsername();
-//                String password = ds.getPassword();
-//                ObjectMapper objectMapper = new ObjectMapper();
-//                StringBuilder sql = new StringBuilder();
-//                sql.append("select field.*, grower.first_name || grower.last_name as growername, owner.first_name || owner.last_name as ownername, ");
-//                sql.append(" (st_area(st_transform(field_geom,26914)) * 0.00024710538146717) as area_acres ");
-//                sql.append("from field_manage.field  ");
-//                sql.append("left outer join field_manage.field_grower ");
-//                sql.append("on field.field_id = field_grower.field_id ");
-//                sql.append("inner join field_manage.field_user as grower ");
-//                sql.append("on field_grower.grower_id = grower.field_user_id ");
-//                sql.append(" left outer join field_manage.field_owner ");
-//                sql.append(" on field.field_id = field_owner.field_id ");
-//                sql.append(" inner join field_manage.field_user as owner ");
-//                sql.append(" on field_owner.owner_id = owner.field_user_id ");
-//                sql.append("  where field.field_id =  ? ");
-//                lgr.log(Level.INFO, "sql: " + sql.toString());
-//                try (Connection con = DriverManager.getConnection(url, user, password);
-//                     PreparedStatement ps = con.prepareStatement(sql.toString());) {
-//
-//                    ps.setInt(1, Integer.valueOf(fieldId));
-//                    try (ResultSet rs = ps.executeQuery();) {
-//                        if (rs.next()) {
-//                            Field fieldDetail = new Field();
-//                            fieldDetail.setFieldId(rs.getInt("field_id"));
-//                            fieldDetail.setFieldName(rs.getString("field_name"));
-//                            fieldDetail.setFieldDesc(rs.getString("field_desc"));
-//                            fieldDetail.setAddressStreet(rs.getString("address") + " " + rs.getString("adddress_2"));
-//                            fieldDetail.setAddressCity(rs.getString("city"));
-//                            fieldDetail.setAddressState(rs.getString("state"));
-//                            fieldDetail.setAddressZip(rs.getString("zip"));
-//                            fieldDetail.setAddressCounty(rs.getString("county"));
-//                            fieldDetail.setAcres(rs.getBigDecimal("area_acres"));
-//                            fieldDetail.setGrowerName(rs.getString("growername"));
-//                            fieldDetail.setOwnerName(rs.getString("ownername"));
-//                            String attributesString = rs.getString("field_attributes");
-//                            if (attributesString != null) {
-//
-//                                Map<String, String> attributes = objectMapper.readValue(attributesString, new TypeReference<Map<String, String>>() {
-//                                });
-//                                ArrayList<Field.FieldAttribute> fieldAttributeArrayList = new ArrayList<Field.FieldAttribute>();
-//                                for (String key : attributes.keySet()) {
-//                                    Field.FieldAttribute fieldAttribute = fieldDetail.new FieldAttribute();
-//                                    fieldAttribute.setFieldId(fieldDetail.getFieldId());
-//                                    fieldAttribute.setAttributeName(key);
-//                                    fieldAttribute.setAttributeValue(attributes.get(key));
-//                                    fieldAttributeArrayList.add(fieldAttribute);
-//                                }
-//                                fieldDetail.setFieldAttributes(fieldAttributeArrayList);
-//                            }
-//                            //get fieldActivities and activity files
-//                            try {
-//
-//                                output = objectMapper.writeValueAsString(fieldDetail);
-//
-//                            } catch (Exception jsonEx) {
-//                                lgr.log(Level.SEVERE, "Exception caught: " + jsonEx.getMessage(), jsonEx);
-//                            }
-//
-//                            lgr.log(Level.INFO, "output: " + output);
-//                        }
-//                    } catch (SQLException innerEx) {
-//                        lgr.log(Level.SEVERE, "SQLException caught: " + innerEx.getMessage(), innerEx);
-//                    }
-//                } catch (SQLException ex) {
-//                    lgr.log(Level.SEVERE, "SQLException caught: " + ex.getMessage(), ex);
-//                }
-//            }
+            if (fieldId != null && fieldId.trim() != null && Integer.valueOf(fieldId) != null && Integer.valueOf(fieldId) > 0) {
+                Yaml yaml = new Yaml(new Constructor(Datasource.class));
+                InputStream inputStream = this.getClass()
+                        .getResourceAsStream("/application.yml");
+                Datasource ds = yaml.load(inputStream);
+                String url = ds.getUrl();
+                String user = ds.getUsername();
+                String password = ds.getPassword();
+                ObjectMapper objectMapper = new ObjectMapper();
+                StringBuilder sql = new StringBuilder();
+
+
+                if (fieldActivityTypeId != null && activityDate != null) {
+                    Integer activityTypeId = Integer.valueOf(fieldActivityTypeId);
+
+                    if (activityTypeId != null && activityTypeId > 0) {
+                        sql.append("INSERT INTO field_manage.field_activity(field_id, field_activity_type_id, description, activity_datetz, created_datetz)  ");
+                        sql.append("  VALUES ");
+                        sql.append("(");
+                        sql.append(fieldId).append(", ");
+                        sql.append(activityTypeId).append(", ");
+                        sql.append(activityDesc).append(", ");
+                        sql.append("to_timestamp('").append(activityDate).append("', 'MM/DD/YYYY'").append(")").append(", ");
+                        sql.append("current_timestamp");
+                        sql.append(")");
+                        lgr.log(Level.INFO, "sql: " + sql);
+                        String[] columnNames = {"field_activity_id"};
+                        try (Connection con = DriverManager.getConnection(url, user, password);
+                             Statement st = con.createStatement();
+                        ) {
+                            int rowCount = st.executeUpdate(sql.toString(), columnNames);
+                            Map<String, Integer> newFieldActivityMap = new HashMap<String, Integer>();
+                            try (ResultSet rs = st.getGeneratedKeys()) {
+                                if (rs.next()) {
+                                    newFieldActivityMap.put("newFieldActivityId", rs.getInt(1));
+                                }
+                                ObjectMapper mapper = new ObjectMapper();
+                                output = mapper.writeValueAsString(newFieldActivityMap);
+                                lgr.log(Level.INFO, "output: " + output);
+                            } catch (SQLException innerSQLEx) {
+                                lgr.log(Level.SEVERE, "SQLException inner try/catch caught: " + innerSQLEx.getMessage(), innerSQLEx);
+                            }
+                        } catch (SQLException ex) {
+                            lgr.log(Level.SEVERE, "SQLException caught: " + ex.getMessage(), ex);
+                        }
+
+                    }
+
+
+                }
+
+
+            }
             return response
                     .withStatusCode(200)
                     .withBody(output);
 
-        } catch (Exception e) {
+        } catch (
+                Exception e) {
             lgr.log(Level.SEVERE, "Exception caught: " + e.getMessage(), e);
             return response
                     .withBody("{}")
                     .withStatusCode(500);
         }
+
     }
 
 

@@ -2,6 +2,7 @@
 
 * {
   font-family: Arial, Helvetica, sans-serif;
+  font-size: 10pt;
 }
 
 body {
@@ -149,3 +150,12 @@ footer {
   padding: 1rem;
   text-align: center;
 }
+
+ul.square {
+  list-style-type: square;
+  /*margin: 0;*/
+  /*padding: 2;*/
+  text-align: left;
+  margin-left: -2rem;
+}
+
