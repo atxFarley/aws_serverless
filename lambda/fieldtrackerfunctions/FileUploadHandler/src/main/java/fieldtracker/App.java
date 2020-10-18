@@ -25,16 +25,11 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.core.type.TypeReference;
-
-
 /**
  * Handler for requests to Lambda function.
  */
 public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
     private Logger lgr = Logger.getLogger(App.class.getName());
-
 
     public APIGatewayProxyResponseEvent handleRequest(final APIGatewayProxyRequestEvent input, final Context context) {
         Map<String, String> headers = new HashMap<>();
@@ -65,8 +60,8 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
                 }
 
                 if (requestJsonObject != null) {
-                    if (requestJsonObject.get("fieldActivityFileLocation") != null) {
-                        activityFile = requestJsonObject.get("fieldActivityFileLocation").toString();
+                    if (requestJsonObject.get("activityFile") != null) {
+                        activityFile = requestJsonObject.get("activityFile").toString();
                     }
 
                 }
@@ -82,56 +77,7 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
 
         String output = "{}";
         try {
-            if (fieldActivityId != null && fieldActivityId.trim() != null && Integer.valueOf(fieldActivityId) != null && Integer.valueOf(fieldActivityId) > 0) {
-                Yaml yaml = new Yaml(new Constructor(Datasource.class));
-                InputStream inputStream = this.getClass()
-                        .getResourceAsStream("/application.yml");
-                Datasource ds = yaml.load(inputStream);
-                String url = ds.getUrl();
-                String user = ds.getUsername();
-                String password = ds.getPassword();
-                ObjectMapper objectMapper = new ObjectMapper();
-                StringBuilder sql = new StringBuilder();
-                if (activityFile != null) {
-                    String filename = activityFile.substring((activityFile.lastIndexOf("/") + 1));
-                    lgr.log(Level.INFO, "filename: " + filename);
-                    sql.append("INSERT INTO field_manage.field_activity_file(field_activity_id, field_activity_file_type_id, file_location, filename, file_datetz, created_datetz, georeferenced_b)  ");
-                    sql.append("  VALUES ");
-                    sql.append("(");
-                    sql.append(fieldActivityId).append(", ");
-                    sql.append(4).append(", '");
-                    sql.append(activityFile).append("', '");
-                    sql.append(filename).append("', ");
-                    sql.append("current_timestamp").append(", ");
-                    //sql.append("to_timestamp('").append(activityDate).append("', 'MM/DD/YYYY'").append(")").append(", ");
-                    sql.append("current_timestamp").append(", ");
-                    sql.append("false");
-                    sql.append(")");
-                    lgr.log(Level.INFO, "sql: " + sql);
-                    String[] columnNames = {"field_activity_file_id"};
-                    try (Connection con = DriverManager.getConnection(url, user, password);
-                         Statement st = con.createStatement();
-                    ) {
-                        int rowCount = st.executeUpdate(sql.toString(), columnNames);
-                        Map<String, Integer> newFieldActivityFileMap = new HashMap<String, Integer>();
-                        try (ResultSet rs = st.getGeneratedKeys()) {
-                            if (rs.next()) {
-                                newFieldActivityFileMap.put("newFieldActivityFileId", rs.getInt(1));
-                            }
-                            ObjectMapper mapper = new ObjectMapper();
-                            output = mapper.writeValueAsString(newFieldActivityFileMap);
-                            lgr.log(Level.INFO, "output: " + output);
-                        } catch (SQLException innerSQLEx) {
-                            lgr.log(Level.SEVERE, "SQLException inner try/catch caught: " + innerSQLEx.getMessage(), innerSQLEx);
-                        }
-                    } catch (SQLException ex) {
-                        lgr.log(Level.SEVERE, "SQLException caught: " + ex.getMessage(), ex);
-                    }
 
-                }
-
-
-            }
             return response
                     .withStatusCode(200)
                     .withBody(output);

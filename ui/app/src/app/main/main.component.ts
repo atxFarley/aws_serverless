@@ -8,9 +8,16 @@ import {
 
 import {Field} from '../field';
 import {FieldUser} from "../fieldUser";
+import {FieldActivityType} from "../fieldActivityType";
+import {FieldActivityFileType} from "../fieldActivityFileType";
+import {FieldActivityFile} from "../fieldActivityFile";
 import {SearchService} from '../search.service';
 import {FieldService} from "../field.service";
+import {FieldactivityfileService} from "../fieldactivityfile.service";
 import {FielduserService} from "../fielduser.service";
+import {FieldactivitytypeService} from "../fieldactivitytype.service";
+import {FieldactivityfiletypeService} from "../fieldactivityfiletype.service";
+import {FileuploadService} from "../fileupload.service";
 import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
 
@@ -27,12 +34,20 @@ export class MainComponent implements OnInit, OnChanges {
   searchResults: Field[] = [];
   selectedField: Field;
   fieldUsers: FieldUser[];
+  activityTypes: FieldActivityType[];
+  activityFileTypes: FieldActivityFileType[];
   recentSearchBoxValue: string;
   @Input() selectedFieldId: number;
+  uploadFile: File = null;
+  uploadedFieldActivityFile: FieldActivityFile;
+  selectedFieldActivityId: string;
+  loading: boolean = false; // Flag variable
 
 
   constructor(private searchService: SearchService, private route: ActivatedRoute,
-              private location: Location, private fieldService: FieldService, private fieldUserService: FielduserService) {
+              private location: Location, private fieldService: FieldService, private fieldUserService: FielduserService,
+              private fieldactivitytypeService: FieldactivitytypeService, private fieldactivityfiletypeService: FieldactivityfiletypeService,
+              private fileuploadService: FileuploadService, private fieldactivityfileService: FieldactivityfileService) {
 
 
   }
@@ -40,6 +55,8 @@ export class MainComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     leafletMap.init();
     this.getFieldUsers();
+    this.getFieldActivityTypes();
+    this.getFieldActivityFileTypes();
 
   }
 
@@ -60,10 +77,19 @@ export class MainComponent implements OnInit, OnChanges {
       .subscribe(fieldUsers => this.fieldUsers = fieldUsers);
   }
 
+  getFieldActivityTypes(): void {
+    this.fieldactivitytypeService.getFieldActivityTypes()
+      .subscribe(activityTypes => this.activityTypes = activityTypes);
+  }
+
+  getFieldActivityFileTypes(): void {
+    this.fieldactivityfiletypeService.getFieldActivityFileTypes()
+      .subscribe(activityFileTypes => this.activityFileTypes = activityFileTypes);
+  }
 
   searchFields(searchboxValue: string): void {
     console.log("searchboxValue: " + searchboxValue);
-    this.recentSearchBoxValue  = searchboxValue;
+    this.recentSearchBoxValue = searchboxValue;
     this.searchService.searchFields(searchboxValue)
       .subscribe(searchVal => {
         this.searchVal = searchboxValue
@@ -79,7 +105,7 @@ export class MainComponent implements OnInit, OnChanges {
     this.selectedFieldId = value;
     this.selectedField = null;
     console.log("selectedFieldId: " + this.selectedFieldId);
-    document.getElementById("fieldDetails").style.display= "block";
+    document.getElementById("fieldDetails").style.display = "block";
     this.fieldService.getField(this.selectedFieldId).subscribe(field => this.selectedField = field);
     // console.log("Field Size: " + this.selectedField.acres);
     // console.log("Field Desc: " + this.selectedField.fieldDesc);
@@ -95,6 +121,22 @@ export class MainComponent implements OnInit, OnChanges {
     console.log("selected fieldId: " + this.selectedField.fieldId);
     this.fieldService.updateField(this.selectedField)
       .subscribe(() => this.refreshSearch());
+  }
+
+  fileUpload() {
+    this.loading = !this.loading;
+    console.log(this.uploadedFieldActivityFile);
+    this.fileuploadService.uploadFile(this.uploadFile, this.selectedFieldActivityId).subscribe(
+      fieldActivityFile => {
+        this.uploadedFieldActivityFile = fieldActivityFile;
+        this.fieldactivityfileService.updateFieldActivityFile(this.uploadedFieldActivityFile, this.selectedFieldId).subscribe(() => this.refreshSearch());
+      }
+    );
+  }
+
+  fileChange(event, selectedFieldActivityId) {
+    this.uploadFile = event.target.files[0];
+    this.selectedFieldActivityId = selectedFieldActivityId;
   }
 
 }

@@ -99,13 +99,13 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
                 sql.append(" on field_owner.owner_id = owner.field_user_id ");
                 sql.append("  where field.field_id =  ? ");
                 lgr.log(Level.INFO, "sql: " + sql.toString());
+                Field fieldDetail = new Field();
+                ArrayList<Field.FieldActivity> fieldActivityArrayList = new ArrayList<Field.FieldActivity>();
                 try (Connection con = DriverManager.getConnection(url, user, password);
                      PreparedStatement ps = con.prepareStatement(sql.toString());) {
-
                     ps.setInt(1, Integer.valueOf(fieldId));
                     try (ResultSet rs = ps.executeQuery();) {
                         if (rs.next()) {
-                            Field fieldDetail = new Field();
                             fieldDetail.setFieldId(rs.getInt("field_id"));
                             fieldDetail.setFieldName(rs.getString("field_name"));
                             fieldDetail.setFieldDesc(rs.getString("field_desc"));
@@ -135,15 +135,7 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
                                 fieldDetail.setFieldAttributes(fieldAttributeArrayList);
                             }
                             //get fieldActivities and activity files
-                            try {
 
-                                output = objectMapper.writeValueAsString(fieldDetail);
-
-                            } catch (Exception jsonEx) {
-                                lgr.log(Level.SEVERE, "Exception caught: " + jsonEx.getMessage(), jsonEx);
-                            }
-
-                            lgr.log(Level.INFO, "output: " + output);
                         }
                     } catch (SQLException innerEx) {
                         lgr.log(Level.SEVERE, "SQLException caught: " + innerEx.getMessage(), innerEx);
@@ -151,6 +143,68 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
                 } catch (SQLException ex) {
                     lgr.log(Level.SEVERE, "SQLException caught: " + ex.getMessage(), ex);
                 }
+                StringBuilder activitySql = new StringBuilder();
+                activitySql.append("select field_activity_id, field_id, field_activity_type_id, description, activity_datetz ");
+                activitySql.append(" from field_manage.field_activity ");
+                activitySql.append("where field_id = ? ");
+                lgr.log(Level.INFO, "activity sql: " + activitySql.toString());
+                try (Connection con = DriverManager.getConnection(url, user, password);
+                     PreparedStatement ps = con.prepareStatement(activitySql.toString());) {
+                    ps.setInt(1, Integer.valueOf(fieldId));
+                    try (ResultSet rs = ps.executeQuery();) {
+                        while (rs.next()) {
+                            Field.FieldActivity fieldActivity = fieldDetail.new FieldActivity();
+                            fieldActivity.setFieldActivityId(rs.getInt("field_activity_id"));
+                            fieldActivity.setFieldId(rs.getInt("field_id"));
+                            fieldActivity.setFieldActivityTypeId(rs.getInt("field_activity_type_id"));
+                            fieldActivity.setFieldActivityDesc(rs.getString("description"));
+                            fieldActivity.setFieldActivityDate(rs.getTimestamp("activity_datetz"));
+                            fieldActivityArrayList.add(fieldActivity);
+                        }
+                        fieldDetail.setFieldActivities(fieldActivityArrayList);
+                    } catch (SQLException innerEx) {
+                        lgr.log(Level.SEVERE, "SQLException caught: " + innerEx.getMessage(), innerEx);
+                    }
+                } catch (SQLException ex) {
+                    lgr.log(Level.SEVERE, "SQLException caught: " + ex.getMessage(), ex);
+                }
+                StringBuilder activityFileSql = new StringBuilder();
+                activityFileSql.append("select field_activity_file_id, field_activity_id, field_activity_file_type_id, file_size_mb, file_location, filename ");
+                activityFileSql.append(" from field_manage.field_activity_file ");
+                activityFileSql.append(" where field_activity_id = ? ");
+                for (Field.FieldActivity activity : fieldActivityArrayList) {
+                    Integer fieldActivityId = activity.getFieldActivityId();
+                    try (Connection con = DriverManager.getConnection(url, user, password);
+                         PreparedStatement ps = con.prepareStatement(activityFileSql.toString());) {
+                        ps.setInt(1, Integer.valueOf(fieldActivityId));
+                        ArrayList<Field.FieldActivity.FieldActivityFile> fieldActivityFiles = new ArrayList<Field.FieldActivity.FieldActivityFile>();
+                        try (ResultSet rs = ps.executeQuery();) {
+                            while (rs.next()) {
+                                Field.FieldActivity.FieldActivityFile fieldActivityFile = activity.new FieldActivityFile();
+                                fieldActivityFile.setFieldActivityFileId(rs.getInt("field_activity_file_id"));
+                                fieldActivityFile.setFieldActivityId(rs.getInt("field_activity_id"));
+                                fieldActivityFile.setFieldActivityFileTypeId(rs.getInt("field_activity_file_type_id"));
+                                fieldActivityFile.setFieldActivityFileSizeMB(rs.getBigDecimal("file_size_mb"));
+                                fieldActivityFile.setFieldActivityFileLocation(rs.getString("file_location"));
+                                fieldActivityFile.setFieldActivityFilename(rs.getString("filename"));
+                                fieldActivityFiles.add(fieldActivityFile);
+                            }
+                            activity.setFieldActivityFiles(fieldActivityFiles);
+                        } catch (SQLException innerEx) {
+                            lgr.log(Level.SEVERE, "SQLException caught: " + innerEx.getMessage(), innerEx);
+                        }
+                    } catch (SQLException ex) {
+                        lgr.log(Level.SEVERE, "SQLException caught: " + ex.getMessage(), ex);
+                    }
+
+                }
+
+                try {
+                    output = objectMapper.writeValueAsString(fieldDetail);
+                } catch (Exception jsonEx) {
+                    lgr.log(Level.SEVERE, "Exception caught: " + jsonEx.getMessage(), jsonEx);
+                }
+                lgr.log(Level.INFO, "output: " + output);
             }
             return response
                     .withStatusCode(200)

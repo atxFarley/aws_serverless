@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
-public class Field  implements Serializable, Cloneable {
+public class Field implements Serializable, Cloneable {
 
 
     private static final long serialVersionUID = -6827579876203291225L;
@@ -260,6 +260,7 @@ public class Field  implements Serializable, Cloneable {
         private int fieldActivityId;
         private Timestamp fieldActivityDate;
         private String fieldActivityType;
+        private Integer fieldActivityTypeId;
         private String fieldActivityDesc;
         private ArrayList<FieldActivityFile> fieldActivityFiles;
 
@@ -311,11 +312,26 @@ public class Field  implements Serializable, Cloneable {
             this.fieldActivityFiles = fieldActivityFiles;
         }
 
+        public Integer getFieldActivityTypeId() {
+            return fieldActivityTypeId;
+        }
+
+        public void setFieldActivityTypeId(Integer fieldActivityTypeId) {
+            this.fieldActivityTypeId = fieldActivityTypeId;
+        }
+
 
         class FieldActivityFile {
             private Integer fieldActivityFileId;
             private Integer fieldActivityId;
-            private String fieldActivityFile;
+            private String fieldActivityFilename;
+            private Integer fieldActivityFileTypeId;
+            private BigDecimal fieldActivityFileSizeMB;
+            private String fieldActivityFileLocation;
+            private Integer fieldActivityVendorPartnerId;
+            private Timestamp fieldActivityFileDate;
+            private Boolean fieldActivityFileGeoreferenced;
+
 
             public Integer getFieldActivityFileId() {
                 return fieldActivityFileId;
@@ -333,12 +349,60 @@ public class Field  implements Serializable, Cloneable {
                 this.fieldActivityId = fieldActivityId;
             }
 
-            public String getFieldActivityFile() {
-                return fieldActivityFile;
+            public String getFieldActivityFilename() {
+                return fieldActivityFilename;
             }
 
-            public void setFieldActivityFile(String fieldActivityFile) {
-                this.fieldActivityFile = fieldActivityFile;
+            public void setFieldActivityFilename(String fieldActivityFilename) {
+                this.fieldActivityFilename = fieldActivityFilename;
+            }
+
+            public Integer getFieldActivityFileTypeId() {
+                return fieldActivityFileTypeId;
+            }
+
+            public void setFieldActivityFileTypeId(Integer fieldActivityFileTypeId) {
+                this.fieldActivityFileTypeId = fieldActivityFileTypeId;
+            }
+
+            public BigDecimal getFieldActivityFileSizeMB() {
+                return fieldActivityFileSizeMB;
+            }
+
+            public void setFieldActivityFileSizeMB(BigDecimal fieldActivityFileSizeMB) {
+                this.fieldActivityFileSizeMB = fieldActivityFileSizeMB;
+            }
+
+            public String getFieldActivityFileLocation() {
+                return fieldActivityFileLocation;
+            }
+
+            public void setFieldActivityFileLocation(String fieldActivityFileLocation) {
+                this.fieldActivityFileLocation = fieldActivityFileLocation;
+            }
+
+            public Integer getFieldActivityVendorPartnerId() {
+                return fieldActivityVendorPartnerId;
+            }
+
+            public void setFieldActivityVendorPartnerId(Integer fieldActivityVendorPartnerId) {
+                this.fieldActivityVendorPartnerId = fieldActivityVendorPartnerId;
+            }
+
+            public Timestamp getFieldActivityFileDate() {
+                return fieldActivityFileDate;
+            }
+
+            public void setFieldActivityFileDate(Timestamp fieldActivityFileDate) {
+                this.fieldActivityFileDate = fieldActivityFileDate;
+            }
+
+            public Boolean getFieldActivityFileGeoreferenced() {
+                return fieldActivityFileGeoreferenced;
+            }
+
+            public void setFieldActivityFileGeoreferenced(Boolean fieldActivityFileGeoreferenced) {
+                this.fieldActivityFileGeoreferenced = fieldActivityFileGeoreferenced;
             }
         }
 

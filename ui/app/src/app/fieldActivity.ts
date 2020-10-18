@@ -6,6 +6,7 @@ export interface FieldActivity {
   fieldActivityId; number;
   fieldActivityDate: string;
   fieldActivityType: string;
+  fieldActivityTypeId: string;
   fieldActivityDesc: string
   fieldActivityFiles: FieldActivityFile[];
 }

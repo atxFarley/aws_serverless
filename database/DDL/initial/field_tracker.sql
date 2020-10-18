@@ -340,7 +340,7 @@ on delete set null on update cascade;
 -- object: field_manage."field_activity_file" | type: table --
 -- drop table if exists field_manage."field_activity_file" cascade;
 create table field_manage."field_activity_file" (
-	"field_activity_file" bigserial not null,
+	"field_activity_file_id" bigserial not null,
 	"field_activity_id" bigint not null,
 	"field_activity_file_type_id" smallint not null,
 	"file_size_mb" smallint,

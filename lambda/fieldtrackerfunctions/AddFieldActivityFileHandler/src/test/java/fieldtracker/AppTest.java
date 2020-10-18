@@ -19,12 +19,9 @@ public class AppTest {
         App app = new App();
         APIGatewayProxyRequestEvent input = new APIGatewayProxyRequestEvent();
         String layerJSON = "{\n" +
-                "    \"fieldId\": 4,\n" +
-                "    \"fieldActivityId\": null,\n" +
-                "    \"fieldActivityDate\": \"10/17/2020\",\n" +
-                "    \"fieldActivityType\": \"1\",\n" +
-                "    \"fieldActivityDesc\": null,\n" +
-                "    \"fieldActivityFiles\": null\n" +
+                "    \"fieldActivityId\": 1,\n" +
+                "    \"fieldActivityFileId\": null,\n" +
+                "    \"fieldActivityFileLocation\": \"https://fieldactivityfiles.s3.amazonaws.com/fieldactivityfiles/testfile.txt\"\n" +
                 "}";
         input.setBody(layerJSON);
         APIGatewayProxyResponseEvent result = app.handleRequest(input, null);
@@ -32,7 +29,7 @@ public class AppTest {
         assertEquals(result.getHeaders().get("Content-Type"), "application/json");
         String content = result.getBody();
         assertNotNull(content);
-        assertTrue(content.contains("newFieldActivityId"));
+        assertTrue(content.contains("newFieldActivityFileId"));
     }
 
 }
