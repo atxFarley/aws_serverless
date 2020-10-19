@@ -6,6 +6,7 @@ import {
   SimpleChanges
 } from '@angular/core';
 
+
 import {Field} from '../field';
 import {FieldUser} from "../fieldUser";
 import {FieldActivityType} from "../fieldActivityType";
@@ -13,13 +14,15 @@ import {FieldActivityFileType} from "../fieldActivityFileType";
 import {FieldActivityFile} from "../fieldActivityFile";
 import {SearchService} from '../search.service';
 import {FieldService} from "../field.service";
-import {FieldactivityfileService} from "../fieldactivityfile.service";
 import {FielduserService} from "../fielduser.service";
 import {FieldactivitytypeService} from "../fieldactivitytype.service";
 import {FieldactivityfiletypeService} from "../fieldactivityfiletype.service";
 import {FileuploadService} from "../fileupload.service";
 import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
+import { Observable, of } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
+
 
 declare var leafletMap: any;
 
@@ -41,13 +44,11 @@ export class MainComponent implements OnInit, OnChanges {
   uploadFile: File = null;
   uploadedFieldActivityFile: FieldActivityFile;
   selectedFieldActivityId: string;
-  loading: boolean = false; // Flag variable
-
 
   constructor(private searchService: SearchService, private route: ActivatedRoute,
               private location: Location, private fieldService: FieldService, private fieldUserService: FielduserService,
               private fieldactivitytypeService: FieldactivitytypeService, private fieldactivityfiletypeService: FieldactivityfiletypeService,
-              private fileuploadService: FileuploadService, private fieldactivityfileService: FieldactivityfileService) {
+              private fileuploadService: FileuploadService) {
 
 
   }
@@ -124,15 +125,12 @@ export class MainComponent implements OnInit, OnChanges {
   }
 
   fileUpload() {
-    this.loading = !this.loading;
-    console.log(this.uploadedFieldActivityFile);
-    this.fileuploadService.uploadFile(this.uploadFile, this.selectedFieldActivityId).subscribe(
-      fieldActivityFile => {
-        this.uploadedFieldActivityFile = fieldActivityFile;
-        this.fieldactivityfileService.updateFieldActivityFile(this.uploadedFieldActivityFile, this.selectedFieldId).subscribe(() => this.refreshSearch());
-      }
-    );
+    console.log("fileUpload()");
+    this.fileuploadService.uploadFile(this.uploadFile, this.selectedFieldId.toString(), this.selectedFieldActivityId)
+      .subscribe(fieldActivityFile => this.fileuploadService.addFieldActivityFile(this.selectedFieldId.toString(), this.selectedFieldActivityId, fieldActivityFile));
   }
+
+
 
   fileChange(event, selectedFieldActivityId) {
     this.uploadFile = event.target.files[0];

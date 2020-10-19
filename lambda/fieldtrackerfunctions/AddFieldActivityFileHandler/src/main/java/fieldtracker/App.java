@@ -43,6 +43,7 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
         headers.put("Access-Control-Allow-Origin", "*");
         headers.put("Access-Control-Allow-Methods", "OPTIONS,POST");
         String fieldActivityId = null;
+        String fieldId = null;
         String activityFile = null;
         if (input != null) {
             try {
@@ -52,24 +53,28 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
                 JSONParser parser = new JSONParser();
                 JSONObject requestJsonObject = (JSONObject) parser.parse(requestString);
                 if (pathParameters != null) {
-                    fieldActivityId = pathParameters.get("fieldActivityId");
+                    fieldId = pathParameters.get("fieldid");
+                    fieldActivityId = pathParameters.get("activityid");
                 } else if (queryStringParameters != null) {
-                    fieldActivityId = queryStringParameters.get("fieldActivityId");
+                    fieldId = queryStringParameters.get("fieldid");
+                    fieldActivityId = queryStringParameters.get("activityid");
                 } else {
-                    lgr.log(Level.INFO, "fieldActivityId from AWS Console Test Event: " + fieldActivityId);
+                    lgr.log(Level.INFO, "fieldId from AWS Console Test Event: " + fieldId);
                     if (requestJsonObject != null) {
+                        if (requestJsonObject.get("fieldId") != null) {
+                            fieldId = requestJsonObject.get("fieldId").toString();
+                        }
                         if (requestJsonObject.get("fieldActivityId") != null) {
                             fieldActivityId = requestJsonObject.get("fieldActivityId").toString();
                         }
                     }
                 }
-
                 if (requestJsonObject != null) {
                     if (requestJsonObject.get("fieldActivityFileLocation") != null) {
                         activityFile = requestJsonObject.get("fieldActivityFileLocation").toString();
                     }
-
                 }
+
             } catch (ParseException ex) {
                 lgr.log(Level.SEVERE, "ParseException caught: " + ex.getMessage(), ex);
             }

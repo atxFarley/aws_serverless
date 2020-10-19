@@ -258,7 +258,7 @@ public class Field implements Serializable, Cloneable {
     class FieldActivity {
         private int fieldId;
         private int fieldActivityId;
-        private Timestamp fieldActivityDate;
+        private String fieldActivityDate;
         private String fieldActivityType;
         private Integer fieldActivityTypeId;
         private String fieldActivityDesc;
@@ -280,13 +280,7 @@ public class Field implements Serializable, Cloneable {
             this.fieldActivityId = fieldActivityId;
         }
 
-        public Timestamp getFieldActivityDate() {
-            return fieldActivityDate;
-        }
 
-        public void setFieldActivityDate(Timestamp fieldActivityDate) {
-            this.fieldActivityDate = fieldActivityDate;
-        }
 
         public String getFieldActivityType() {
             return fieldActivityType;
@@ -318,6 +312,14 @@ public class Field implements Serializable, Cloneable {
 
         public void setFieldActivityTypeId(Integer fieldActivityTypeId) {
             this.fieldActivityTypeId = fieldActivityTypeId;
+        }
+
+        public String getFieldActivityDate() {
+            return fieldActivityDate;
+        }
+
+        public void setFieldActivityDate(String fieldActivityDate) {
+            this.fieldActivityDate = fieldActivityDate;
         }
 
 

@@ -144,9 +144,9 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
                     lgr.log(Level.SEVERE, "SQLException caught: " + ex.getMessage(), ex);
                 }
                 StringBuilder activitySql = new StringBuilder();
-                activitySql.append("select field_activity_id, field_id, field_activity_type_id, description, activity_datetz ");
+                activitySql.append("select field_activity_id, field_id, field_activity_type_id, description, to_char(activity_datetz, 'MM/DD/YYYY') activity_datetz ");
                 activitySql.append(" from field_manage.field_activity ");
-                activitySql.append("where field_id = ? ");
+                activitySql.append("where field_id = ? order by activity_datetz desc ");
                 lgr.log(Level.INFO, "activity sql: " + activitySql.toString());
                 try (Connection con = DriverManager.getConnection(url, user, password);
                      PreparedStatement ps = con.prepareStatement(activitySql.toString());) {
@@ -158,7 +158,7 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
                             fieldActivity.setFieldId(rs.getInt("field_id"));
                             fieldActivity.setFieldActivityTypeId(rs.getInt("field_activity_type_id"));
                             fieldActivity.setFieldActivityDesc(rs.getString("description"));
-                            fieldActivity.setFieldActivityDate(rs.getTimestamp("activity_datetz"));
+                            fieldActivity.setFieldActivityDate(rs.getString("activity_datetz"));
                             fieldActivityArrayList.add(fieldActivity);
                         }
                         fieldDetail.setFieldActivities(fieldActivityArrayList);

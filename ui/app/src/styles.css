@@ -110,7 +110,18 @@ a.backLink:hover {
   padding-right: 3%;
   height: 100%;
 }
+table {
+  border-collapse: collapse;
+}
 
+
+table, th, td {
+  border: 0.5px solid lightgray;
+}
+
+td {
+  vertical-align: top;
+}
 #mapid {
   text-align: left;
   height: 512px;
