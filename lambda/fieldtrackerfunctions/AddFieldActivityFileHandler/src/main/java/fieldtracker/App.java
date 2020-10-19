@@ -35,7 +35,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
     private Logger lgr = Logger.getLogger(App.class.getName());
 
-
     public APIGatewayProxyResponseEvent handleRequest(final APIGatewayProxyRequestEvent input, final Context context) {
         Map<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/json");
@@ -50,11 +49,13 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
                 Map<String, String> queryStringParameters = input.getQueryStringParameters();
                 Map<String, String> pathParameters = input.getPathParameters();
                 String requestString = input.getBody();
+                lgr.log(Level.INFO, "input.getBody(): " + requestString);
                 JSONParser parser = new JSONParser();
                 JSONObject requestJsonObject = (JSONObject) parser.parse(requestString);
                 if (pathParameters != null) {
                     fieldId = pathParameters.get("fieldid");
                     fieldActivityId = pathParameters.get("activityid");
+                    lgr.log(Level.INFO, "pathParameters: : " + pathParameters);
                 } else if (queryStringParameters != null) {
                     fieldId = queryStringParameters.get("fieldid");
                     fieldActivityId = queryStringParameters.get("activityid");
@@ -74,7 +75,6 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
                         activityFile = requestJsonObject.get("fieldActivityFileLocation").toString();
                     }
                 }
-
             } catch (ParseException ex) {
                 lgr.log(Level.SEVERE, "ParseException caught: " + ex.getMessage(), ex);
             }

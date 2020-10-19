@@ -13,6 +13,8 @@ import {Field} from "./field";
 export class FileuploadService {
 
   private fieldsAPIUrl = "https://ky1bp4f5sl.execute-api.us-east-1.amazonaws.com/Prod/fields";
+  //https://ky1bp4f5sl.execute-api.us-east-1.amazonaws.com/Prod/fields/{fieldid}/activities/{activityid}/activityfiles
+
   fieldActivityFile: FieldActivityFile;
 
   httpOptions = {
@@ -68,16 +70,36 @@ export class FileuploadService {
     });
   }
 
-  addFieldActivityFile(fieldId: string, fieldActivityId: string, fieldActivityFile: FieldActivityFile): Observable<FieldActivityFile> {
+  addFieldActivityFile(fieldId: string, fieldActivityId: string, fieldActivityFile: FieldActivityFile) {
     console.log("addFieldActivityFile()");
     console.log("fieldActivityFile: " + JSON.stringify(fieldActivityFile));
+    //https://ky1bp4f5sl.execute-api.us-east-1.amazonaws.com/Prod/fields/{fieldid}/activities/{activityid}/activityfiles
     const url = `${this.fieldsAPIUrl}/${fieldId}/activities/${fieldActivityId}/activityfiles`;
     console.log("url: " + url);
-    return this.http.post<FieldActivityFile>(url, fieldActivityFile, this.httpOptions).pipe(
-      tap((newFieldActivityFile: FieldActivityFile) => console.log(`added field activity file =${newFieldActivityFile.fieldActivityFileId}`)),
-      catchError(this.handleError<any>('addFieldActivityFile'))
-    );
-  };
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(fieldActivityFile)
+    })
+      .then(function (response) {
+        //console.log("response: " + response);
+        return response.json();
+      })
+      .then(function (data) {
+        console.log("data: " + JSON.stringify(data));
+        //addDataToMap(data, "");
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+
+    // return this.http.post<string>(url, fieldActivityFile, this.httpOptions).pipe(
+    //   tap(_ => console.log(`added field activity file =${fieldActivityFile.fieldActivityFileLocation}`)),
+    //   catchError(this.handleError<FieldActivityFile>('addFieldActivityFile'))
+    // );
+  }
 
 
   private handleError<T>(operation = 'operation', result?: T) {
