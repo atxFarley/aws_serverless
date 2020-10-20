@@ -34,8 +34,8 @@ export class FileuploadService {
     console.log("file size: " + file.size);
     const bucket = new S3(
       {
-        accessKeyId: 'AKIARMZC7KNTOQO5SY3U',
-        secretAccessKey: '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',
+        accessKeyId: '',
+        secretAccessKey: '',
         region: 'us-east-1'
       }
     );
