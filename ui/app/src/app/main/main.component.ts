@@ -20,8 +20,8 @@ import {FieldactivityfiletypeService} from "../fieldactivityfiletype.service";
 import {FileuploadService} from "../fileupload.service";
 import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
-import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import {Observable, of} from 'rxjs';
+import {catchError, map, tap, concatMap} from 'rxjs/operators';
 
 
 declare var leafletMap: any;
@@ -126,10 +126,14 @@ export class MainComponent implements OnInit, OnChanges {
 
   fileUpload() {
     console.log("fileUpload()");
-    this.fileuploadService.uploadFile(this.uploadFile, this.selectedFieldId.toString(), this.selectedFieldActivityId)
-      .subscribe(fieldActivityFile => this.fileuploadService.addFieldActivityFile(this.selectedFieldId.toString(), this.selectedFieldActivityId, fieldActivityFile));
+    let fileUploadURL = this.fileuploadService.getPresignedURL(this.uploadFile, this.selectedFieldId.toString(), this.selectedFieldActivityId).pipe(
+      concatMap(fileUpload => this.fileuploadService.uploadFile(fileUpload, this.uploadFile, this.selectedFieldId.toString(), this.selectedFieldActivityId).pipe(
+        concatMap(fieldActivityFile => this.fileuploadService.addFieldActivityFile(this.selectedFieldId.toString(), this.selectedFieldActivityId, fieldActivityFile))
+        )
+      )
+    );
+    fileUploadURL.subscribe(() => console.log("done"));
   }
-
 
 
   fileChange(event, selectedFieldActivityId) {

@@ -271,4 +271,21 @@ Resources:
           Properties:
             Path: /fields/{fieldid}/activities/{activityid}/activityfiles/{activityfileid}
             Method: delete
+  GetBucketPresignedUrlHandler:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: GetBucketPresignedUrlHandler
+      Handler: fieldtracker.App::handleRequest
+      Role: arn:aws:iam::096173249382:role/lambda-s3-role
+      Runtime: java8
+      MemorySize: 512
+      Environment: # More info about Env Vars: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#environment-object
+        Variables:
+          PARAM1: VALUE
+      Events:
+        ListField:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /fields/s3url
+            Method: post
 
