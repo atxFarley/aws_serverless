@@ -1,27 +1,29 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
-import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import {Observable, of} from 'rxjs';
+import {catchError, map, tap} from 'rxjs/operators';
 
 import {Field} from "./field";
 import {FieldAttribute} from "./fieldAttribute";
 import {FieldActivity} from "./fieldActivity";
 import {FieldActivityFile} from "./fieldActivityFile";
 import {FieldHistory} from "./fieldHistory";
+import {environment} from './../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FieldService {
 
-  private fieldsAPIUrl = "https://ky1bp4f5sl.execute-api.us-east-1.amazonaws.com/Prod/fields";
+  private fieldsAPIUrl = environment.fieldsAPIUrl;
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
 
   /** GET field by id. Return `undefined` when id not found */

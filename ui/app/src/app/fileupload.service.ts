@@ -7,15 +7,15 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {catchError, map, tap, concatMap} from "rxjs/operators";
 import {Field} from "./field";
 import {prepareEventListenerParameters} from "@angular/compiler/src/render3/view/template";
-
+import {environment} from './../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FileuploadService {
 
-  private fieldsAPIUrl = "https://ky1bp4f5sl.execute-api.us-east-1.amazonaws.com/Prod/fields";
-  private fieldsS3BucketUrl = "https://fieldactivityfiles.s3.amazonaws.com/";
+  private fieldsAPIUrl = environment.fieldsAPIUrl;
+  private fieldsS3BucketUrl = environment.fieldsS3BucketUrl;
 
   fieldActivityFile: FieldActivityFile;
 

@@ -4,13 +4,14 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {catchError, map, tap} from 'rxjs/operators';
 import {FieldActivityFileType} from "./fieldActivityFileType";
+import {environment} from './../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FieldactivityfiletypeService {
 
-  private fieldUsersAPIUrl = "https://ky1bp4f5sl.execute-api.us-east-1.amazonaws.com/Prod/fieldactivityfiletypes";
+  private fieldActivityFileTypesAPIUrl = environment.fieldActivityFileTypesAPIUrl;
   httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
@@ -20,7 +21,7 @@ export class FieldactivityfiletypeService {
 
   /** GET field users from the server */
   getFieldActivityFileTypes(): Observable<FieldActivityFileType[]> {
-    return this.http.get<FieldActivityFileType[]>(this.fieldUsersAPIUrl)
+    return this.http.get<FieldActivityFileType[]>(this.fieldActivityFileTypesAPIUrl)
       .pipe(
         tap(_ => console.log('fetched field activity file types')),
         catchError(this.handleError<FieldActivityFileType[]>('getFieldActivityFileTypes', []))

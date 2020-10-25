@@ -8,18 +8,22 @@ var leafletMap = (function () {
   let featureSelection;
   let featureLayer;
   let layerControl;
-  let apiURL = "https://ky1bp4f5sl.execute-api.us-east-1.amazonaws.com/Prod";
+  let apiURL = "";
   let fieldsURLPath = "/fields";
   let searchFieldsURLPath = "/fields/search";
   let searchFieldsURLQueryParamName = "search";
   let editableLayers;
   let recentSearchBoxValue = "";
+  let mapBoxURL = "";
 
-  function init() {
-    console.log("in leafletMap init()");
+  function init(apiUrl, mapboxurl) {
+    console.log("in leafletMap init(apiUrl: " + apiUrl + ", mapboxurl: " + mapboxurl + ")");
 
     // create map and set center and zoom level
     try {
+      apiURL = apiUrl;
+      mapBoxURL = mapboxurl;
+      console.log("apiURL: " + apiURL + ", mpaBoxURL: " + mapBoxURL);
       map = new L.map('mapid');
       map.setView([32.112355, -98.537303], 12);
       map.options.minZoom = 5;
@@ -104,9 +108,11 @@ var leafletMap = (function () {
           })
           .then(function (data) {
             console.log("data: " + JSON.stringify(data));
+            featureSelection = layer;
             searchFields(recentSearchBoxValue);
             map.removeLayer(layer);
             //addDataToMap(data, "");
+            map.fitBounds(layer.getBounds());
           })
           .catch((error) => {
             console.error('Error:', error);
@@ -141,8 +147,7 @@ var leafletMap = (function () {
 
       //basemaps
       console.log("add mapbox basemap");
-      let mapboxSatStreet = L.tileLayer("https://api.mapbox.com/styles/v1/alfarley/ckfu0q0fv07oz19lpffu7cjd6/tiles/256/{z}/{x}/{y}?access_token=\n" +
-        "pk.eyJ1IjoiYWxmYXJsZXkiLCJhIjoiOWgxTzVWRSJ9.wPUIEFeXYqsWzhTT8LlDng\n", {
+      let mapboxSatStreet = L.tileLayer(mapBoxURL, {
         attribution: '&copy; <a href="https://www.mapbox.com/about/maps/">Mapbox</a>, &copy; <a href="http://www.openstreetmap.org/about/">OpenStreetMap</a> and <a href="https://www.mapbox.com/map-feedback/#/-74.5/40/10">Improve this map</a>'
       });
       console.log("add OSM as basemap");
@@ -174,6 +179,7 @@ var leafletMap = (function () {
     console.log("searchFields(searchboxValue: " + searchboxValue + ")");
     recentSearchBoxValue = searchboxValue;
     let lambdaURL = apiURL;
+    clearFieldDiv();
     if (searchboxValue != undefined && searchboxValue.trim().length == 0) {
       lambdaURL += fieldsURLPath;
       console.log("lambdaURL: " + lambdaURL);
@@ -250,6 +256,11 @@ var leafletMap = (function () {
       fieldsLayer.addTo(map);
       editableLayers.addTo(map);
       map.fitBounds(fieldsLayer.getBounds());
+      if (featureSelection) {
+        resetStyles();
+        map.fitBounds(featureSelection.getBounds());
+      }
+
       // console.log("fieldsLayer added");
     } catch (e) {
       console.log("Exception caught adding geoJson layer: " + e)
@@ -297,7 +308,7 @@ var leafletMap = (function () {
     }
   };
 
-  // handle click events on county features
+  // handle click events on field features
   function fieldOnEachFeature(feature, layer) {
     try {
       layer.bindPopup("<b> Field ID: </b>" + feature.fieldId + "<br/> <b>Field Name: </b>" + feature.properties.fieldname + "<br/><b>Grower: </b>" + feature.properties.growername);
@@ -341,7 +352,7 @@ var leafletMap = (function () {
 
   function writeFieldDiv(currentFeature) {
     console.log("writeFieldDiv");
-    $("#fieldDiv").html("")
+    $("#fieldDiv").html("");
     let propertiesObject = currentFeature.properties;
     let growerName = propertiesObject["growername"];
     let fieldName = propertiesObject["fieldname"];
@@ -358,6 +369,13 @@ var leafletMap = (function () {
     $("#fieldID").val(currentFeature.fieldId).trigger('input').trigger('change');
 
     console.log("fieldID value: " + $("#fieldID").val())
+  }
+
+  function clearFieldDiv() {
+    console.log("clearFieldDiv");
+    $("#fieldDiv").html("");
+    $("#fieldDetailsButton").css("display", "none");
+    $("#fieldDetails").css("display", "none");
   }
 
   return {

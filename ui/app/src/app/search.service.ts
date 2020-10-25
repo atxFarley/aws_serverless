@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+
+import {environment} from './../environments/environment';
 declare var leafletMap: any;
 
 @Injectable({
@@ -7,6 +9,7 @@ declare var leafletMap: any;
 })
 export class SearchService {
 
+  private apiUrl = environment.apiURL;
 
   searchFields(searchboxValue: string) : Observable<void> {
     console.log("search service searchFields(" + searchboxValue + ")");

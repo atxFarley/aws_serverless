@@ -22,7 +22,7 @@ import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
 import {Observable, of} from 'rxjs';
 import {catchError, map, tap, concatMap} from 'rxjs/operators';
-
+import {environment} from '../../environments/environment';
 
 declare var leafletMap: any;
 
@@ -54,7 +54,7 @@ export class MainComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    leafletMap.init();
+    leafletMap.init(environment.apiURL, environment.mapboxUrl);
     this.getFieldUsers();
     this.getFieldActivityTypes();
     this.getFieldActivityFileTypes();

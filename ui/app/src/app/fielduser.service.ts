@@ -4,13 +4,14 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {catchError, map, tap} from 'rxjs/operators';
 import {FieldUser} from "./fieldUser";
+import {environment} from './../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FielduserService {
 
-  private fieldUsersAPIUrl = "https://ky1bp4f5sl.execute-api.us-east-1.amazonaws.com/Prod/fieldusers";
+  private fieldUsersAPIUrl = environment.fieldUsersAPIUrl;
   httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
