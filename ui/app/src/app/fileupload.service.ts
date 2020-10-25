@@ -92,12 +92,12 @@ export class FileuploadService {
         .then(function (data) {
           console.log("data: " + JSON.stringify(data));
           //addDataToMap(data, "");
+          observer.next(fieldActivityFile);
+          observer.complete();
         })
         .catch((error) => {
           console.error('Error:', error);
         });
-      observer.next(fieldActivityFile);
-      observer.complete();
     });
     // return this.http.post<string>(url, fieldActivityFile, this.httpOptions).pipe(
     //   tap(_ => console.log(`added field activity file =${fieldActivityFile.fieldActivityFileLocation}`)),

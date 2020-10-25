@@ -128,11 +128,19 @@ export class MainComponent implements OnInit, OnChanges {
     console.log("fileUpload()");
     let fileUploadURL = this.fileuploadService.getPresignedURL(this.uploadFile, this.selectedFieldId.toString(), this.selectedFieldActivityId).pipe(
       concatMap(fileUpload => this.fileuploadService.uploadFile(fileUpload, this.uploadFile, this.selectedFieldId.toString(), this.selectedFieldActivityId).pipe(
-        concatMap(fieldActivityFile => this.fileuploadService.addFieldActivityFile(this.selectedFieldId.toString(), this.selectedFieldActivityId, fieldActivityFile))
+        concatMap(fieldActivityFile => this.fileuploadService.addFieldActivityFile(this.selectedFieldId.toString(), this.selectedFieldActivityId, fieldActivityFile)
+          .pipe(
+            concatMap((data: any) => {
+                this.getFieldDetails()
+                return of()
+              }
+            )
+          )
+        )
         )
       )
     );
-    fileUploadURL.subscribe(() => console.log("done"));
+    fileUploadURL.subscribe(() => console.log("completed entire sequence"));
   }
 
 
