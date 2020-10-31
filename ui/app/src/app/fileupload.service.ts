@@ -63,7 +63,7 @@ export class FileuploadService {
       const upload = this.http.put(presignedUrl, file).toPromise();
       upload.then(data => {
         console.log('upload success => ', data)
-        fileURL = this.fieldsS3BucketUrl + fileKey;
+        fileURL = this.fieldsS3BucketUrl + "/" +  fileKey;
         console.log("file location: " + fileURL);
         fieldActivityFile.fieldActivityFileLocation = fileURL;
         observer.next(fieldActivityFile);

@@ -48,12 +48,13 @@ var leafletMap = (function () {
           //       }
           //     },
           polygon: {
-            allowIntersection: true, // Restricts shapes to simple polygons
+            allowIntersection: false, // Restricts shapes to simple polygons
             showLength: true,
             showArea: true,
             metric: false,
             drawError: {
               color: '#e1e100', // Color the shape will turn when intersects
+              timeout: 1000,
               message: '<strong>Polygon draw does not allow intersections!<strong> (allowIntersection: false)' // Message that will show when intersect
             },
             shapeOptions: {
