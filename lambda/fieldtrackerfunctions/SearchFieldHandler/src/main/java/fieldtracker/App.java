@@ -83,13 +83,15 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
             sql.append("     'geometry',   ST_AsGeoJSON(field_geom)::jsonb, ");
             sql.append("   'properties', to_jsonb(inputs) - 'field_id' - 'field_geom' ");
             sql.append("   ) AS feature ");
-            sql.append(" FROM (SELECT field.field_id, field_geom, field.field_name as fieldName,field_user.first_name|| ' ' ||field_user.last_name as growerName from field_manage.field ");
+            sql.append(" FROM (SELECT field.field_id, field_geom, field.field_name as fieldName,field_user.first_name|| ' ' ||field_user.last_name as growerName, ");
+            sql.append(" (select cast(count(*) as text) from field_manage.field_activity where field_activity.field_id=field.field_id) as activity_count ");
+            sql.append(" from field_manage.field ");
             sql.append(" left outer join field_manage.field_grower ");
             sql.append(" on field.field_id = field_grower.field_id  ");
             sql.append(" left outer join field_manage.field_user  ");
             sql.append(" on field_grower.grower_id = field_user.field_user_id  ");
             if (growerName != null && !(growerName.trim().isEmpty())) {
-                if (NO_GROWER_ASSIGN.equals(growerName.trim().toUpperCase())){
+                if (NO_GROWER_ASSIGN.equals(growerName.trim().toUpperCase())) {
                     sql.append(" where (field_manage.field_user.last_name is null) ");
                 } else {
                     sql.append(" where (upper(field_manage.field_user.last_name) = upper('");

@@ -158,7 +158,8 @@ FROM (
     'geometry',   ST_AsGeoJSON(ST_Transform(field_geom, 3857))::jsonb,
     'properties', to_jsonb(inputs) - 'field_id' - 'field_geom'
   ) AS feature
-  FROM (SELECT field.field_id, field_geom, field.field_name,field_user.first_name|| ' ' ||field_user.last_name as grower from field
+  FROM (SELECT field.field_id, field_geom, field.field_name,field_user.first_name|| ' ' ||field_user.last_name as grower,
+(select count(*)from field_activity where field_activity.field_id=field.field_id) as activity_count from field
 left outer join field_grower
 on field.field_id = field_grower.field_id
 left outer join field_user

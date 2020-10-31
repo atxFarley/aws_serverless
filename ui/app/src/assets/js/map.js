@@ -133,26 +133,66 @@ var leafletMap = (function () {
           console.log("layer: " + JSON.stringify(layer.toGeoJSON()));
           //do whatever you want; most likely save back to db
         });
+
+        //should do a get field and see if activity is associated with it before allowing delete
         // Update db to save latest changes.
       });
 
-      map.on('draw:draw:deletestart', function (e) {
+      map.on('draw:deletestart', function (e) {
         console.log("draw:deletestart: e " + e);
-        alert("Delete is not allowed yet.  Deletes can be dangerous.");
+        //alert("Delete is not allowed yet.  Deletes can be dangerous.");
       });
 
       map.on('draw:deleted', function (e) {
-        console.log("e: " + e);
+        console.log("draw:deleted: e: " + e);
         let layers = e.layers;
         layers.eachLayer(function (layer) {
+
+
           console.log("layer: " + layer.getLatLngs());
           console.log("layer: " + JSON.stringify(layer.toGeoJSON()));
-          //editableLayers.removeLayer(layer);
-          //do whatever you want; most likely save back to db
+          console.log("layer type: " + layer.toGeoJSON().geometry["type"]);
+          console.log("field_id: " + layer.toGeoJSON().fieldId);
+          console.log("activity count: " + layer.toGeoJSON().properties["activity_count"]);
+
+          let fieldId = layer.toGeoJSON().fieldId;
+          let activityCount = layer.toGeoJSON().properties["activity_count"];
+          let type = layer.toGeoJSON().geometry["type"];
+          if (fieldId != undefined && parseInt(fieldId) > 0 && activityCount != undefined && parseInt(activityCount) < 1 && type == 'Polygon') {
+            console.log("this feature is eligible for deletion");
+            editableLayers.removeLayer(layer);
+            //do whatever you want; most likely save back to db
+            // Update db to save latest changes.
+            let lambdaURL = apiURL;
+            lambdaURL += fieldsURLPath + "/" + fieldId;
+            console.log("lambdaURL: " + lambdaURL);
+            fetch(lambdaURL, {
+              method: 'DELETE',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(fieldId)
+            })
+              .then(function (response) {
+                //console.log("response: " + response);
+                return response.json();
+              })
+              .then(function (data) {
+                console.log("data: " + JSON.stringify(data));
+                featureSelection = layer;
+                searchFields(recentSearchBoxValue);
+                map.removeLayer(layer);
+                //addDataToMap(data, "");
+                map.fitBounds(layer.getBounds());
+              })
+              .catch((error) => {
+                console.error('Error:', error);
+              });
+            console.log("feature removed");
+          } else {
+            alert("This feature has activity attached.  It is not eligible for deletion. ");
+          }
         });
-        console.log("feature removed");
-        alert("Delete is not allowed yet.  Deletes can be dangerous.");
-        // Update db to save latest changes.
       });
 
       //basemaps
