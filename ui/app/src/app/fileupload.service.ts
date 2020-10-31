@@ -66,6 +66,7 @@ export class FileuploadService {
         fileURL = this.fieldsS3BucketUrl + "/" +  fileKey;
         console.log("file location: " + fileURL);
         fieldActivityFile.fieldActivityFileLocation = fileURL;
+        console.log("fieldActivityFile.fieldActivityFileLocation: " + fieldActivityFile.fieldActivityFileLocation);
         observer.next(fieldActivityFile);
         observer.complete();
       }).catch(err => console.error('error: ', err))
