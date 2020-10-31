@@ -143,7 +143,7 @@ var leafletMap = (function () {
           //do whatever you want; most likely save back to db
         });
         console.log("feature removed");
-        alert("I don't work yet.  Deleting is a dangerous activity.  ");
+        alert("Delete is not allowed yet.  Deletes can be dangerous.");
         // Update db to save latest changes.
       });
 
