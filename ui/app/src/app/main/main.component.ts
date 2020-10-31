@@ -54,6 +54,7 @@ export class MainComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+    console.log("main ngOnInit()");
     leafletMap.init(environment.apiURL, environment.mapboxUrl);
     this.getFieldUsers();
     this.getFieldActivityTypes();
