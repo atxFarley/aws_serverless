@@ -40,6 +40,8 @@ var leafletMap = (function () {
       var drawPluginOptions = {
         position: 'bottomleft',
         draw: {
+          marker: true,
+          circlemarker: false,
           polyline: false,
           // {
           //       shapeOptions: {
@@ -85,42 +87,43 @@ var leafletMap = (function () {
         let type = e.layerType;
         let layer = e.layer;
 
-        if (type === 'marker') {
-          layer.bindPopup('A popup!');
-        }
         console.log("layer: " + layer);
         console.log("type: " + type);
-        console.log("layer: " + layer.getLatLngs());
-        console.log("layer: " + JSON.stringify(layer.toGeoJSON()));
-        editableLayers.addLayer(layer);
-        let lambdaURL = apiURL;
-        lambdaURL += fieldsURLPath;
-        console.log("lambdaURL: " + lambdaURL);
-        fetch(lambdaURL, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(layer.toGeoJSON())
-        })
-          .then(function (response) {
-            //console.log("response: " + response);
-            return response.json();
+        if (type === 'marker') {
+          //layer.bindPopup('A popup!');
+          alert("I don't work yet");
+        } else if (type == 'polygon') {
+          console.log("layer: " + layer.getLatLngs());
+          console.log("layer: " + JSON.stringify(layer.toGeoJSON()));
+          editableLayers.addLayer(layer);
+          let lambdaURL = apiURL;
+          lambdaURL += fieldsURLPath;
+          console.log("lambdaURL: " + lambdaURL);
+          fetch(lambdaURL, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(layer.toGeoJSON())
           })
-          .then(function (data) {
-            console.log("data: " + JSON.stringify(data));
-            featureSelection = layer;
-            searchFields(recentSearchBoxValue);
-            map.removeLayer(layer);
-            //addDataToMap(data, "");
-            map.fitBounds(layer.getBounds());
-          })
-          .catch((error) => {
-            console.error('Error:', error);
-          });
+            .then(function (response) {
+              //console.log("response: " + response);
+              return response.json();
+            })
+            .then(function (data) {
+              console.log("data: " + JSON.stringify(data));
+              featureSelection = layer;
+              searchFields(recentSearchBoxValue);
+              map.removeLayer(layer);
+              //addDataToMap(data, "");
+              map.fitBounds(layer.getBounds());
+            })
+            .catch((error) => {
+              console.error('Error:', error);
+            });
 
-        console.log("feature added");
-
+          console.log("feature added");
+        }
       });
 
       map.on('draw:edited', function (e) {
@@ -131,6 +134,11 @@ var leafletMap = (function () {
           //do whatever you want; most likely save back to db
         });
         // Update db to save latest changes.
+      });
+
+      map.on('draw:draw:deletestart', function (e) {
+        console.log("draw:deletestart: e " + e);
+        alert("Delete is not allowed yet.  Deletes can be dangerous.");
       });
 
       map.on('draw:deleted', function (e) {
