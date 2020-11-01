@@ -1,6 +1,6 @@
-import {FieldAttribute} from "./fieldAttribute";
-import {FieldActivity} from "./fieldActivity";
-import {FieldHistory} from "./fieldHistory";
+import {FieldAttribute} from './fieldAttribute';
+import {FieldActivity} from './fieldActivity';
+import {FieldHistory} from './fieldHistory';
 
 export interface Field {
 

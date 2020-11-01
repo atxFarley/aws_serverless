@@ -1,8 +1,8 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {Field} from '../field';
-import {FieldAttribute} from "../fieldAttribute";
-import {FieldActivity} from "../fieldActivity";
-import {FieldHistory} from "../fieldHistory";
+import {FieldAttribute} from '../fieldAttribute';
+import {FieldActivity} from '../fieldActivity';
+import {FieldHistory} from '../fieldHistory';
 
 @Component({
   selector: 'app-history',
@@ -16,19 +16,19 @@ export class HistoryComponent implements OnInit {
 
   field: Field = {
     fieldId: 1,
-    fieldName: "Test Field",
-    fieldDesc: "This is a field description",
-    growerName: "Amy Farley",
+    fieldName: 'Test Field',
+    fieldDesc: 'This is a field description',
+    growerName: 'Amy Farley',
     growerId: 1,
-    ownerName: "",
+    ownerName: '',
     ownerId: 1,
     acres: 40,
-    addressStreet: "",
-    addressCity: "",
-    addressState: "",
-    addressZip: "",
-    addressCounty: "",
-    addressDesc: "",
+    addressStreet: '',
+    addressCity: '',
+    addressState: '',
+    addressZip: '',
+    addressCounty: '',
+    addressDesc: '',
     fieldAttributes: this.attributes,
     fieldActivities: this.activities,
     fieldHistory: this.history

@@ -5,11 +5,11 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {catchError, map, tap} from 'rxjs/operators';
 
-import {Field} from "./field";
-import {FieldAttribute} from "./fieldAttribute";
-import {FieldActivity} from "./fieldActivity";
-import {FieldActivityFile} from "./fieldActivityFile";
-import {FieldHistory} from "./fieldHistory";
+import {Field} from './field';
+import {FieldAttribute} from './fieldAttribute';
+import {FieldActivity} from './fieldActivity';
+import {FieldActivityFile} from './fieldActivityFile';
+import {FieldHistory} from './fieldHistory';
 import {environment} from './../environments/environment';
 
 @Injectable({
@@ -42,7 +42,7 @@ export class FieldService {
 
   /** GET field by id. Will 404 if id not found */
   getField(id: number): Observable<Field> {
-    console.log("getField: " + id);
+    console.log('getField: ' + id);
     const url = `${this.fieldsAPIUrl}/${id}`;
     return this.http.get<Field>(url).pipe(
       tap(_ => console.log(`fetched field id=${id}`)),
@@ -63,7 +63,7 @@ export class FieldService {
 
   /** PUT: update the field on the server */
   updateField(field: Field): Observable<any> {
-    console.log("in updateField() in fieldService: field: " + field.fieldId);
+    console.log('in updateField() in fieldService: field: ' + field.fieldId);
     const url = `${this.fieldsAPIUrl}/${field.fieldId}`;
     return this.http.put(url, field, this.httpOptions).pipe(
       tap(_ => console.log(`updated field id=${field.fieldId}`)),

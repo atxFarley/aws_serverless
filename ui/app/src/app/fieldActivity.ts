@@ -1,4 +1,4 @@
-import {FieldActivityFile} from "./fieldActivityFile";
+import {FieldActivityFile} from './fieldActivityFile';
 
 export interface FieldActivity {
 
@@ -7,6 +7,6 @@ export interface FieldActivity {
   fieldActivityDate: string;
   fieldActivityType: string;
   fieldActivityTypeId: string;
-  fieldActivityDesc: string
+  fieldActivityDesc: string;
   fieldActivityFiles: FieldActivityFile[];
 }

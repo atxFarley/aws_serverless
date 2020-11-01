@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
 import * as S3 from 'aws-sdk/clients/s3';
-import {Observable, Observer, of, pipe} from "rxjs";
-import {FileUpload} from "./fileUpload";
-import {FieldActivityFile} from "./fieldActivityFile";
+import {Observable, Observer, of, pipe} from 'rxjs';
+import {FileUpload} from './fileUpload';
+import {FieldActivityFile} from './fieldActivityFile';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {catchError, map, tap, concatMap} from "rxjs/operators";
-import {Field} from "./field";
-import {prepareEventListenerParameters} from "@angular/compiler/src/render3/view/template";
+import {catchError, map, tap, concatMap} from 'rxjs/operators';
+import {Field} from './field';
+import {prepareEventListenerParameters} from '@angular/compiler/src/render3/view/template';
 import {environment} from './../environments/environment';
 
 @Injectable({
@@ -27,13 +27,13 @@ export class FileuploadService {
   }
 
   getPresignedURL(file, fieldId: string, fieldActivityId: string): Observable<FileUpload> {
-    console.log("getPresignedURL(fieldId: " + fieldId + ", fieldActivityId: " + fieldActivityId + ")");
+    console.log('getPresignedURL(fieldId: ' + fieldId + ', fieldActivityId: ' + fieldActivityId + ')');
     const contentType = file.type;
-    console.log("contentType: " + contentType);
+    console.log('contentType: ' + contentType);
     const fileSize = file.size;
-    console.log("file size: " + file.size);
-    let fileKey = fieldId + "/" + fieldActivityId + "/" + file.name;
-    let fileUpload = {} as FileUpload;
+    console.log('file size: ' + file.size);
+    const fileKey = fieldId + '/' + fieldActivityId + '/' + file.name;
+    const fileUpload = {} as FileUpload;
     fileUpload.fileKey = fileKey;
     fileUpload.fileContentType = contentType;
     const url = `${this.fieldsAPIUrl}/s3url`;
@@ -45,28 +45,28 @@ export class FileuploadService {
 
 
   uploadFile(fileUpload: FileUpload, file, fieldId: string, fieldActivityId: string): Observable<FieldActivityFile> {
-    console.log("uploadFile(fieldId: " + fieldId + ", fieldActivityId: " + fieldActivityId + ")");
+    console.log('uploadFile(fieldId: ' + fieldId + ', fieldActivityId: ' + fieldActivityId + ')');
     let fieldActivityFile = {} as FieldActivityFile;
     const contentType = file.type;
-    console.log("contentType: " + contentType);
+    console.log('contentType: ' + contentType);
     const fileSize = file.size;
-    console.log("file size: " + file.size);
+    console.log('file size: ' + file.size);
     fieldActivityFile.fieldActivityFileSizeMB = (fileSize / 1024 / 1024);
     fieldActivityFile.fieldActivityFilename = file.name;
     fieldActivityFile.fieldActivityId = parseInt(fieldActivityId);
-    console.log("fieldActivityFile: size: " + +fieldActivityFile.fieldActivityFileSizeMB);
-    let fileKey = fieldId + "/" + fieldActivityId + "/" + file.name;
+    console.log('fieldActivityFile: size: ' + +fieldActivityFile.fieldActivityFileSizeMB);
+    const fileKey = fieldId + '/' + fieldActivityId + '/' + file.name;
     let fileURL = null;
-    let presignedUrl = fileUpload.presignedUrl;
-    console.log("presignedUrl: " + presignedUrl);
+    const presignedUrl = fileUpload.presignedUrl;
+    console.log('presignedUrl: ' + presignedUrl);
     return Observable.create(observer => {
       const upload = this.http.put(presignedUrl, file).toPromise();
       upload.then(data => {
-        console.log('upload success => ', data)
-        fileURL = this.fieldsS3BucketUrl + "/" +  fileKey;
-        console.log("file location: " + fileURL);
+        console.log('upload success => ', data);
+        fileURL = this.fieldsS3BucketUrl + '/' +  fileKey;
+        console.log('file location: ' + fileURL);
         fieldActivityFile.fieldActivityFileLocation = fileURL;
-        console.log("fieldActivityFile.fieldActivityFileLocation: " + fieldActivityFile.fieldActivityFileLocation);
+        console.log('fieldActivityFile.fieldActivityFileLocation: ' + fieldActivityFile.fieldActivityFileLocation);
         observer.next(fieldActivityFile);
         observer.complete();
       }).catch(err => console.error('error: ', err))
@@ -74,10 +74,10 @@ export class FileuploadService {
   }
 
   addFieldActivityFile(fieldId: string, fieldActivityId: string, fieldActivityFile: FieldActivityFile): Observable<FieldActivityFile> {
-    console.log("addFieldActivityFile()");
-    console.log("fieldActivityFile: " + JSON.stringify(fieldActivityFile));
+    console.log('addFieldActivityFile()');
+    console.log('fieldActivityFile: ' + JSON.stringify(fieldActivityFile));
     const url = `${this.fieldsAPIUrl}/${fieldId}/activities/${fieldActivityId}/activityfiles`;
-    console.log("url: " + url);
+    console.log('url: ' + url);
     return Observable.create(observer => {
       fetch(url, {
         method: 'POST',
@@ -87,12 +87,12 @@ export class FileuploadService {
         body: JSON.stringify(fieldActivityFile)
       })
         .then(function (response) {
-          //console.log("response: " + response);
+          // console.log('response: ' + response);
           return response.json();
         })
         .then(function (data) {
-          console.log("data: " + JSON.stringify(data));
-          //addDataToMap(data, "");
+          console.log('data: ' + JSON.stringify(data));
+          // addDataToMap(data, '');
           observer.next(fieldActivityFile);
           observer.complete();
         })
@@ -108,12 +108,12 @@ export class FileuploadService {
 
 
 // uploadFile(file, fieldId: string, fieldActivityId: string): Observable<FieldActivityFile> {
-//   console.log("uploadFile(fieldId: " + fieldId + ", fieldActivityId: " + fieldActivityId + ")");
+//   console.log('uploadFile(fieldId: ' + fieldId + ', fieldActivityId: ' + fieldActivityId + ')');
 //   let fieldActivityFile = {} as FieldActivityFile;
 //   const contentType = file.type;
-//   console.log("contentType: " + contentType);
+//   console.log('contentType: ' + contentType);
 //   const fileSize = file.size;
-//   console.log("file size: " + file.size);
+//   console.log('file size: ' + file.size);
 //   const bucket = new S3(
 //     {
 //       accessKeyId: '',
@@ -123,7 +123,7 @@ export class FileuploadService {
 //   );
 //   const params = {
 //     Bucket: 'fieldactivityfiles',
-//     Key: fieldId + "/" + fieldActivityId + "/" + file.name,
+//     Key: fieldId + '/' + fieldActivityId + '/' + file.name,
 //     Body: file,
 //     ACL: 'public-read',
 //     ContentType: contentType
@@ -140,12 +140,12 @@ export class FileuploadService {
 //       }
 //       console.log('Successfully uploaded file.', data);
 //       fileURL = data.Location;
-//       console.log("file location: " + fileURL);
+//       console.log('file location: ' + fileURL);
 //       fieldActivityFile.fieldActivityFileLocation = fileURL;
 //       fieldActivityFile.fieldActivityFileSizeMB = (fileSize / 1024 / 1024);
 //       fieldActivityFile.fieldActivityFilename = file.name;
 //       fieldActivityFile.fieldActivityId = parseInt(fieldActivityId);
-//       console.log("fieldActivityFile: size: " + +fieldActivityFile.fieldActivityFileSizeMB);
+//       console.log('fieldActivityFile: size: ' + +fieldActivityFile.fieldActivityFileSizeMB);
 //       observer.next(fieldActivityFile);
 //       observer.complete();
 //     });

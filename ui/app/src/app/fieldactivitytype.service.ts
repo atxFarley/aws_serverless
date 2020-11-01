@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 import {Observable, of} from 'rxjs';
 import {catchError, map, tap} from 'rxjs/operators';
-import {FieldActivityType} from "./fieldActivityType";
+import {FieldActivityType} from './fieldActivityType';
 import {environment} from './../environments/environment';
 
 

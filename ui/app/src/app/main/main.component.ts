@@ -8,16 +8,16 @@ import {
 
 
 import {Field} from '../field';
-import {FieldUser} from "../fieldUser";
-import {FieldActivityType} from "../fieldActivityType";
-import {FieldActivityFileType} from "../fieldActivityFileType";
-import {FieldActivityFile} from "../fieldActivityFile";
+import {FieldUser} from '../fieldUser';
+import {FieldActivityType} from '../fieldActivityType';
+import {FieldActivityFileType} from '../fieldActivityFileType';
+import {FieldActivityFile} from '../fieldActivityFile';
 import {SearchService} from '../search.service';
-import {FieldService} from "../field.service";
-import {FielduserService} from "../fielduser.service";
-import {FieldactivitytypeService} from "../fieldactivitytype.service";
-import {FieldactivityfiletypeService} from "../fieldactivityfiletype.service";
-import {FileuploadService} from "../fileupload.service";
+import {FieldService} from '../field.service';
+import {FielduserService} from '../fielduser.service';
+import {FieldactivitytypeService} from '../fieldactivitytype.service';
+import {FieldactivityfiletypeService} from '../fieldactivityfiletype.service';
+import {FileuploadService} from '../fileupload.service';
 import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
 import {Observable, of} from 'rxjs';
@@ -32,7 +32,7 @@ declare var leafletMap: any;
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit, OnChanges {
-  @Input() searchVal: String;
+  @Input() searchVal: string;
 
   searchResults: Field[] = [];
   selectedField: Field;
@@ -54,7 +54,7 @@ export class MainComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    console.log("main ngOnInit()");
+    console.log('main ngOnInit()');
     leafletMap.init(environment.apiURL, environment.mapboxUrl);
     this.getFieldUsers();
     this.getFieldActivityTypes();
@@ -90,11 +90,11 @@ export class MainComponent implements OnInit, OnChanges {
   }
 
   searchFields(searchboxValue: string): void {
-    console.log("searchboxValue: " + searchboxValue);
+    console.log('searchboxValue: ' + searchboxValue);
     this.recentSearchBoxValue = searchboxValue;
     this.searchService.searchFields(searchboxValue)
       .subscribe(searchVal => {
-        this.searchVal = searchboxValue
+        this.searchVal = searchboxValue;
         // do something; without data it's just an event
       });
   }
@@ -102,15 +102,15 @@ export class MainComponent implements OnInit, OnChanges {
 
   getFieldDetails(): void {
     let value = this.selectedFieldId;
-    let element: HTMLInputElement = document.getElementById("fieldID") as HTMLInputElement;
+    let element: HTMLInputElement = document.getElementById('fieldID') as HTMLInputElement;
     value = parseInt(element.value);
     this.selectedFieldId = value;
     this.selectedField = null;
-    console.log("selectedFieldId: " + this.selectedFieldId);
-    document.getElementById("fieldDetails").style.display = "block";
+    console.log('selectedFieldId: ' + this.selectedFieldId);
+    document.getElementById('fieldDetails').style.display = 'block';
     this.fieldService.getField(this.selectedFieldId).subscribe(field => this.selectedField = field);
-    // console.log("Field Size: " + this.selectedField.acres);
-    // console.log("Field Desc: " + this.selectedField.fieldDesc);
+    // console.log('Field Size: ' + this.selectedField.acres);
+    // console.log('Field Desc: ' + this.selectedField.fieldDesc);
 
   }
 
@@ -120,20 +120,20 @@ export class MainComponent implements OnInit, OnChanges {
   }
 
   save(): void {
-    console.log("selected fieldId: " + this.selectedField.fieldId);
+    console.log('selected fieldId: ' + this.selectedField.fieldId);
     this.fieldService.updateField(this.selectedField)
       .subscribe(() => this.refreshSearch());
   }
 
   fileUpload() {
-    console.log("fileUpload()");
+    console.log('fileUpload()');
     let fileUploadURL = this.fileuploadService.getPresignedURL(this.uploadFile, this.selectedFieldId.toString(), this.selectedFieldActivityId).pipe(
       concatMap(fileUpload => this.fileuploadService.uploadFile(fileUpload, this.uploadFile, this.selectedFieldId.toString(), this.selectedFieldActivityId).pipe(
         concatMap(fieldActivityFile => this.fileuploadService.addFieldActivityFile(this.selectedFieldId.toString(), this.selectedFieldActivityId, fieldActivityFile)
           .pipe(
             concatMap((data: any) => {
-                this.getFieldDetails()
-                return of()
+                this.getFieldDetails();
+                return of();
               }
             )
           )
@@ -141,7 +141,7 @@ export class MainComponent implements OnInit, OnChanges {
         )
       )
     );
-    fileUploadURL.subscribe(() => console.log("completed entire sequence"));
+    fileUploadURL.subscribe(() => console.log('completed entire sequence'));
   }
 
 
