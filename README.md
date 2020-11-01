@@ -3,7 +3,7 @@
 ## Purpose
 This repository holds all the code, instructions, and documentation related to my Penn State MGIS capstone project.
 
-The purpose of this project is to create a geospatial data management and visualization tool to make sense of all the data inundating the ag industry
+The purpose of this project is to create a geospatial data management and visualization tool to make sense of all the data inundating the agriculture industry
 
 
 [![Build Status](https://travis-ci.com/atxFarley/aws_serverless.svg?branch=master)](https://travis-ci.com/atxFarley/aws_serverless) [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/atxFarley/aws_serverless/blob/master/LICENSE.txt) [![Open Source? Yes!](https://badgen.net/badge/Open%20Source%20%3F/Yes%21/blue?icon=github)](https://github.com/Naereen/badges/)
@@ -19,7 +19,7 @@ The data in the ag industry is coming from a variety of sources including satell
 
 This is an intimidating amount of data for any individual grower to negotiate. 
 
-Now, multiply that data for an agriculture consultant, growers’ association, or agriculture retailer servicing multiple growers, this amount increases exponentially and the management/analysis of it all requires a robust, scalable solution.  
+Multiply that data for an agriculture consultant, growers’ association, or agriculture retailer servicing multiple growers, this amount increases exponentially and the management/analysis of it all requires a robust, scalable solution.  
 
 The focus for this project is specifically on crop growers and organizations that access and/or manage field data for growers such as farm managers, agriculture retailers, grower associations, crop consultants, and agronomists.
 
@@ -32,7 +32,7 @@ The application should be easily configured and deployed to cloud-computing plat
 * No VMs!!
 
 ## Cloud Computing Platform
-This project was written specifically for deployment to AWS.  While the database and UI pieces are platform agnostic, the middle layer of the application is all AWS Lambda functions. 
+This project was written specifically for deployment to AWS.  While the database and UI pieces are platform-agnostic, the "middle-layer" of the application is a collection of AWS Lambda functions.
 A brief list of the main AWS services required for this application: 
 
 * Amazon Relational Database Service (Amazon RDS) - PostgreSQL database engine with PostGIS extensions
@@ -62,7 +62,7 @@ Costs of running this application should be limited to AWS service usage only.
 * Open-source!
 * Serverless - absolutely no EC2 instances.  
 
-    As a software developer the tasks around maintaining infrastructure (configuring virtual machines, allocating appropriate sizes) are soul-sucking.  
+    As a software developer, maintaining infrastructure (configuring virtual machines, allocating appropriate sizes) is soul-sucking.  
     I wanted to create a solution that required absolutely no VMs.  
 
     With cloud-computing platforms expanding services that manage underlying infrastructure for you, this was an opportunity to build out an entire application using ONLY readily-available services. 
@@ -74,11 +74,12 @@ Costs of running this application should be limited to AWS service usage only.
 
 ### Development Environment Configuration
 
-### Code 
+### AWS Service Configuration/Code Usage 
 #### Database
-#### AWS Lambda
-#### UI
 
+#### AWS Lambda
+
+#### UI
 
 
 ## API Reference
