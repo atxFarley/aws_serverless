@@ -10,4 +10,4 @@ before_script:
   - npm install -g @angular/cli
 script:
   - ng lint
-  - ng build --prod --base-href https://github.com/atxFarley/aws_serverless/tree/master/ui/app
+  - ng build --prod --base-href https://github.com/atxFarley/aws_serverless/master/ui/app
