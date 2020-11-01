@@ -4,3 +4,4 @@ This repository holds all the code, instructions, documentation related to MGIS 
 
 
 
+https://img.shields.io/github/license/atxFarley/aws_serverless
