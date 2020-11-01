@@ -45,9 +45,13 @@ export class MainComponent implements OnInit, OnChanges {
   uploadedFieldActivityFile: FieldActivityFile;
   selectedFieldActivityId: string;
 
-  constructor(private searchService: SearchService, private route: ActivatedRoute,
-              private location: Location, private fieldService: FieldService, private fieldUserService: FielduserService,
-              private fieldactivitytypeService: FieldactivitytypeService, private fieldactivityfiletypeService: FieldactivityfiletypeService,
+  constructor(private searchService: SearchService,
+              private route: ActivatedRoute,
+              private location: Location,
+              private fieldService: FieldService,
+              private fieldUserService: FielduserService,
+              private fieldactivitytypeService: FieldactivitytypeService,
+              private fieldactivityfiletypeService: FieldactivityfiletypeService,
               private fileuploadService: FileuploadService) {
 
 
@@ -102,8 +106,8 @@ export class MainComponent implements OnInit, OnChanges {
 
   getFieldDetails(): void {
     let value = this.selectedFieldId;
-    let element: HTMLInputElement = document.getElementById('fieldID') as HTMLInputElement;
-    value = parseInt(element.value);
+    const element: HTMLInputElement = document.getElementById('fieldID') as HTMLInputElement;
+    value = parseInt(element.value, 10);
     this.selectedFieldId = value;
     this.selectedField = null;
     console.log('selectedFieldId: ' + this.selectedFieldId);
@@ -125,27 +129,32 @@ export class MainComponent implements OnInit, OnChanges {
       .subscribe(() => this.refreshSearch());
   }
 
-  fileUpload() {
+  fileUpload(): any {
     console.log('fileUpload()');
-    let fileUploadURL = this.fileuploadService.getPresignedURL(this.uploadFile, this.selectedFieldId.toString(), this.selectedFieldActivityId).pipe(
-      concatMap(fileUpload => this.fileuploadService.uploadFile(fileUpload, this.uploadFile, this.selectedFieldId.toString(), this.selectedFieldActivityId).pipe(
-        concatMap(fieldActivityFile => this.fileuploadService.addFieldActivityFile(this.selectedFieldId.toString(), this.selectedFieldActivityId, fieldActivityFile)
+    const fileUploadURL = this.fileuploadService.getPresignedURL(this.uploadFile, this.selectedFieldId.toString(),
+      this.selectedFieldActivityId)
+      .pipe(
+        concatMap(fileUpload => this.fileuploadService.uploadFile(fileUpload, this.uploadFile, this.selectedFieldId.toString(),
+          this.selectedFieldActivityId)
           .pipe(
-            concatMap((data: any) => {
-                this.getFieldDetails();
-                return of();
-              }
+            concatMap(fieldActivityFile => this.fileuploadService.addFieldActivityFile(this.selectedFieldId.toString(),
+              this.selectedFieldActivityId, fieldActivityFile)
+              .pipe(
+                concatMap((data: any) => {
+                    this.getFieldDetails();
+                    return of();
+                  }
+                )
+              )
             )
           )
         )
-        )
-      )
-    );
+      );
     fileUploadURL.subscribe(() => console.log('completed entire sequence'));
   }
 
 
-  fileChange(event, selectedFieldActivityId) {
+  fileChange(event, selectedFieldActivityId): void {
     this.uploadFile = event.target.files[0];
     this.selectedFieldActivityId = selectedFieldActivityId;
   }

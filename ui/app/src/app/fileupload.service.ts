@@ -46,30 +46,30 @@ export class FileuploadService {
 
   uploadFile(fileUpload: FileUpload, file, fieldId: string, fieldActivityId: string): Observable<FieldActivityFile> {
     console.log('uploadFile(fieldId: ' + fieldId + ', fieldActivityId: ' + fieldActivityId + ')');
-    let fieldActivityFile = {} as FieldActivityFile;
+    const fieldActivityFile = {} as FieldActivityFile;
     const contentType = file.type;
     console.log('contentType: ' + contentType);
     const fileSize = file.size;
     console.log('file size: ' + file.size);
     fieldActivityFile.fieldActivityFileSizeMB = (fileSize / 1024 / 1024);
     fieldActivityFile.fieldActivityFilename = file.name;
-    fieldActivityFile.fieldActivityId = parseInt(fieldActivityId);
+    fieldActivityFile.fieldActivityId = parseInt(fieldActivityId, 10);
     console.log('fieldActivityFile: size: ' + +fieldActivityFile.fieldActivityFileSizeMB);
     const fileKey = fieldId + '/' + fieldActivityId + '/' + file.name;
     let fileURL = null;
     const presignedUrl = fileUpload.presignedUrl;
     console.log('presignedUrl: ' + presignedUrl);
-    return Observable.create(observer => {
+    return new Observable<FieldActivityFile>(observer => {
       const upload = this.http.put(presignedUrl, file).toPromise();
       upload.then(data => {
         console.log('upload success => ', data);
-        fileURL = this.fieldsS3BucketUrl + '/' +  fileKey;
+        fileURL = this.fieldsS3BucketUrl + '/' + fileKey;
         console.log('file location: ' + fileURL);
         fieldActivityFile.fieldActivityFileLocation = fileURL;
         console.log('fieldActivityFile.fieldActivityFileLocation: ' + fieldActivityFile.fieldActivityFileLocation);
         observer.next(fieldActivityFile);
         observer.complete();
-      }).catch(err => console.error('error: ', err))
+      }).catch(err => console.error('error: ', err));
     });
   }
 
@@ -78,7 +78,7 @@ export class FileuploadService {
     console.log('fieldActivityFile: ' + JSON.stringify(fieldActivityFile));
     const url = `${this.fieldsAPIUrl}/${fieldId}/activities/${fieldActivityId}/activityfiles`;
     console.log('url: ' + url);
-    return Observable.create(observer => {
+    return new Observable<FieldActivityFile>(observer => {
       fetch(url, {
         method: 'POST',
         headers: {
@@ -86,11 +86,11 @@ export class FileuploadService {
         },
         body: JSON.stringify(fieldActivityFile)
       })
-        .then(function (response) {
+        .then((response) => {
           // console.log('response: ' + response);
           return response.json();
         })
-        .then(function (data) {
+        .then((data) => {
           console.log('data: ' + JSON.stringify(data));
           // addDataToMap(data, '');
           observer.next(fieldActivityFile);
@@ -153,7 +153,7 @@ export class FileuploadService {
 // }
 
 
-  private handleError<T>(operation = 'operation', result ?: T) {
+  private handleError<T>(operation = 'operation', result ?: T): any {
     return (error: any): Observable<T> => {
 
       // TODO: send the error to remote logging infrastructure

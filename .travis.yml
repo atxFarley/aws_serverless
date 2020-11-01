@@ -15,4 +15,5 @@ before_script:
   - npm install --save-dev @angular-devkit/build-angular
   - npm install --save-dev dotenv
 script:
+  - ng lint
   - ng build
