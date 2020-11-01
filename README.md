@@ -96,7 +96,12 @@ Costs of running this application should be limited to AWS service usage only.
 [atxFarley](https://github.com/atxFarley)
 
 ## Credits
-Supported by the AWS Cloud Credits for Research program
+* [Supported by the AWS Cloud Credits for Research program](https://aws.amazon.com/research-credits/)
+* [Penn State World Campus Master of Geographic Information Systems](https://www.worldcampus.psu.edu/degrees-and-certificates/geographic-information-systems-gis-masters/overview)
+* [MGIS Advisor Ryan Baxter](https://www.geog.psu.edu/directory/ryan-baxter)
+
+## Contribute
+
 
 ## License
 
