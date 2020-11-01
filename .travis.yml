@@ -8,7 +8,7 @@ branches:
     - master
 before_script:
   - cd ui/app
-  - npm install -g @angular/cli
+  - npm install -g @angular/cli @angular/core @angular-builders/custom-webpack @angular-builders/dev-server @angular-devkit/build-angular dotenv
 script:
   - ng lint
   - ng build
