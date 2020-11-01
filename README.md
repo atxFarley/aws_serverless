@@ -62,10 +62,10 @@ Costs of running this application should be limited to AWS service usage only.
 * Open-source!
 * Serverless - absolutely no EC2 instances.  
 
-        As a software developer the tasks around maintaining infrastructure (configuring virtual machines, allocating appropriate sizes) are soul-sucking.  
-        I wanted to create a solution that required absolutely no VMs.  
+    As a software developer the tasks around maintaining infrastructure (configuring virtual machines, allocating appropriate sizes) are soul-sucking.  
+    I wanted to create a solution that required absolutely no VMs.  
 
-        With cloud-computing platforms expanding services that manage underlying infrastructure for you, this was an opportunity to build out an entire application using ONLY readily-available services. 
+    With cloud-computing platforms expanding services that manage underlying infrastructure for you, this was an opportunity to build out an entire application using ONLY readily-available services. 
 
 * Complete solution that can be forked and deployed to subsequent AWS accounts with minimal configuration.
 
