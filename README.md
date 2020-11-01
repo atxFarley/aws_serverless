@@ -74,8 +74,10 @@ Costs of running this application should be limited to AWS service usage only.
 
 ### Development Environment Configuration
 
-### Code updates
-
+### Code 
+#### Database
+#### AWS Lambda
+#### UI
 
 
 
@@ -90,12 +92,14 @@ Costs of running this application should be limited to AWS service usage only.
 ## Roadmap
 
 ## Maintainer
+[atxFarley](https://github.com/atxFarley)
 
 ## Credits
+Supported by the AWS Cloud Credits for Research program
 
 ## License
 
-MIT
+[MIT © 2020 Amy Farley](LICENSE.txt)
 
 
 
