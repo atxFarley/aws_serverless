@@ -33,7 +33,7 @@ The application should be easily configured and deployed to cloud-computing plat
 
 ## Cloud Computing Platform
 This project was written specifically for deployment to AWS.  While the database and UI pieces are platform-agnostic, the "middle-layer" of the application is a collection of AWS Lambda functions.
-A brief list of the main AWS services required for this application: 
+The main AWS services required for this application are: 
 
 * Amazon Relational Database Service (Amazon RDS) - PostgreSQL database engine with PostGIS extensions
 * Amazon S3
@@ -55,8 +55,8 @@ Costs of running this application should be limited to AWS service usage only.
 * Angular 10
 * Bootstrap
 * Leaflet
-    * There is one potential additional expense within the web-mapping interface depending on basemap services used. 
-    * For this project, a personal mapbox service is used for satellite imagery basemap option
+    * _One potential additional expense within the web-mapping interface depending on basemap services used._ 
+        * For this project, a personal mapbox service is used for satellite imagery basemap option
 
 ## Key Features
 * Open-source!
@@ -71,7 +71,7 @@ Costs of running this application should be limited to AWS service usage only.
 
 ## Project Usage Prerequisites
 1. AWS Account
-2. Familiarity with cloud-computing, web application architecture/frameworks, and serverless/Function-as-a-Service (FaaS) computing model
+2. Familiarity with cloud-computing, web application architecture/frameworks, and the serverless/Function-as-a-Service (FaaS) development model
 
 ## Get Started Using this Project
 Instructions for project fall into 5 larger sequential steps: 
