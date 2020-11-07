@@ -151,18 +151,21 @@ Follow [these instructions](https://docs.aws.amazon.com/toolkit-for-jetbrains/la
 3. [AWS Serverless Application Model Command Line Interface (AWS SAM CLI)](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html)
 
 I did test out both  [Serverless Framework Open Source](https://www.serverless.com/open-source/) and AWS SAM CLI.  Both were easy to use, but since the AWS Toolkit uses AWS SAM CLI, I chose that route.
+
 Deployment from IntelliJ is as simple as right-click --> Deploy from the AWS SAM template.yaml file.  
 
 I found it worthwhile to spend some time understanding [AWS SAM](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/what-is-sam.html)
 Besides its CLI, AWS SAM uses [template specification](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-specification.html) to define each function.  
 
 This template.yaml file can be used to deploy multiple functions as one serverless application or each Lambda function can be a single application.  
+
 *__For this application, all the functions are defined in a single template.yaml and deployed as one serverless application.__* 
 
-
-
 ### AWS Service Configuration/Code Usage 
+It is time to fork this repository and configure for your AWS account.  Once this repository has been copied, the services and code for the web application layers can be configured.  
+
 #### Database
+
 
 #### AWS Lambda
 
