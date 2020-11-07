@@ -69,8 +69,40 @@ Costs of running this application should be limited to AWS service usage only.
 
 * Complete solution that can be forked and deployed to subsequent AWS accounts with minimal configuration.
 
+## Project Usage Prerequisites
+1. AWS Account
+2. Familiarity with cloud-computing, web application architecture/frameworks, and serverless/Function-as-a-Service (FaaS) computing model
+
 ## Get Started Using this Project
+Instructions for project fall into 5 larger sequential steps: 
+1. AWS Account Setup
+2. Development Environment Configuration
+3. Amazon RDS Service Creation/Configuration
+4. AWS Lambda Setup
+5. UI Configuration/Deployment
+
+Before jumping in, for anyone new to serverless, The AWS Serverless Web Applications tutorial is a good staring point. 
+[AWS Serverless Web Applications](https://aws.amazon.com/lambda/web-apps/)
+
+Throughout this documentation, references to AWS documentation will be provided for more in-depth explanation and instruction.
+
 ### AWS Account Setup
+#### AWS Identity and Access Management (IAM) 
+1. AWS recommends creating an IAM User with administrator permissions as a best practice to protect root user credentials. 
+    1. Follow instructions [here](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_SettingUp.html#CHAP_SettingUp.IAM) to create an Administrator user and add to an administrators group. 
+2. Create another IAM User with Programmatic access. This is the user that will be used by AWS CLI.  Read more about creating IAM users [here](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html).
+    1. Attach the AdministratorAccess policy to this user as well.  
+    2. You will need to create access keys for this IAM user by following [these instructions](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html)
+    3. Download and store your key file for this user in a secure location.  You will use this later.  
+3.  Execution roles are required for the AWS Lambda services
+    1. From the IAM Dashboard, Create role: 
+        * __Trusted entity:__ Lambda
+        * __Permission Policy:__ AWSLambdaBasicExecutionRole
+        * __Role Name:__ lambda-basic-role
+    2. Create a 2nd role for Lambda functions accessing S3 Bucket:
+        * __Trusted entity:__ Lambda
+        * __Permission Policy:__ AWSLambdaExecute, AmazonS3FullAccess
+        * __Role Name:__ lambda-s3-role
 
 ### Development Environment Configuration
 
