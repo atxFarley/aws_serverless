@@ -75,11 +75,11 @@ Costs of running this application should be limited to AWS service usage only.
 
 ## Get Started Using this Project
 Instructions for project fall into 5 larger sequential steps: 
-_1. AWS Account Setup_
-_2. Development Environment Configuration_
-_3. Amazon RDS Service Creation/Configuration_
-_4. AWS Lambda Setup_
-_5. UI Configuration/Deployment_
+1. _AWS Account Setup_
+2. _Development Environment Configuration_
+3. _Amazon RDS Service Creation/Configuration_
+4. _AWS Lambda Setup_
+5. _UI Configuration/Deployment_
 
 For anyone new to serverless, The AWS Serverless Web Applications tutorial is a good staring point. 
 [AWS Serverless Web Applications](https://aws.amazon.com/lambda/web-apps/)
@@ -142,7 +142,8 @@ Further AWS Service configuration will be documented in subsequent steps.
 
 ### Development Environment Configuration
 
-IntelliJ IDEA users rejoice.  The [AWS Toolkit for Jetbrains](https://docs.aws.amazon.com/toolkit-for-jetbrains/latest/userguide/welcome.html) makes serverless application development and deployment super easy!
+IntelliJ IDEA users rejoice!  The [AWS Toolkit for Jetbrains](https://docs.aws.amazon.com/toolkit-for-jetbrains/latest/userguide/welcome.html) makes serverless application development and deployment super easy.
+
 Follow [these instructions](https://docs.aws.amazon.com/toolkit-for-jetbrains/latest/userguide/setup-toolkit.html) to install the Toolkit AND the necessary tools required by the Toolkit for AWS serverless/Lambda function development, testing, and deployment. 
 1. [AWS Command Line Interface (AWS CLI)](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
     * Note: You will use the key file saved earlier of the IAM Administrator user with Programmatic access when configuring the AWS CLI.
