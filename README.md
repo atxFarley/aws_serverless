@@ -75,13 +75,13 @@ Costs of running this application should be limited to AWS service usage only.
 
 ## Get Started Using this Project
 Instructions for project fall into 5 larger sequential steps: 
-1. AWS Account Setup
-2. Development Environment Configuration
-3. Amazon RDS Service Creation/Configuration
-4. AWS Lambda Setup
-5. UI Configuration/Deployment
+_1. AWS Account Setup_
+_2. Development Environment Configuration_
+_3. Amazon RDS Service Creation/Configuration_
+_4. AWS Lambda Setup_
+_5. UI Configuration/Deployment_
 
-Before jumping in, for anyone new to serverless, The AWS Serverless Web Applications tutorial is a good staring point. 
+For anyone new to serverless, The AWS Serverless Web Applications tutorial is a good staring point. 
 [AWS Serverless Web Applications](https://aws.amazon.com/lambda/web-apps/)
 
 Throughout this documentation, references to AWS documentation will be provided for more in-depth explanation and instruction.
@@ -103,8 +103,62 @@ Throughout this documentation, references to AWS documentation will be provided 
         * __Trusted entity:__ Lambda
         * __Permission Policy:__ AWSLambdaExecute, AmazonS3FullAccess
         * __Role Name:__ lambda-s3-role
+#### Amazon S3
+This project requires a bucket that is publicly accessible.  It stores files associated with database records that must be viewable to users of the web applicaiton. 
+1. Create Bucket: 
+    * __Bucket name:__ieldactivityfiles
+    * __Permissions --> Access Control List:__Allow Everyone List Objects
+    * __Permissions --> Cross-origin resource sharing (CORS):__
+    ````
+    <CORSConfiguration>
+    <CORSRule>
+    <AllowedOrigin>*</AllowedOrigin>
+    <AllowedMethod>HEAD</AllowedMethod>
+    <AllowedMethod>GET</AllowedMethod>
+    <AllowedMethod>PUT</AllowedMethod>
+    <AllowedMethod>POST</AllowedMethod>
+    <AllowedMethod>DELETE</AllowedMethod>
+    <ExposeHeader>ETag</ExposeHeader>
+    <AllowedHeader>*</AllowedHeader>
+    </CORSRule>
+    </CORSConfiguration>
+    ````
+   * __Permissions --> Bucket Policy:__
+   ````
+   {
+       "Version": "2012-10-17",
+       "Statement": [
+           {
+               "Sid": "PublicReadGetObject",
+               "Effect": "Allow",
+               "Principal": "*",
+               "Action": "s3:GetObject",
+               "Resource": "arn:aws:s3:::fieldactivityfiles/*"
+           }
+       ]
+   }
+   ````
+Further AWS Service configuration will be documented in subsequent steps.  
 
 ### Development Environment Configuration
+
+IntelliJ IDEA users rejoice.  The [AWS Toolkit for Jetbrains](https://docs.aws.amazon.com/toolkit-for-jetbrains/latest/userguide/welcome.html) makes serverless application development and deployment super easy!
+Follow [these instructions](https://docs.aws.amazon.com/toolkit-for-jetbrains/latest/userguide/setup-toolkit.html) to install the Toolkit AND the necessary tools required by the Toolkit for AWS serverless/Lambda function development, testing, and deployment. 
+1. [AWS Command Line Interface (AWS CLI)](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
+    * Note: You will use the key file saved earlier of the IAM Administrator user with Programmatic access when configuring the AWS CLI.
+2. [Docker](https://docs.docker.com/install/)
+3. [AWS Serverless Application Model Command Line Interface (AWS SAM CLI)](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html)
+
+I did test out both  [Serverless Framework Open Source](https://www.serverless.com/open-source/) and AWS SAM CLI.  Both were easy to use, but since the AWS Toolkit uses AWS SAM CLI, I chose that route.
+Deployment from IntelliJ is as simple as right-click --> Deploy from the AWS SAM template.yaml file.  
+
+I found it worthwhile to spend some time understanding [AWS SAM](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/what-is-sam.html)
+Besides its CLI, AWS SAM uses [template specification](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-specification.html) to define each function.  
+
+This template.yaml file can be used to deploy multiple functions as one serverless application or each Lambda function can be a single application.  
+*__For this application, all the functions are defined in a single template.yaml and deployed as one serverless application.__* 
+
+
 
 ### AWS Service Configuration/Code Usage 
 #### Database
