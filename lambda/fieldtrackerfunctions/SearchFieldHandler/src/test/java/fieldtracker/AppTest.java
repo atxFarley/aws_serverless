@@ -43,6 +43,7 @@ public class AppTest {
 //    assertTrue(content.contains("EPSG:3857"));
         assertTrue(content.contains("Polygon"));
         assertTrue(content.contains("fieldname"));
+        assertTrue(content.contains("activity_count"));
     }
 
     @Test
@@ -79,6 +80,7 @@ public class AppTest {
 //    assertTrue(content.contains("EPSG:3857"));
         assertTrue(content.contains("Polygon"));
         assertTrue(content.contains("fieldname"));
+        assertTrue(content.contains("activity_count"));
     }
 
     @Test
