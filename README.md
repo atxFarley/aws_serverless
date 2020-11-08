@@ -62,10 +62,10 @@ Costs of running this application should be limited to AWS service usage only.
 * Open-source!
 * Serverless - absolutely no EC2 instances.  
 
-    As a software developer, maintaining infrastructure (configuring virtual machines, allocating appropriate sizes) is soul-sucking.  
-    I wanted to create a solution that required absolutely no VMs.  
+> As a software developer, maintaining infrastructure (configuring virtual machines, allocating appropriate sizes) is soul-sucking.  
+> I wanted to create a solution that required absolutely no VMs.  
 
-    With cloud-computing platforms expanding services that manage underlying infrastructure for you, this was an opportunity to build out an entire application using ONLY readily-available services. 
+> With cloud-computing platforms expanding services that manage underlying infrastructure for you, this was an opportunity to build out an entire application using ONLY readily-available services. 
 
 * Complete solution that can be forked and deployed to subsequent AWS accounts with minimal configuration.
 
@@ -81,10 +81,10 @@ Instructions for project fall into 5 larger sequential steps:
 4. _AWS Lambda Setup_
 5. _UI Configuration/Deployment_
 
-For anyone new to serverless, The AWS Serverless Web Applications tutorial is a good staring point. 
-[AWS Serverless Web Applications](https://aws.amazon.com/lambda/web-apps/)
+> For anyone new to serverless, The AWS Serverless Web Applications tutorial is a good staring point.   
+> [AWS Serverless Web Applications](https://aws.amazon.com/lambda/web-apps/)
 
-Throughout this documentation, references to AWS documentation will be provided for more in-depth explanation and instruction.
+> Throughout this documentation, references to AWS documentation will be provided for more in-depth explanation and instruction.
 
 ### AWS Account Setup
 #### AWS Identity and Access Management (IAM) 
@@ -142,9 +142,8 @@ Further AWS Service configuration will be documented in subsequent steps.
 
 ### Development Environment Configuration
 
-IntelliJ IDEA users rejoice!  The [AWS Toolkit for Jetbrains](https://docs.aws.amazon.com/toolkit-for-jetbrains/latest/userguide/welcome.html) makes serverless application development and deployment super easy.  
-1. __Follow [these instructions](https://docs.aws.amazon.com/toolkit-for-jetbrains/latest/userguide/setup-toolkit.html) to install the Toolkit.__
-
+IntelliJ IDEA users *Rejoice!*  The [AWS Toolkit for Jetbrains](https://docs.aws.amazon.com/toolkit-for-jetbrains/latest/userguide/welcome.html) makes serverless application development and deployment super easy.  
+#### __Follow [these instructions](https://docs.aws.amazon.com/toolkit-for-jetbrains/latest/userguide/setup-toolkit.html) to install the Toolkit.__
 
 Tools required by the Toolkit for AWS serverless/Lambda function development, testing, and deployment:    
     1. [AWS Command Line Interface (AWS CLI)](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)  
@@ -152,16 +151,13 @@ Tools required by the Toolkit for AWS serverless/Lambda function development, te
     2. [Docker](https://docs.docker.com/install/)  
     3. [AWS Serverless Application Model Command Line Interface (AWS SAM CLI)](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html)  
 
+> I did test out both  [Serverless Framework Open Source](https://www.serverless.com/open-source/) and AWS SAM CLI.  Both were easy to use, but since the AWS Toolkit uses AWS SAM CLI, I chose that route.  
 
-
-I did test out both  [Serverless Framework Open Source](https://www.serverless.com/open-source/) and AWS SAM CLI.  Both were easy to use, but since the AWS Toolkit uses AWS SAM CLI, I chose that route.
-
-Deployment from IntelliJ is as simple as right-click --> Deploy from the AWS SAM template.yaml file.  
-
-I found it worthwhile to spend some time understanding [AWS SAM](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/what-is-sam.html)
+> I found it worthwhile to spend some time understanding [AWS SAM](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/what-is-sam.html)
 Besides its CLI, AWS SAM uses [template specification](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-specification.html) to define each function.  
 
-This template.yaml file can be used to deploy multiple functions as one serverless application or each Lambda function can be a single application.  
+Once [AWS Toolkit for Jetbrains](https://docs.aws.amazon.com/toolkit-for-jetbrains/latest/userguide/welcome.html) is installed and configured according to the [instructions](https://docs.aws.amazon.com/toolkit-for-jetbrains/latest/userguide/setup-toolkit.html), the Deployment from IntelliJ is as simple as right-click on the template.yaml --> Deploy Serverless Application.  
+> This template.yaml file can be used to deploy multiple functions as one serverless application or each Lambda function can be a single application.  
 
 *__For this application, all the functions are defined in a single template.yaml and deployed as one serverless application.__* 
 
