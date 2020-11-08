@@ -57,9 +57,10 @@ Costs of running this application should be limited to AWS service usage only.
 * Leaflet
     * _One potential additional expense within the web-mapping interface depending on basemap services used._ 
         * For this project, a personal mapbox service is used for satellite imagery basemap option  
-        
+  
+___     
 ![Architecture Diagram](ArchDiagram.png)
-
+___
 ## Key Features
 * Open-source!
 * Serverless - absolutely no EC2 instances.  
