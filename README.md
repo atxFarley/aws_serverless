@@ -146,11 +146,11 @@ IntelliJ IDEA users rejoice!  The [AWS Toolkit for Jetbrains](https://docs.aws.a
 
 1. Follow [these instructions](https://docs.aws.amazon.com/toolkit-for-jetbrains/latest/userguide/setup-toolkit.html) to install the Toolkit.
 
-Tools required by the Toolkit for AWS serverless/Lambda function development, testing, and deployment:
-    1. [AWS Command Line Interface (AWS CLI)](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
-        * Note: You will use the key file saved earlier of the IAM Administrator user with Programmatic access when configuring the AWS CLI.
-    2. [Docker](https://docs.docker.com/install/)
-    3. [AWS Serverless Application Model Command Line Interface (AWS SAM CLI)](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html)
+Tools required by the Toolkit for AWS serverless/Lambda function development, testing, and deployment:    
+    1. [AWS Command Line Interface (AWS CLI)](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)  
+        * Note: You will use the key file saved earlier of the IAM Administrator user with Programmatic access when configuring the AWS CLI.  
+    2. [Docker](https://docs.docker.com/install/)  
+    3. [AWS Serverless Application Model Command Line Interface (AWS SAM CLI)](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html)  
 
 I did test out both  [Serverless Framework Open Source](https://www.serverless.com/open-source/) and AWS SAM CLI.  Both were easy to use, but since the AWS Toolkit uses AWS SAM CLI, I chose that route.
 
