@@ -56,7 +56,9 @@ Costs of running this application should be limited to AWS service usage only.
 * Bootstrap
 * Leaflet
     * _One potential additional expense within the web-mapping interface depending on basemap services used._ 
-        * For this project, a personal mapbox service is used for satellite imagery basemap option
+        * For this project, a personal mapbox service is used for satellite imagery basemap option  
+        
+![Architecture Diagram](ArchDiagram.png)
 
 ## Key Features
 * Open-source!
@@ -162,7 +164,8 @@ Once [AWS Toolkit for Jetbrains](https://docs.aws.amazon.com/toolkit-for-jetbrai
 *__For this application, all the functions are defined in a single template.yaml and deployed as one serverless application.__* 
 
 ### AWS Service Configuration/Code Usage 
-It is time to fork this repository and configure for your AWS account.  Once this repository has been copied, the services and code for the web application layers can be configured.  
+It is time to fork this repository and configure for your AWS account.  
+Once this repository has been copied, the services and code for the web application layers can be configured.  
 
 #### Database
 
