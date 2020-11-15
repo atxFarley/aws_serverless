@@ -36,8 +36,9 @@ Instructions for using the code:
 4. Execute `npm update`
 5. Execute `npm build`
 6. Execute `ng serve`
-7. The application will run on localhost:4200.  Open browser on http://localhost:4200
-![FieldTracker UI](../fieldTrackerUI.png)
+7. The application will run on localhost:4200.  Open browser on http://localhost:4200  
+
+![FieldTracker UI](../fieldTrackerUI.png)  
 8. Once the application runs successfully in a local environment, push the code to a personal GitHub repository
 9. Do __NOT__ push personal AWS account information (such as API URLs) to the GitHub repository.  
 10. Do __NOT__ push personal mapping service URLs to the GitHub repository.  Replace these with environment variables following the MAPBOX URL pattern. 
@@ -62,17 +63,17 @@ In the AWS Console, go to AWS Amplify
 7. Enter an App name   
 8. Edit the Build and test settings  
    1. replace:  
-   `        build:  
-             commands:  
-               - npm run build`
+   `        build:  `  
+    `         commands:  `
+     `          - npm run build`
    with  
-   `        build:  
-               commands:  
-                 - npm run build -- --prod`
+   `        build:  `
+   `            commands:  `
+   `             - npm run build -- --prod`
 9. Add the environment variables.  Mimic what was defined in the local development environment. 
-` MAPBOXURL: <url for mapbox>  
- APIURL: <url of the lambda api>  
- S3BUCKETURL: <public url for s3bucket>  
+` MAPBOXURL: <url for mapbox>  `  
+ `APIURL: <url of the lambda api>  `  
+ `S3BUCKETURL: <public url for s3bucket>  
 `
 10. Save and deploy
 
