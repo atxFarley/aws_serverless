@@ -12,22 +12,22 @@ When prompted, enter values listed below:
 1.  Database creation method: __Standard Create__
 2.  Configuration: __PostgreSQL__
 3.  Version: __Default__
-4.  DB instance size: __&lt;determine size based on your needs&gt;__ (*I used the Free tier for prototype*)
+4.  DB instance size: __&lt;determine size based on your needs&gt;__ (*Free tier for prototyping*)
 5.  DB instance identifier: __&lt;choose a unique name&gt;__
 6.  Master username: __&lt;choose username&gt;__
 7.  Master password: __&lt;choose master password&gt;__
-8.  VPC: __Create new__(This will create a new VPC with public subnets)  
+8.  VPC: __Create new__ (*This will create a new VPC with public subnets*)   
 9:  Subnet Group: __Create new DB Subnet Group__  
-10. Public Access: __YES__ (critical for ensuring the subnets are public)  
-11. Existing VPC security groups: __default__ (this will create a new security group)  
+10. Public Access: __YES__ (*Critical for ensuring the subnets are public*)   
+11. Existing VPC security groups: __default__ (*This will create a new security group*)  
 12: Database port: __5432__  
 
 Once the database server instance is created, the Inbound rules of the newly created Security Group need to be modified to only allow TCP Port 5432.  
-For the purposes of the prototype, I allowed the Source to be: Anywhere  
+For the purposes of the prototype, allow the Source to be: __Anywhere__  
 1. Inbound Rules: 
   * Protocol: __TCP__  
   * Port Range: __5432__  
-  * Source: __Anywhere__ (for prototype)  
+  * Source: __Anywhere__ (*For prototype*)  
 2. Outbound Rules:   
   * All Traffic (for prototype)  
   
@@ -65,7 +65,7 @@ Once the database server is running and connectivity is confirmed, it is time to
 3. Run [this DDL](DDL/initial/field_tracker.sql) to create all the __field_manage__ schema.
 
 4. Download and import a shapefile with the geographic coordinates in the coordinate system that you will ultimately use for measurements and define the measurement spatial reference identifier (SRID) for your geographic area. 
-  * For this project, I downloaded the USA State Plane Zones shapefile from [here](https://hub.arcgis.com/datasets/23178a639bdc4d658816b3ea8ee6c3ae_0?page=10).
+  * For this prototype, the USA State Plane Zones shapefile from [here](https://hub.arcgis.com/datasets/23178a639bdc4d658816b3ea8ee6c3ae_0?page=10) was used.
 
 5. Using the PostGIS Shapefile Import/Export Manager tool, import the shapefile to the database:
   * Table: __state_plane_zone__
