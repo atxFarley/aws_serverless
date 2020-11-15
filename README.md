@@ -181,7 +181,7 @@ Follow the instruction __in order__ for each "layer" of the application to fully
 3. Upon validating database and AWS Lambda functions running in AWS, the final layer of the application is the user interface.  Follow the instructions for configuring and deploying [here](ui/README.md).
 
 ## API Reference
-
+See the API reference for the AWS Lambda functions [here](lambda/README.md).
 ## Tests
 ### Lambda 
 
