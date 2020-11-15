@@ -16,20 +16,20 @@ When prompted, enter values listed below:
 5.  DB instance identifier: __&lt;choose a unique name&gt;__
 6.  Master username: __&lt;choose username&gt;__
 7.  Master password: __&lt;choose master password&gt;__
-8.  VPC: __Create new__(This will create a new VPC with public subnets)
-9:  Subnet Group: __Create new DB Subnet Group__
-10. Public Access: __YES__ (critical for ensuring the subnets are public)
-11. Existing VPC security groups: __default__ (this will create a new security group)
-12: Database port: __5432__
+8.  VPC: __Create new__(This will create a new VPC with public subnets)  
+9:  Subnet Group: __Create new DB Subnet Group__  
+10. Public Access: __YES__ (critical for ensuring the subnets are public)  
+11. Existing VPC security groups: __default__ (this will create a new security group)  
+12: Database port: __5432__  
 
 Once the database server instance is created, the Inbound rules of the newly created Security Group need to be modified to only allow TCP Port 5432.  
-For the purposes of the prototype, I allowed the Source to be: Anywhere
+For the purposes of the prototype, I allowed the Source to be: Anywhere  
 1. Inbound Rules: 
-  * Protocol: __TCP__
-  * Port Range: __5432__
-  * Source: __Anywhere__ (for prototype)
-2. Outbound Rules: 
-  * All Traffic (for prototype)
+  * Protocol: __TCP__  
+  * Port Range: __5432__  
+  * Source: __Anywhere__ (for prototype)  
+2. Outbound Rules:   
+  * All Traffic (for prototype)  
   
 It is important to capture the database server endpoint and test connectivity before proceeding.  
 Follow [these instructions provided by AWS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_GettingStarted.CreatingConnecting.PostgreSQL.html#CHAP_GettingStarted.Connecting.PostgreSQL) for installing necessary database administration tools and testing connectivity. 
@@ -74,7 +74,7 @@ Once the database server is running and connectivity is confirmed, it is time to
   ![Shapefile Import](shapefileImportScreenshot.png)
 
 6. Create users/roles via pgAdmin tool
-  * Create fieldmanager user and grant full access to the fieldtracker database
+  * Create fieldmanager user and grant full access to the fieldtracker database  
   `GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO fieldmanager;`  
   `GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA field_manage TO fieldmanager;  `  
   `GRANT SELECT ON geometry_columns TO fieldmanager;  `  
@@ -89,7 +89,8 @@ While the UI and Lambda functions are a work in progress, the database design ac
 #### Spatial Reference System
 As with any project that involves geospatial data, careful thought has been given to the spatial reference systems needed for the project  After research, two spatial reference identification (SRID) European Petroleum Survey Group (EPSG) numbers will be used for the overall solution.    
 •	EPSG:4326  
-•	EPSG:3857  
+•	EPSG:3857 
+
 EPSG:4326 is a geographic coordinate system that is recognized as the most common SRID for storing geospatial data.    
 
 EPSG:3857 also known as Web Mercator projection is a projected coordinate system widely used for web-mapping applications. 
