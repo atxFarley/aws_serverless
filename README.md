@@ -192,7 +192,9 @@ Tests can be defined in  [ui/app/e2e](ui/app/e2e) and [ui/app/src/test.ts](ui/ap
 Project contains the [.travis.yml](.travis.yml) required for [integration with Travis CI](https://angular.io/guide/testing#configure-project-for-travis-ci)  
 
 ## Roadmap
-Items that the database design already supports  but __NOT__ built into the application services/UI yet:  
+* Performance and Load testing
+
+* Items that the database design already supports  but __NOT__ built into the application services/UI yet:  
 1) Multiple growers and owners per field  
 2) App users – logins, etc – potentially use Cognito with Lambda functions for MFA and database storage of application users. 
   a.	Allow for concept of app admin vs general user  
