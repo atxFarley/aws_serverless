@@ -16,7 +16,7 @@ The user interface is written as a single-page application (SPA) using the [Angu
 The open-source Javascript library [Leaflet](https://leafletjs.com/) is used to create the interactive map within the Angular application. 
 
 All of the Leaflet mapping code is contained in [map.js](app/src/js/map.js) and is added to the Angular app as an external Javascript file.  
-This keeps all the code around Leaflet mapping contained in one place as opposed to spread across the Angular components.
+This keeps all the code around Leaflet mapping contained in one place as opposed to spread across the Angular components.  
 Within  [map.js](app/src/js/map.js), two basemaps are defined.
   1. OpenStreetMap
   2. Mapbox for Satellite Imagery
@@ -39,14 +39,14 @@ Instructions for using the code:
 7. The application will run on localhost:4200.  Open browser on http://localhost:4200  
 
 ![FieldTracker UI](../fieldTrackerUI.png)  
-8. Once the application runs successfully in a local environment, push the code to a personal GitHub repository
+8. Once the application runs successfully in a local environment, push the code to a personal GitHub repository.  
 9. Do __NOT__ push personal AWS account information (such as API URLs) to the GitHub repository.  
-10. Do __NOT__ push personal mapping service URLs to the GitHub repository.  Replace these with environment variables following the MAPBOX URL pattern.   
-   1. If additional basemap URLs are required OR if the Mapbox variable is to be replaced, the following files must be updated:  
-      1. [app/src/app/main/main.component.ts](app/src/app/main/main.component.ts)  
-      2. [app/src/assets/js/map.js](app/src/assets/js/map.js)  
-      3. [app/src/environments/environment.ts](app/src/environments/environment.ts)  
-      4. [app/src/environments/environment.prod.ts](app/src/environments/environment.prod.ts)  
+10. Do __NOT__ push personal mapping service URLs to the GitHub repository.  Replace these with environment variables following the MAPBOX URL pattern.     
+    1. If additional basemap URLs are required OR if the Mapbox variable is to be replaced, the following files must be updated:  
+      - [app/src/app/main/main.component.ts](app/src/app/main/main.component.ts)  
+      - [app/src/assets/js/map.js](app/src/assets/js/map.js)  
+      - [app/src/environments/environment.ts](app/src/environments/environment.ts)  
+      - [app/src/environments/environment.prod.ts](app/src/environments/environment.prod.ts)  
 
 ### AWS Service Configuration
 The [AWS Amplify](https://aws.amazon.com/amplify/) service is used to host the user interface and provide continuous deployments. 
