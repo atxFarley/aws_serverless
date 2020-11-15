@@ -196,7 +196,7 @@ Items that the database design already supports  but __NOT__ built into the appl
 3) Adding history records upon edits  - this could also be done via db triggers  
 4) Editing field geoms – right now just allowing adds and possibly deletes (need to put some validation around deletes)  
 5) [Configure Lambda to use RDS Proxy once RDS Proxy is available for latest version of PostgreSQL database](https://docs.aws.amazon.com/lambda/latest/dg/configuration-database.html) instance instead of connecting directly to the database. 
-  * [Current Limitation for RDS Proxy](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-proxy.html#rds-proxy.limitations)
+    * [Current Limitation for RDS Proxy](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-proxy.html#rds-proxy.limitations)
 
 
 ## Maintainer

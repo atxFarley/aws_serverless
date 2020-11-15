@@ -44,6 +44,7 @@ Tools for administering the database:
 Follow [these instructions provided by AWS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Appendix.PostgreSQL.CommonDBATasks.html#Appendix.PostgreSQL.CommonDBATasks.PostGIS) for adding the PostGIS extensions to the newly-created PostgreSQL database instance.   
 
 > I used psql to perform most of these instructions, then used pgAdmin to perfrom the validation queries.   
+
 > The AWS PostGIS extensions documentation closely mimic the [official PostGIS install instructions](https://postgis.net/install/).
 
 ### Database creation
