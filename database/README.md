@@ -17,10 +17,10 @@ When prompted, enter values listed below:
 6.  Master username: __&lt;choose username&gt;__
 7.  Master password: __&lt;choose master password&gt;__
 8.  VPC: __Create new__ (*This will create a new VPC with public subnets*)  
-9:  Subnet Group: __Create new DB Subnet Group__  
+9.  Subnet Group: __Create new DB Subnet Group__  
 10. Public Access: __YES__ (*Critical for ensuring the subnets are public*)  
 11. Existing VPC security groups: __default__ (*This will create a new security group*)  
-12: Database port: __5432__  
+12. Database port: __5432__  
 
 Once the database server instance is created, the Inbound rules of the newly created Security Group need to be modified to only allow TCP Port 5432.  
 For the purposes of the prototype, allow the Source to be: __Anywhere__  
