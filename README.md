@@ -30,6 +30,7 @@ The application should be easily configured and deployed to cloud-computing plat
 * Use only readily-available cloud services (this project is specific to AWS)
 * Use only open-source frameworks
 * No VMs!!
+* Architecture can be an example for other projects in any industry.  
 
 ## Cloud Computing Platform
 This project was written specifically for deployment to AWS.  While the database and UI pieces are platform-agnostic, the "middle-layer" of the application is a collection of AWS Lambda functions.
@@ -145,10 +146,11 @@ Further AWS Service configuration will be documented in subsequent steps.
 
 ### Development Environment Configuration
 
-IntelliJ IDEA users *Rejoice!*  The [AWS Toolkit for Jetbrains](https://docs.aws.amazon.com/toolkit-for-jetbrains/latest/userguide/welcome.html) makes serverless application development and deployment super easy.  
+IntelliJ IDEA users *Rejoice!*  
+The [AWS Toolkit for Jetbrains](https://docs.aws.amazon.com/toolkit-for-jetbrains/latest/userguide/welcome.html) makes serverless application development and deployment super easy.  
 #### __Follow [these instructions](https://docs.aws.amazon.com/toolkit-for-jetbrains/latest/userguide/setup-toolkit.html) to install the Toolkit.__
 
-Tools required by the Toolkit for AWS serverless/Lambda function development, testing, and deployment:    
+Tools required by the Toolkit for AWS serverless/Lambda function development, testing, and deployment:     
     1. [AWS Command Line Interface (AWS CLI)](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)  
         * Note: You will use the key file saved earlier of the IAM Administrator user with Programmatic access when configuring the AWS CLI.  
     2. [Docker](https://docs.docker.com/install/)  
@@ -167,24 +169,35 @@ Once [AWS Toolkit for Jetbrains](https://docs.aws.amazon.com/toolkit-for-jetbrai
 ### AWS Service Configuration/Code Usage 
 It is time to fork this repository and configure for your AWS account.  
 Once this repository has been copied, the services and code for the web application layers can be configured.  
-
+Follow the instruction __in order__ for each "layer" of the application to fully configure the solution.  
+1. Database
+2. AWS Lambda
+3. UI
 #### Database
-
-
+1. Begin by following the instructions for the Amazon RDS configuration and database creation [here](database/README.md).
 #### AWS Lambda
-
+2. After database has been fully configured, follow the instructions for configuring and deploying the "middle layer" AWS Lambda functions [here](lambda/README.md).
 #### UI
-
+3. Upon validating database and AWS Lambda functions running in AWS, the final layer of the application is the user interface.  Follow the instructions for configuring and deploying [here](ui/README.md).
 
 ## API Reference
 
 ## Tests
-
 ### Lambda 
 
 ### Angular UI
 
 ## Roadmap
+Items that the database design already supports  but __NOT__ built into the application services/UI yet:  
+1) Multiple growers and owners per field  
+2) App users – logins, etc – potentially use Cognito with Lambda functions for MFA and database storage of application users. 
+  a.	Allow for concept of app admin vs general user  
+    * Would allow for someone who could see all fields versus on fields that belong to you as a general user  
+3) Adding history records upon edits  - this could also be done via db triggers  
+4) Editing field geoms – right now just allowing adds and possibly deletes (need to put some validation around deletes)  
+5) [Configure Lambda to use RDS Proxy once RDS Proxy is available for latest version of PostgreSQL database](https://docs.aws.amazon.com/lambda/latest/dg/configuration-database.html) instance instead of connecting directly to the database. 
+  * [Current Limitation for RDS Proxy](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-proxy.html#rds-proxy.limitations)
+
 
 ## Maintainer
 [atxFarley](https://github.com/atxFarley)
