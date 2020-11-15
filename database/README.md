@@ -136,6 +136,46 @@ For more information regarding indexing, specific database table columns, data t
 > Original detailed database design document can be viewed [here](https://amyfarleysitefiles.s3.amazonaws.com/www/geog868/final/afarley_final.docx).  
 >>**Note: There have been minor changes to the database design since the design document.
 
+### PostgreSQL/PostGIS functions
+Significant functions used by this application:
+
+#### PostgreSQL functions
+__JSON:__  
+jsonb_build_object()  
+to_jsonb()  
+jsonb_set()  
+
+__Encrypted Fields (pgcrypto extension):__  
+pgp_sym_encrypt()  
+pgp_sym_decrypt()  
+ 
+#### PostGIS functions
+__Management Functions:__  
+AddGeometryColumn()  
+
+__Geometry Input:__   
+ST_GeomFromText()    
+ST_GeomFromKML()    
+ST_GeomFromGeoJSON()    
+
+__Geometry Accessors:__    
+ST_Envelope()  
+
+__Geometry Editors:__  
+ST_Transform()  
+ST_Force2D()  
+
+__Geometry Output:__    
+ST_AsGeoJSON()  
+
+__Spatial Relationship and Measurement:__    
+ST_Contains()  
+ST_Distance()  
+ST_Area()  
+ST_DWithin()  
+ST_Perimeter()  
+
+
 ### Roadmap
 1. Database Triggers for populating history tables
 2. Validating attributes upon insert/update

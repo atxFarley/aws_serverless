@@ -184,8 +184,12 @@ Follow the instruction __in order__ for each "layer" of the application to fully
 See the API reference for the AWS Lambda functions [here](lambda/README.md).
 ## Tests
 ### Lambda 
+Each function in [lambda/fieldtrackerfunctions](lambda/fieldtrackerfunctions) has test cases defined in an AppTest class.  
+`mvn clean install` on each function builds and executes tests
 
 ### Angular UI
+Tests can be defined in  [ui/app/e2e](ui/app/e2e) and [ui/app/src/test.ts](ui/app/src/test.ts)  
+Project contains the [.travis.yml](.travis.yml) required for [integration with Travis CI](https://angular.io/guide/testing#configure-project-for-travis-ci)  
 
 ## Roadmap
 Items that the database design already supports  but __NOT__ built into the application services/UI yet:  
@@ -208,7 +212,9 @@ Items that the database design already supports  but __NOT__ built into the appl
 * [MGIS Advisor Ryan Baxter](https://www.geog.psu.edu/directory/ryan-baxter)
 
 ## Contribute
+Pull requests will be welcome AFTER May 2021.  (Completion of the MGIS Penn State degree program)
 
+For major contributions, please open an issue for discussion.  All pull requests will require appropriate tests and be subject to code reviews.
 
 ## License
 

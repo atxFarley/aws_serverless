@@ -138,7 +138,7 @@ WHERE fieldA.field_name != fieldB.field_name;
 select field_name, ST_Perimeter(ST_Transform(field_geom,26914)) * 0.000621371 as perimeter_miles
 FROM field;
 
-•	SELECT fieldA.field_name, fieldB.field_name, ST_Distance(ST_Transform(fieldA.field_geom,26914),ST_Transform(fieldB.field_geom,26914)) * 0.000621371 as distance_miles 
+SELECT fieldA.field_name, fieldB.field_name, ST_Distance(ST_Transform(fieldA.field_geom,26914),ST_Transform(fieldB.field_geom,26914)) * 0.000621371 as distance_miles
 FROM field as fieldA CROSS JOIN field as fieldB WHERE fieldA.field_name != fieldB.field_name 
 and ST_DWithin(ST_Transform(fieldA.field_geom,26914), ST_Transform(fieldB.field_geom,26914),1609.34*2::double precision);
 
