@@ -25,11 +25,11 @@ When prompted, enter values listed below:
 Once the database server instance is created, the Inbound rules of the newly created Security Group need to be modified to only allow TCP Port 5432.  
 For the purposes of the prototype, allow the Source to be: __Anywhere__  
 1. Inbound Rules: 
-  * Protocol: __TCP__  
-  * Port Range: __5432__  
-  * Source: __Anywhere__ (*For prototype*)  
+    * Protocol: __TCP__  
+    * Port Range: __5432__  
+    * Source: __Anywhere__ (*For prototype*)  
 2. Outbound Rules:   
-  * All Traffic (for prototype)  
+    * All Traffic (for prototype)  
   
 It is important to capture the database server endpoint and test connectivity before proceeding.  
 Follow [these instructions provided by AWS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_GettingStarted.CreatingConnecting.PostgreSQL.html#CHAP_GettingStarted.Connecting.PostgreSQL) for installing necessary database administration tools and testing connectivity. 
@@ -40,10 +40,10 @@ Tools for administering the database:
 
 > *I verified that I could connect to the database server from both psql and pgAdmin before moving on to the remaining steps.*  
 
-(PostGIS)(https://postgis.net/) is the database extension for PostgreSQL for managing the geospatial data. 
+[PostGIS](https://postgis.net/) is the database extension for PostgreSQL for managing the geospatial data. 
 Follow [these instructions provided by AWS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Appendix.PostgreSQL.CommonDBATasks.html#Appendix.PostgreSQL.CommonDBATasks.PostGIS) for adding the PostGIS extensions to the newly-created PostgreSQL database instance.   
-&gt;&gt;I used psql to perform most of these instructions, then used pgAdmin to perfrom the validation queries.   
 
+> I used psql to perform most of these instructions, then used pgAdmin to perfrom the validation queries.   
 > The AWS PostGIS extensions documentation closely mimic the [official PostGIS install instructions](https://postgis.net/install/).
 
 ### Database creation
@@ -58,20 +58,20 @@ Once the database server is running and connectivity is confirmed, it is time to
       * postgis_tiger_geocoder
       * postgis_topology
       * postgis_raster
-      * pgcrypto (this is used for encrypting/decrypting sensitive data)
+      * pgcrypto (*This is used for encrypting/decrypting sensitive data*)
 
 2. Make sure to [follow the instructions for transferring ownership of the extensions](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Appendix.PostgreSQL.CommonDBATasks.html#Appendix.PostgreSQL.CommonDBATasks.PostGIS).
 
 3. Run [this DDL](DDL/initial/field_tracker.sql) to create all the __field_manage__ schema.
 
 4. Download and import a shapefile with the geographic coordinates in the coordinate system that you will ultimately use for measurements and define the measurement spatial reference identifier (SRID) for your geographic area. 
-  * For this prototype, the USA State Plane Zones shapefile from [here](https://hub.arcgis.com/datasets/23178a639bdc4d658816b3ea8ee6c3ae_0?page=10) was used.
+    * For this prototype, the USA State Plane Zones shapefile from [here](https://hub.arcgis.com/datasets/23178a639bdc4d658816b3ea8ee6c3ae_0?page=10) was used.
 
 5. Using the PostGIS Shapefile Import/Export Manager tool, import the shapefile to the database:
-  * Table: __state_plane_zone__
-  * Schema: __field_manage__
-  * SRID: __&lt;verify that it is the intended SRID for your application&gt;__
-  ![Shapefile Import](shapefileImportScreenshot.png)
+    * Table: __state_plane_zone__
+    * Schema: __field_manage__
+    * SRID: __&lt;verify that it is the intended SRID for your application&gt;__
+    ![Shapefile Import](shapefileImportScreenshot.png)
 
 6. Create users/roles via pgAdmin tool
   * Create fieldmanager user and grant full access to the fieldtracker database  
@@ -88,8 +88,8 @@ While the UI and Lambda functions are a work in progress, the database design ac
 
 #### Spatial Reference System
 As with any project that involves geospatial data, careful thought has been given to the spatial reference systems needed for the project  After research, two spatial reference identification (SRID) European Petroleum Survey Group (EPSG) numbers will be used for the overall solution.    
-•	EPSG:4326  
-•	EPSG:3857 
+    * EPSG:4326  
+    * EPSG:3857 
 
 EPSG:4326 is a geographic coordinate system that is recognized as the most common SRID for storing geospatial data.    
 
