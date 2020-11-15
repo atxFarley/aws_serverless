@@ -89,10 +89,10 @@ While the UI and Lambda functions are a work in progress, the database design ac
 
 #### Spatial Reference System
 As with any project that involves geospatial data, careful thought has been given to the spatial reference systems needed for the project  After research, two spatial reference identification (SRID) European Petroleum Survey Group (EPSG) numbers will be used for the overall solution.    
-    * EPSG:4326  
-    * EPSG:3857 
+- EPSG:4326  
+- EPSG:3857 
 
-EPSG:4326 is a geographic coordinate system that is recognized as the most common SRID for storing geospatial data.    
+EPSG:4326 is a geographic coordinate system that is recognized as the most common SRID for storing geospatial data.   The data is stored in the database using EPSG:4326. 
 
 EPSG:3857 also known as Web Mercator projection is a projected coordinate system widely used for web-mapping applications. 
 The user interface uses the Leaflet library which expects data in the unprojected coordinate system (EPSG:4326) by default.  Leaflet automatically projects to  EPSG:3857.
