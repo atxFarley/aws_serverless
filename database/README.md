@@ -3,7 +3,7 @@
 
 The database used in this solution is the open-source RDBMS PostgreSQL database with PostGIS extensions.  This is hosted using the Amazon Relational Database Service (RDS).  
 The data queries in the AWS Lambda functions rely heavily on [PostGIS functions](https://postgis.net/docs/reference.html) for handling geometry data.  
-
+### Prerequisites
 All steps for AWS account creation,  IAM configuration, S3 bucket configuration, and development environment configuration described [here](../README.md) should be complete BEFORE beginning the instructions below.  
 
 ### Amazon RDS Configuration

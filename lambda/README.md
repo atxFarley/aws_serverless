@@ -2,9 +2,9 @@
 ## AWS Lambda functions
 
 This directory holds all the AWS Lambda functions that serve as the layer between the database and the UI.
-
-All steps for AWS account creation,  IAM configuration, S3 bucket configuration, and development environment configuration described [here](../README.md) should be complete.  
-All steps for database creation described [here](../database/README.md) should also be complete BEFORE beginning the instructions below.  
+### Prerequisites
+- All steps for AWS account creation,  IAM configuration, S3 bucket configuration, and development environment configuration described [here](../README.md) should be complete.  
+- All steps for database creation described [here](../database/README.md) should also be complete BEFORE beginning the instructions below.  
 
 ### Configure AWS Lambda functions
 > If you are new to AWS Serverless, I recommend starting [here](https://docs.aws.amazon.com/toolkit-for-jetbrains/latest/userguide/sam.html) with the AWS Toolkit for JetBrains instructions. 
@@ -35,12 +35,14 @@ All steps for database creation described [here](../database/README.md) should a
   ![Lambda function console](2020-11-15_13-55-54.png)
   2. Paste the endpoint into a new browser tab.  
   3. JSON-formatted results should display in the browser window.
-  ![Lambda function results](2020-11-15_14-06-57.png)
+  ![Lambda function results](2020-11-15_14-06-57.png)  
 
 
 ## API Reference
 The template.yaml file defines each handler as [AWS::Serverless::Function](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html) resource.  
-The required Amazon API Gateway resource is implicitly created from the union of the Api events defined on each of the functions in the template.yaml file.  
+
+[The required Amazon API Gateway resource is implicitly created from the union of the Api events defined on each of the functions in the template.yaml file](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-api.html).  
+
 For this project, the Amazon API Gateway resources created are RESTful APIs.   
 
 * GET /fields  - Lists all fields
