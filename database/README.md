@@ -82,15 +82,16 @@ Once the database server is running and connectivity is confirmed, it is time to
   `GRANT SELECT ON geography_columns TO fieldmanager;  `  
   `GRANT SELECT ON spatial_ref_sys TO fieldmanager;  `  
 
-7. Sample data can be inserted for testing.  [Sample INSERTS and SELECTS here](sampleQueries/SQL_Statements.sql). 
+7. Sample data can be inserted for testing.  
+[Sample INSERTS and SELECTS here](sampleQueries/SQL_Statements.sql). 
 
 ### Database Design
 While the UI and Lambda functions are a work in progress, the database design accommodates functionality not yet available in the application.  
 
 #### Spatial Reference System
 As with any project that involves geospatial data, careful thought has been given to the spatial reference systems needed for the project  After research, two spatial reference identification (SRID) European Petroleum Survey Group (EPSG) numbers will be used for the overall solution.    
-- EPSG:4326  
-- EPSG:3857 
+- EPSG:4326  (unprojected)
+- EPSG:3857  (projected)
 
 EPSG:4326 is a geographic coordinate system that is recognized as the most common SRID for storing geospatial data.   The data is stored in the database using EPSG:4326. 
 
