@@ -1,7 +1,7 @@
 # Open-source, Serverless web-mapping on AWS
 ## AWS Lambda functions
 
-This directory holds all the AWS Lambda functions that serve as the layer between the database and the UI.
+This directory holds all the AWS Lambda functions that serve as the layer between the database/S3 bucket and the UI.
 ### Prerequisites
 - All steps for AWS account creation,  IAM configuration, S3 bucket configuration, and development environment configuration described [here](../README.md) should be complete.  
 - All steps for database creation described [here](../database/README.md) should also be complete BEFORE beginning the instructions below.  
