@@ -16,9 +16,9 @@ When prompted, enter values listed below:
 5.  DB instance identifier: __&lt;choose a unique name&gt;__
 6.  Master username: __&lt;choose username&gt;__
 7.  Master password: __&lt;choose master password&gt;__
-8.  VPC: __Create new__ (*This will create a new VPC with public subnets*)   
+8.  VPC: __Create new__ (*This will create a new VPC with public subnets*)  
 9:  Subnet Group: __Create new DB Subnet Group__  
-10. Public Access: __YES__ (*Critical for ensuring the subnets are public*)   
+10. Public Access: __YES__ (*Critical for ensuring the subnets are public*)  
 11. Existing VPC security groups: __default__ (*This will create a new security group*)  
 12: Database port: __5432__  
 
@@ -38,7 +38,7 @@ Tools for administering the database:
 * psql
 * PostGIS Shapefile Import/Export Manager (Shp2PgsqlGUI)
 
-*I verified that I could connect to the database server from both psql and pgAdmin before moving on to the remaining steps.*  
+> *I verified that I could connect to the database server from both psql and pgAdmin before moving on to the remaining steps.*  
 
 (PostGIS)(https://postgis.net/) is the database extension for PostgreSQL for managing the geospatial data. 
 Follow [these instructions provided by AWS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Appendix.PostgreSQL.CommonDBATasks.html#Appendix.PostgreSQL.CommonDBATasks.PostGIS) for adding the PostGIS extensions to the newly-created PostgreSQL database instance.   
