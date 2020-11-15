@@ -41,12 +41,12 @@ Instructions for using the code:
 ![FieldTracker UI](../fieldTrackerUI.png)  
 8. Once the application runs successfully in a local environment, push the code to a personal GitHub repository
 9. Do __NOT__ push personal AWS account information (such as API URLs) to the GitHub repository.  
-10. Do __NOT__ push personal mapping service URLs to the GitHub repository.  Replace these with environment variables following the MAPBOX URL pattern. 
-    1. If additional basemap URLs are required OR if the Mapbox variable is to be replaced, the following files must be updated:  
-       1. [app/src/app/main/main.component.ts](app/src/app/main/main.component.ts)  
-       2. [app/src/assets/js/map.js](app/src/assets/js/map.js)  
-       3. [app/src/environments/environment.ts](app/src/environments/environment.ts)  
-       4. [app/src/environments/environment.prod.ts](app/src/environments/environment.prod.ts)  
+10. Do __NOT__ push personal mapping service URLs to the GitHub repository.  Replace these with environment variables following the MAPBOX URL pattern.   
+   1. If additional basemap URLs are required OR if the Mapbox variable is to be replaced, the following files must be updated:  
+      1. [app/src/app/main/main.component.ts](app/src/app/main/main.component.ts)  
+      2. [app/src/assets/js/map.js](app/src/assets/js/map.js)  
+      3. [app/src/environments/environment.ts](app/src/environments/environment.ts)  
+      4. [app/src/environments/environment.prod.ts](app/src/environments/environment.prod.ts)  
 
 ### AWS Service Configuration
 The [AWS Amplify](https://aws.amazon.com/amplify/) service is used to host the user interface and provide continuous deployments. 
@@ -67,7 +67,7 @@ In the AWS Console, go to AWS Amplify
     `         commands:  `  
      `          - npm run build`  
    with  
-   `        build:  `
+   `        build:  `  
    `            commands:  `    
    `             - npm run build -- --prod`
 9. Add the environment variables.  Mimic what was defined in the local development environment.  
