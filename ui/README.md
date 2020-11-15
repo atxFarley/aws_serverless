@@ -64,13 +64,13 @@ In the AWS Console, go to AWS Amplify
 8. Edit the Build and test settings  
    1. replace:  
    `        build:  `  
-    `         commands:  `
-     `          - npm run build`
+    `         commands:  `  
+     `          - npm run build`  
    with  
    `        build:  `
-   `            commands:  `
+   `            commands:  `  
    `             - npm run build -- --prod`
-9. Add the environment variables.  Mimic what was defined in the local development environment. 
+9. Add the environment variables.  Mimic what was defined in the local development environment.  
 ` MAPBOXURL: <url for mapbox>  `  
  `APIURL: <url of the lambda api>  `  
  `S3BUCKETURL: <public url for s3bucket>  
