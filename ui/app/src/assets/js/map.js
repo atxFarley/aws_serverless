@@ -36,6 +36,12 @@ var leafletMap = (function () {
       editableLayers = new L.FeatureGroup();
       editableLayers.addTo(map);
 
+      const search = new GeoSearch.GeoSearchControl({
+        provider: new GeoSearch.OpenStreetMapProvider(),
+        searchLabel: 'Enter address',
+      });
+      map.addControl(search);
+
 
       var drawPluginOptions = {
         position: 'bottomleft',

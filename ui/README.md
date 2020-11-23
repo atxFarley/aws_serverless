@@ -82,6 +82,8 @@ In the AWS Console, go to AWS Amplify
 - The URL for the UI will be displayed on app homepage within the Amplify Console. 
 
 - Custom domain names can be configured for the AWS Amplify app under App Settings --> Domain management.
+  * See instructions [here](https://docs.aws.amazon.com/amplify/latest/userguide/custom-domains.html)
+  * [Amazon Route 53](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html) service routes the custom domain to the Amplify web application  
 
 - The build specification or webhooks for manually triggering a build can be configured under App Settings --> [Build settings](https://docs.aws.amazon.com/amplify/latest/userguide/build-settings.html).
 
