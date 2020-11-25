@@ -193,6 +193,8 @@ Project contains the [.travis.yml](.travis.yml) required for [integration with T
 
 ## Roadmap
 * Performance and Load testing
+* User authentication 
+  * Amazon Cognito with [Post Confirmation Lambda trigger](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-post-confirmation.html) to manage field users in database table
 
 * Items that the database design already supports  but __NOT__ built into the application services/UI yet:  
 1) Multiple growers and owners per field  
