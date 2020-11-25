@@ -60,7 +60,7 @@ Costs of running this application should be limited to AWS service usage only.
         * For this project, a personal mapbox service is used for satellite imagery basemap option  
   
 ___     
-![Architecture Diagram](ArchDiagram.png)
+![Architecture Diagram](ArchDiagram2.png)
 ___
 ## Key Features
 * Open-source!
