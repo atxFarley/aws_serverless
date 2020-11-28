@@ -132,6 +132,11 @@ td {
 #infoid {
   padding-left: 3%;
 }
+#fieldActivities {
+  margin-top: 3%;
+  padding-left: 3%;
+  padding-right: 3%;
+}
 
 .leaflet-container {
   background: #fff;

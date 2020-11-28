@@ -66,67 +66,79 @@
             </div>
             <button type="submit" class="btn btn-dark" [disabled]="!main.form.valid">Submit</button>
           </form>
-
-          <div id="fieldActivity">
-            <table>
-              <thead>
-              <th>Activity Date</th>
-              <th>Activity Type</th>
-              <th>Activity Description</th>
-              <th>Activity Files</th>
-              <th></th>
-              </thead>
-              <tbody>
-              <tr *ngFor="let activity of selectedField.fieldActivities">
-                <td>{{activity.fieldActivityDate}}</td>
-                <td>
-                  <select id="fieldActivityTypeId"
-                          disabled
-                          [(ngModel)]="activity.fieldActivityTypeId" name="fieldActivityTypeId">
-                    <option *ngFor="let activityType of   activityTypes"
-                            [value]="activityType.fieldActivityTypeId">{{activityType.activityType}}</option>
-                  </select>
-                </td>
-                <td>{{activity.fieldActivityDesc}}</td>
-                <td>
-                  <table>
-                    <tbody>
-                    <tr *ngFor="let aFile of activity.fieldActivityFiles">
-                      <td>
-                        <a href="{{aFile.fieldActivityFileLocation}}"
-                           target="_blank">{{aFile.fieldActivityFilename}}</a>
-                      </td>
-                    </tr>
-                    </tbody>
-                  </table>
-                </td>
-                <td>
-
-
-                  <div>
-                    <label>Choose File to Upload:
-                      <input type="file" name="uploadFiletoS3" (change)="fileChange($event, activity.fieldActivityId)"
-                             placeholder="Choose File"/>
-                    </label>
-                  </div>
-                  <br/>
-                  <div>
-                    <button type="submit" class="btn btn-dark" (click)="fileUpload()">Upload</button>
-                  </div>
-                </td>
-
-              </tr>
-              </tbody>
-            </table>
-          </div>
-
         </div>
       </div>
-
-
     </div>
-
+  </div>
+  <div class="row">
+    <div id="fieldActivities" c>
+      <div *ngIf="selectedField">
+        <div id="fieldActivity">
+          <table>
+            <thead>
+            <th>Activity Date</th>
+            <th>Activity Type</th>
+            <th>Activity Description</th>
+            <th>Activity Files</th>
+            <th></th>
+            </thead>
+            <tbody>
+            <tr>
+              <td>
+                <label>Select Activity Date: <input type="date"    [(ngModel)]="newFieldActivity.fieldActivityDate" id="newFieldActivityDate" name="newFieldActivityDate"></label>
+              </td>
+              <td>
+                <select id="newFieldActivityTypeId" name = "newFieldActivityTypeId" [(ngModel)]="newFieldActivity.fieldActivityTypeId">
+                  <option *ngFor="let activityType of   activityTypes"
+                          [value]="activityType.fieldActivityTypeId">{{activityType.activityType}}</option>
+                </select>
+              </td>
+              <td >
+                <label>Enter Field Activity Description:</label><br/><textarea [(ngModel)]="newFieldActivity.fieldActivityDesc" name="newFieldActivityDescription" id="newFieldActivityDescription" rows="2" cols="50"></textarea>
+              </td>
+              <td>
+                <button type="submit" class="btn btn-dark" (click)="addFieldActivity()">Add a Field Activity</button>
+              </td>
+            </tr>
+            <tr *ngFor="let activity of selectedField.fieldActivities">
+              <td>{{activity.fieldActivityDate}}</td>
+              <td>
+                <select id="fieldActivityTypeId"
+                        disabled
+                        [(ngModel)]="activity.fieldActivityTypeId" name="fieldActivityTypeId">
+                  <option *ngFor="let activityType of   activityTypes"
+                          [value]="activityType.fieldActivityTypeId">{{activityType.activityType}}</option>
+                </select>
+              </td>
+              <td>{{activity.fieldActivityDesc}}</td>
+              <td>
+                <table>
+                  <tbody>
+                  <tr *ngFor="let aFile of activity.fieldActivityFiles">
+                    <td>
+                      <a href="{{aFile.fieldActivityFileLocation}}"
+                         target="_blank">{{aFile.fieldActivityFilename}}</a>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td>
+                <div>
+                  <label>Choose File to Upload:
+                    <input type="file" name="uploadFiletoS3" (change)="fileChange($event, activity.fieldActivityId)"
+                           placeholder="Choose File"/>
+                  </label>&nbsp;&nbsp;     <button type="submit" class="btn btn-dark" (click)="fileUpload()">Upload</button>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
+
 
 

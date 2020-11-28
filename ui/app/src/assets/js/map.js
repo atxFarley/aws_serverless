@@ -36,6 +36,17 @@ var leafletMap = (function () {
       editableLayers = new L.FeatureGroup();
       editableLayers.addTo(map);
 
+      const homeButton = L.easyButton('fa fa-home', function (btn, map) {
+        try {
+          map.fitBounds(editableLayers.getBounds());
+        } catch (e) {
+          console.error("cannot set map to layer bounds, setting to initial view");
+          map.setView([32.112355, -98.537303], 12);
+        }
+      });
+
+      map.addControl(homeButton);
+
       const search = new GeoSearch.GeoSearchControl({
         provider: new GeoSearch.OpenStreetMapProvider(),
         searchLabel: 'Enter address',

@@ -146,7 +146,7 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
                 StringBuilder activitySql = new StringBuilder();
                 activitySql.append("select field_activity_id, field_id, field_activity_type_id, description, to_char(activity_datetz, 'MM/DD/YYYY') activity_datetz ");
                 activitySql.append(" from field_manage.field_activity ");
-                activitySql.append("where field_id = ? order by activity_datetz desc ");
+                activitySql.append("where field_id = ? order by activity_datetz desc, created_datetz desc ");
                 lgr.log(Level.INFO, "activity sql: " + activitySql.toString());
                 try (Connection con = DriverManager.getConnection(url, user, password);
                      PreparedStatement ps = con.prepareStatement(activitySql.toString());) {

@@ -68,8 +68,8 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
                 }
 
                 if (requestJsonObject != null) {
-                    if (requestJsonObject.get("fieldActivityType") != null) {
-                        fieldActivityTypeId = requestJsonObject.get("fieldActivityType").toString();
+                    if (requestJsonObject.get("fieldActivityTypeId") != null) {
+                        fieldActivityTypeId = requestJsonObject.get("fieldActivityTypeId").toString();
                     }
                     if (requestJsonObject.get("fieldActivityDesc") != null) {
                         activityDesc = requestJsonObject.get("fieldActivityDesc").toString();
@@ -112,9 +112,9 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
                         sql.append("  VALUES ");
                         sql.append("(");
                         sql.append(fieldId).append(", ");
-                        sql.append(activityTypeId).append(", ");
-                        sql.append(activityDesc).append(", ");
-                        sql.append("to_timestamp('").append(activityDate).append("', 'MM/DD/YYYY'").append(")").append(", ");
+                        sql.append(activityTypeId).append(", $$");
+                        sql.append(activityDesc).append("$$, ");
+                        sql.append("to_timestamp('").append(activityDate).append("', 'YYYY-MM-DD'").append(")").append(", ");
                         sql.append("current_timestamp");
                         sql.append(")");
                         lgr.log(Level.INFO, "sql: " + sql);

@@ -24,9 +24,9 @@ public class AppTest {
         String layerJSON = "{\n" +
                 "    \"fieldId\": 4,\n" +
                 "    \"fieldActivityId\": null,\n" +
-                "    \"fieldActivityDate\": \"10/17/2020\",\n" +
-                "    \"fieldActivityType\": \"1\",\n" +
-                "    \"fieldActivityDesc\": null,\n" +
+                "    \"fieldActivityDate\": \"2020-11-25\",\n" +
+                "    \"fieldActivityDesc\": \"This is someone's test\",\n" +
+                "    \"fieldActivityTypeId\": \"1\",\n" +
                 "    \"fieldActivityFiles\": null\n" +
                 "}";
         input.setBody(layerJSON);

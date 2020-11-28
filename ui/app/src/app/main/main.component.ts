@@ -9,12 +9,14 @@ import {
 
 import {Field} from '../field';
 import {FieldUser} from '../fieldUser';
+import {FieldActivity} from '../fieldActivity';
 import {FieldActivityType} from '../fieldActivityType';
 import {FieldActivityFileType} from '../fieldActivityFileType';
 import {FieldActivityFile} from '../fieldActivityFile';
 import {SearchService} from '../search.service';
 import {FieldService} from '../field.service';
 import {FielduserService} from '../fielduser.service';
+import {FieldactivityService} from '../fieldactivity.service';
 import {FieldactivitytypeService} from '../fieldactivitytype.service';
 import {FieldactivityfiletypeService} from '../fieldactivityfiletype.service';
 import {FileuploadService} from '../fileupload.service';
@@ -44,12 +46,14 @@ export class MainComponent implements OnInit, OnChanges {
   uploadFile: File = null;
   uploadedFieldActivityFile: FieldActivityFile;
   selectedFieldActivityId: string;
+  newFieldActivity: FieldActivity;
 
   constructor(private searchService: SearchService,
               private route: ActivatedRoute,
               private location: Location,
               private fieldService: FieldService,
               private fieldUserService: FielduserService,
+              private fieldactivityService: FieldactivityService,
               private fieldactivitytypeService: FieldactivitytypeService,
               private fieldactivityfiletypeService: FieldactivityfiletypeService,
               private fileuploadService: FileuploadService) {
@@ -63,7 +67,7 @@ export class MainComponent implements OnInit, OnChanges {
     this.getFieldUsers();
     this.getFieldActivityTypes();
     this.getFieldActivityFileTypes();
-
+    this.newFieldActivity = {} as FieldActivity;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -119,6 +123,7 @@ export class MainComponent implements OnInit, OnChanges {
   }
 
   refreshSearch(): void {
+    this.newFieldActivity = {} as FieldActivity;
     this.searchFields(this.recentSearchBoxValue);
     this.getFieldDetails();
   }
@@ -157,6 +162,14 @@ export class MainComponent implements OnInit, OnChanges {
   fileChange(event, selectedFieldActivityId): void {
     this.uploadFile = event.target.files[0];
     this.selectedFieldActivityId = selectedFieldActivityId;
+  }
+
+  addFieldActivity(): void {
+    console.log('new field activity: ' + this.newFieldActivity);
+    this.newFieldActivity.fieldId = this.selectedField.fieldId;
+    console.log('new filed activity field id: ' + this.newFieldActivity.fieldId);
+    this.fieldactivityService.addFieldActivity(this.newFieldActivity)
+      .subscribe(() => this.refreshSearch());
   }
 
 }
