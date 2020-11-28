@@ -433,6 +433,7 @@ var leafletMap = (function () {
     $("#fieldDiv").html(fieldDivHTML);
     $("#fieldDetailsButton").css("display", "block");
     $("#fieldDetails").css("display", "none");
+    $("#fieldActivity").css("display", "none");
     $("#fieldID").val(currentFeature.fieldId).trigger('input').trigger('change');
 
     console.log("fieldID value: " + $("#fieldID").val())
@@ -443,6 +444,7 @@ var leafletMap = (function () {
     $("#fieldDiv").html("");
     $("#fieldDetailsButton").css("display", "none");
     $("#fieldDetails").css("display", "none");
+    $("#fieldActivity").css("display", "none");
   }
 
   return {
