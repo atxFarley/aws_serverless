@@ -31,20 +31,20 @@ This directory holds all the AWS Lambda functions that serve as the layer betwee
    `bucketName: ""`      
    `region: ""`    
 5. Each function is written in Java and packaged and built using Apache Maven.  
-  1. Each function has a pom.xml defining required dependencies.
-  2. Each function has a test to confirm AWS resource connectivity. 
-  3. Each function is built independently with `mvn clean install`.  All tests are run upon function build.  
+   1. Each function has a pom.xml defining required dependencies.
+   2. Each function has a test to confirm AWS resource connectivity. 
+   3. Each function is built independently with `mvn clean install`.  All tests are run upon function build.  
 6. Once all functions build (and pass tests) successfully, deploy to AWS using AWS Toolkit for JetBrains by righ-clicking on the template.yaml and selecting "Deploy Serverless Application".
-  1. If IntelliJ has been configured correctly to connect to the desired AWS account, this will Create a new Stack upon the first deployment.  Subsequent deployments will update the stack. 
+   1. If IntelliJ has been configured correctly to connect to the desired AWS account, this will Create a new Stack upon the first deployment.  Subsequent deployments will update the stack. 
 7. Confirm Lambda functions have been deployed by going to the AWS Console/Lambda.  
-  1. Functions will be listed.  
-  2. Each function can be tested in the console independently. 
+   1. Functions will be listed.  
+   2. Each function can be tested in the console independently. 
 8. The `ListFieldHandler` is a good function to test.  
-  1. Grab the API endpoint of this function from the AWS Lambda console.  
-  ![Lambda function console](2020-11-15_13-55-54.png)
-  2. Paste the endpoint into a new browser tab.  
-  3. JSON-formatted results should display in the browser window.
-  ![Lambda function results](2020-11-15_14-06-57.png)  
+   1. Grab the API endpoint of this function from the AWS Lambda console.  
+   ![Lambda function console](2020-11-15_13-55-54.png)
+   2. Paste the endpoint into a new browser tab.  
+   3. JSON-formatted results should display in the browser window.  
+   ![Lambda function results](2020-11-15_14-06-57.png)  
 
 
 ## API Reference
