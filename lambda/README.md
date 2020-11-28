@@ -18,6 +18,8 @@ This directory holds all the AWS Lambda functions that serve as the layer betwee
    3. Each handler specifies allowed HTTP methods 
    4. Each handler specifies the API path
 3. Update the template.yaml file with the proper values for the IAM roles 
+   1. Find the correct Role ARN for the Role values via the AWS console --> Identity and Access Management (IAM) --> Roles
+   ![Roles](iam_image.png)  
 4. Navigate into **EACH** function sub-directory and find the src/main/resources/application-sample.yml file.
    1. This file needs to be renamed to ***application.yml***
    2. The values in each of these files should be updated to reflect the values specific to the user's AWS account.  

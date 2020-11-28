@@ -29,7 +29,7 @@ The application should be easily configured and deployed to cloud-computing plat
 * Web-mapping application complete with data storage.
 * Use only readily-available cloud services (this project is specific to AWS)
 * Use only open-source frameworks
-* No VMs!!
+* No Virtual Machines!!
 * Architecture can be an example for other projects in any industry.  
 
 ## Cloud Computing Platform
