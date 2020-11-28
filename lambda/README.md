@@ -22,14 +22,14 @@ This directory holds all the AWS Lambda functions that serve as the layer betwee
   1. This file needs to be renamed to ***application.yml***
   2. The values in each of these files should be updated to reflect the values specific to the user's AWS account.  
   Example: ListFieldActivityTypeHandler  
-  `!!fieldtracker.Datasource  
-   url: "jdbc:postgresql://xxxxx.us-xxx-1.rds.amazonaws.com:5432/dbname"  
-   username: "username"  
-   password: "password"`  
+  `!!fieldtracker.Datasource`     
+  `url: "jdbc:postgresql://xxxxx.us-xxx-1.rds.amazonaws.com:5432/dbname"`     
+  `username: "username"`      
+  `password: "password"`      
    Example: GetBucketPresignedUrlHandler  
-   `!!fieldtracker.Bucket  
-    bucketName: ""  
-    region: ""`  
+   `!!fieldtracker.Bucket`      
+   `bucketName: ""`      
+   `region: ""`    
 5. Each function is written in Java and packaged and built using Apache Maven.  
   1. Each function has a pom.xml defining required dependencies.
   2. Each function has a test to confirm AWS resource connectivity. 
