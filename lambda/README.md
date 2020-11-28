@@ -13,10 +13,10 @@ This directory holds all the AWS Lambda functions that serve as the layer betwee
  
 1. Navigate to [fieldtrackerfunctions](fieldtrackerfunctions).
 2. Review the [template.yaml](fieldtrackerfunctions/template.yaml) file.
-  1. Each "handler" in this file maps to a sub-directory 
-  2. Each handler specifies an IAM role
-  3. Each handler specifies allowed HTTP methods 
-  4. Each handler specifies the API path
+   1. Each "handler" in this file maps to a sub-directory 
+   2. Each handler specifies an IAM role
+   3. Each handler specifies allowed HTTP methods 
+   4. Each handler specifies the API path
 3. Update the template.yaml file with the proper values for the IAM roles 
 4. Navigate into **EACH** function sub-directory and find the src/main/resources/application-sample.yml file.
    1. This file needs to be renamed to ***application.yml***
