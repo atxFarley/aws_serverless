@@ -149,6 +149,8 @@ export class MainComponent implements OnInit, OnChanges {
 
   refreshSearch(): void {
     this.newFieldActivity = {} as FieldActivity;
+    this.newFieldAttribute = {} as FieldAttribute;
+    this.newFieldAttribute.attributeValues = {} as string[];
     this.searchFields(this.recentSearchBoxValue);
     this.getFieldDetails();
   }

@@ -144,6 +144,8 @@ __JSON:__
 jsonb_build_object()  
 to_jsonb()  
 jsonb_set()  
+jsonb_agg()
+jsonb_object()
 
 __Encrypted Fields (pgcrypto extension):__  
 pgp_sym_encrypt()  
