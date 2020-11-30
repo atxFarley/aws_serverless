@@ -168,15 +168,8 @@ public class Field implements Serializable, Cloneable {
     class FieldAttribute {
         private Integer fieldId;
         private String attributeName;
-        private String attributeValue;
+        private ArrayList<String> attributeValues;
 
-        public Integer getFieldId() {
-            return fieldId;
-        }
-
-        public void setFieldId(Integer fieldId) {
-            this.fieldId = fieldId;
-        }
 
         public String getAttributeName() {
             return attributeName;
@@ -186,13 +179,22 @@ public class Field implements Serializable, Cloneable {
             this.attributeName = attributeName;
         }
 
-        public String getAttributeValue() {
-            return attributeValue;
+        public ArrayList<String> getAttributeValues() {
+            return attributeValues;
         }
 
-        public void setAttributeValue(String attributeValue) {
-            this.attributeValue = attributeValue;
+        public void setAttributeValues(ArrayList<String> attributeValues) {
+            this.attributeValues = attributeValues;
         }
+        public Integer getFieldId() {
+            return fieldId;
+        }
+
+        public void setFieldId(Integer fieldId) {
+            this.fieldId = fieldId;
+        }
+
+
     }
 
     class FieldHistory {

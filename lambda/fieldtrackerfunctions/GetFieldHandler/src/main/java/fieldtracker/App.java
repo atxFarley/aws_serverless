@@ -129,7 +129,9 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
                                     Field.FieldAttribute fieldAttribute = fieldDetail.new FieldAttribute();
                                     fieldAttribute.setFieldId(fieldDetail.getFieldId());
                                     fieldAttribute.setAttributeName(key);
-                                    fieldAttribute.setAttributeValue(attributes.get(key));
+                                    ArrayList<String> attributeValues = new ArrayList<String>();
+                                    attributeValues.add(attributes.get(key));
+                                    fieldAttribute.setAttributeValues(attributeValues);
                                     fieldAttributeArrayList.add(fieldAttribute);
                                 }
                                 fieldDetail.setFieldAttributes(fieldAttributeArrayList);

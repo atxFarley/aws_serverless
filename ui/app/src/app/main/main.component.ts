@@ -9,6 +9,7 @@ import {
 
 import {Field} from '../field';
 import {FieldUser} from '../fieldUser';
+import {FieldAttribute} from '../fieldAttribute';
 import {FieldActivity} from '../fieldActivity';
 import {FieldActivityType} from '../fieldActivityType';
 import {FieldActivityFileType} from '../fieldActivityFileType';
@@ -16,6 +17,7 @@ import {FieldActivityFile} from '../fieldActivityFile';
 import {SearchService} from '../search.service';
 import {FieldService} from '../field.service';
 import {FielduserService} from '../fielduser.service';
+import {FieldattributeService} from '../fieldattribute.service';
 import {FieldactivityService} from '../fieldactivity.service';
 import {FieldactivitytypeService} from '../fieldactivitytype.service';
 import {FieldactivityfiletypeService} from '../fieldactivityfiletype.service';
@@ -39,6 +41,7 @@ export class MainComponent implements OnInit, OnChanges {
   searchResults: Field[] = [];
   selectedField: Field;
   fieldUsers: FieldUser[];
+  fieldAttributes: FieldAttribute[];
   activityTypes: FieldActivityType[];
   activityFileTypes: FieldActivityFileType[];
   recentSearchBoxValue: string;
@@ -47,12 +50,15 @@ export class MainComponent implements OnInit, OnChanges {
   uploadedFieldActivityFile: FieldActivityFile;
   selectedFieldActivityId: string;
   newFieldActivity: FieldActivity;
+  newFieldAttribute: FieldAttribute;
+  newFieldAttributeValues: string[];
 
   constructor(private searchService: SearchService,
               private route: ActivatedRoute,
               private location: Location,
               private fieldService: FieldService,
               private fieldUserService: FielduserService,
+              private fieldAttributeService: FieldattributeService,
               private fieldactivityService: FieldactivityService,
               private fieldactivitytypeService: FieldactivitytypeService,
               private fieldactivityfiletypeService: FieldactivityfiletypeService,
@@ -65,9 +71,13 @@ export class MainComponent implements OnInit, OnChanges {
     console.log('main ngOnInit()');
     leafletMap.init(environment.apiURL, environment.mapboxUrl);
     this.getFieldUsers();
+    this.getFieldAttributes();
     this.getFieldActivityTypes();
     this.getFieldActivityFileTypes();
     this.newFieldActivity = {} as FieldActivity;
+    this.newFieldAttribute = {} as FieldAttribute;
+    this.newFieldAttribute.attributeValues = {} as string[];
+
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -85,6 +95,10 @@ export class MainComponent implements OnInit, OnChanges {
   getFieldUsers(): void {
     this.fieldUserService.getFieldUsers()
       .subscribe(fieldUsers => this.fieldUsers = fieldUsers);
+  }
+
+  getFieldAttributes(): void {
+    this.fieldAttributeService.getFieldAttributes().subscribe(fieldAttributes => this.fieldAttributes = fieldAttributes);
   }
 
   getFieldActivityTypes(): void {
@@ -120,6 +134,17 @@ export class MainComponent implements OnInit, OnChanges {
     // console.log('Field Size: ' + this.selectedField.acres);
     // console.log('Field Desc: ' + this.selectedField.fieldDesc);
 
+  }
+
+  removeFieldAttribute(fieldAttributeName, fieldAttributeValue): void {
+    console.log('field Attribute to remove: ' + fieldAttributeName + ": " + fieldAttributeValue);
+    for (var i = 0; i < this.selectedField.fieldAttributes.length; i++) {
+      if (this.selectedField.fieldAttributes[i].attributeName === fieldAttributeName && this.selectedField.fieldAttributes[i].attributeValues[0] === fieldAttributeValue) {
+        this.selectedField.fieldAttributes.splice(i, 1);
+        i--;
+      }
+    }
+    console.log("select field attributes: " + this.selectedField.fieldAttributes);
   }
 
   refreshSearch(): void {
@@ -162,6 +187,31 @@ export class MainComponent implements OnInit, OnChanges {
   fileChange(event, selectedFieldActivityId): void {
     this.uploadFile = event.target.files[0];
     this.selectedFieldActivityId = selectedFieldActivityId;
+  }
+
+  populateNewFieldAttributeValues(): void {
+    console.log("populateNewFieldAttributeValues: ");
+    if (this.newFieldAttribute.attributeName != '-') {
+      this.newFieldAttributeValues = this.fieldAttributes.find(name => name.attributeName === this.newFieldAttribute.attributeName).attributeValues;
+    } else {
+      this.newFieldAttributeValues = {} as string[];
+    }
+  }
+
+  addFieldAttribute() {
+    console.log("addFieldAttribute: " + this.newFieldAttribute.attributeName + ": " + this.newFieldAttribute.attributeValues[0]);
+    if ((this.newFieldAttribute.attributeName != '' && this.newFieldAttribute.attributeName != undefined && this.newFieldAttribute.attributeName != 'undefined') && (this.newFieldAttribute.attributeValues[0] != '' && this.newFieldAttribute.attributeValues[0] != undefined && this.newFieldAttribute.attributeValues[0] != 'undefined')) {
+      this.newFieldAttribute.fieldId = this.selectedFieldId;
+      console.log(this.newFieldAttribute.attributeValues[0].trim());
+      console.log(this.newFieldAttribute.attributeValues);
+      let addFieldAttribute: FieldAttribute = {} as FieldAttribute;
+      addFieldAttribute.attributeValues = [this.newFieldAttribute.attributeValues[0].trim()];
+      addFieldAttribute.fieldId = this.selectedFieldId;
+      addFieldAttribute.attributeName = this.newFieldAttribute.attributeName.trim();
+      console.log("addFieldAttribute: " + addFieldAttribute);
+      this.selectedField.fieldAttributes.push(addFieldAttribute);
+    }
+    console.log("select field attributes: " + this.selectedField.fieldAttributes);
   }
 
   addFieldActivity(): void {

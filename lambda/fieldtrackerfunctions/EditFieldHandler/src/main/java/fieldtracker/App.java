@@ -10,8 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.sql.*;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -22,6 +21,7 @@ import org.yaml.snakeyaml.constructor.Constructor;
 import java.io.InputStream;
 
 import org.json.simple.JSONObject;
+import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
@@ -46,6 +46,10 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
         String editFieldName = null;
         String editFieldDesc = null;
         String editGrowerId = null;
+        JSONArray editFieldAttributes = null;
+        List<String> keys = new ArrayList<String>();
+        List<String> values = new ArrayList<String>();
+
         if (input != null) {
             try {
                 Map<String, String> queryStringParameters = input.getQueryStringParameters();
@@ -67,6 +71,7 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
                 }
 
                 if (requestJsonObject != null) {
+                    lgr.log(Level.INFO, "requestJsonObject: " + requestJsonObject);
                     if (requestJsonObject.get("fieldName") != null) {
                         editFieldName = requestJsonObject.get("fieldName").toString();
                     }
@@ -76,6 +81,34 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
                     if (requestJsonObject.get("growerId") != null) {
                         editGrowerId = requestJsonObject.get("growerId").toString();
                     }
+                    if (requestJsonObject.get("fieldAttributes") != null) {
+                        editFieldAttributes = (JSONArray) requestJsonObject.get("fieldAttributes");
+                        Iterator<JSONObject> iterator = editFieldAttributes.iterator();
+
+                        while (iterator.hasNext()) {
+                            JSONObject fieldAttr = iterator.next();
+                            lgr.log(Level.INFO, "iterator.next " + fieldAttr);
+                            if (fieldAttr != null) {
+                                if (fieldAttr.get("attributeName") != null) {
+                                    String key = fieldAttr.get("attributeName").toString();
+                                    lgr.log(Level.INFO, "key: " + key);
+                                    keys.add(key);
+                                }
+                                if (fieldAttr.get("attributeValues") != null) {
+                                    lgr.log(Level.INFO, "attributeValues: " + fieldAttr.get("attributeValues"));
+                                    JSONArray vals = (JSONArray) fieldAttr.get("attributeValues");
+                                    String fieldVal = (String) vals.get(0);
+                                    lgr.log(Level.INFO, "field value" + fieldVal);
+                                    if (fieldVal != null) {
+                                        values.add(fieldVal.toString());
+                                    }
+
+                                }
+
+                            }
+                        }
+                    }
+
                 }
             } catch (ParseException ex) {
                 lgr.log(Level.SEVERE, "ParseException caught: " + ex.getMessage(), ex);
@@ -113,6 +146,17 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
                 }
                 if (editFieldDesc != null) {
                     updateFieldSql.append(" ,field_desc = ? ");
+                }
+                if (keys.size() > 0 && values.size() > 0 && keys.size() == values.size()) {
+                    String keysStr = new ObjectMapper().writeValueAsString(keys);
+                    keysStr = keysStr.replace("[", "{");
+                    keysStr = keysStr.replace("]", "}");
+                    lgr.log(Level.INFO, "keyStr: " + keysStr);
+                    String valsStr = new ObjectMapper().writeValueAsString(values);
+                    valsStr = valsStr.replace("[", "{");
+                    valsStr = valsStr.replace("]", "}");
+                    lgr.log(Level.INFO, "valsStr: " + valsStr);
+                    updateFieldSql.append(" , field_attributes = jsonb_object('").append(keysStr).append("', '").append(valsStr).append("') ");
                 }
 
                 updateFieldSql.append("  where field_id = ?");

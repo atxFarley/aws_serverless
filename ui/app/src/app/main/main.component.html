@@ -40,9 +40,10 @@
       <div id="fieldDiv">
       </div>
       <div id="fieldDetailsButton" style="display: none;">
-        <button type="button" class="btn btn-outline-secondary" (click)="getFieldDetails()"><i
-          class="fa fa-pencil-square-o"
-          aria-hidden="true"></i></button>
+        <label>Click to View/Edit Field Details: </label>&nbsp;<button type="button" class="btn btn-outline-secondary"
+                                                                       (click)="getFieldDetails()"><i
+        class="fa fa-pencil-square-o"
+        aria-hidden="true"></i></button>
         <input id="fieldID" name="fieldID" type="hidden" [(ngModel)]="selectedFieldId"/>
       </div>
       <br/><br/>
@@ -63,6 +64,61 @@
                       [(ngModel)]="selectedField.growerId" name="grower">
                 <option *ngFor="let user of fieldUsers" [value]="user.fieldUserId">{{user.listDisplayName}}</option>
               </select>
+            </div>
+            <div>
+              <table id="fieldAttributesTable">
+                <thead>
+                <th>
+                  Attribute
+                </th>
+                <th>Value</th>
+                <th></th>
+                </thead>
+                <tbody>
+                <tr *ngFor="let fieldAttribute of selectedField.fieldAttributes">
+                  <td>
+                    <label>{{fieldAttribute.attributeName}}</label>
+                  </td>
+                  <td>
+                    {{fieldAttribute.attributeValues[0]}}
+                  </td>
+                  <td>
+                    <button type="button" class="btn btn-outline-danger"
+                            (click)="removeFieldAttribute(fieldAttribute.attributeName, fieldAttribute.attributeValues[0])">
+                      <i class="fa fa-trash" aria-hidden="true"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="3"><i class="fa fa-plus" aria-hidden="true"></i>Add Attribute</td>
+                </tr>
+                <tr>
+                  <td>
+
+                    <select id="newFieldAttributeName" name="newFieldAttributeName" (change)="populateNewFieldAttributeValues()"
+                            [(ngModel)]="newFieldAttribute.attributeName">
+                      <option *ngFor="let attribute of fieldAttributes"
+                              [value]="attribute.attributeName">{{attribute.attributeName}}</option>
+                    </select>
+                  </td>
+                  <td>
+
+                    <select *ngIf="newFieldAttribute" id="newFieldAttributeValue" name="newFieldAttributeValue"
+                            [(ngModel)]="newFieldAttribute.attributeValues[0]">
+                      <option *ngFor="let attributeValue of newFieldAttributeValues"
+                              [value]="attributeValue">{{attributeValue}}</option>
+                    </select>
+
+                  </td>
+                  <td>
+                    <button type="button" class="btn btn-outline-success"
+                            (click)="addFieldAttribute()">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                    </button>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
             </div>
             <button type="submit" class="btn btn-dark" [disabled]="!main.form.valid">Submit</button>
           </form>
@@ -85,18 +141,22 @@
             <tbody>
             <tr>
               <td>
-                <label>Select Activity Date: <input type="date"    [(ngModel)]="newFieldActivity.fieldActivityDate" id="newFieldActivityDate" name="newFieldActivityDate"></label>
+                <label>Select Activity Date: <input type="date" [(ngModel)]="newFieldActivity.fieldActivityDate"
+                                                    id="newFieldActivityDate" name="newFieldActivityDate"></label>
               </td>
               <td>
-                <select id="newFieldActivityTypeId" name = "newFieldActivityTypeId" [(ngModel)]="newFieldActivity.fieldActivityTypeId">
+                <select id="newFieldActivityTypeId" name="newFieldActivityTypeId"
+                        [(ngModel)]="newFieldActivity.fieldActivityTypeId">
                   <option *ngFor="let activityType of   activityTypes"
                           [value]="activityType.fieldActivityTypeId">{{activityType.activityType}}</option>
                 </select>
               </td>
-              <td >
-                <label>Enter Field Activity Description:</label><br/><textarea [(ngModel)]="newFieldActivity.fieldActivityDesc" name="newFieldActivityDescription" id="newFieldActivityDescription" rows="2" cols="50"></textarea>
-              </td>
               <td>
+                <label>Enter Field Activity Description:</label><br/><textarea
+                [(ngModel)]="newFieldActivity.fieldActivityDesc" name="newFieldActivityDescription"
+                id="newFieldActivityDescription" rows="2" cols="50"></textarea>
+              </td>
+              <td colspan="2">
                 <button type="submit" class="btn btn-dark" (click)="addFieldActivity()">Add a Field Activity</button>
               </td>
             </tr>
@@ -128,7 +188,8 @@
                   <label>Choose File to Upload:
                     <input type="file" name="uploadFiletoS3" (change)="fileChange($event, activity.fieldActivityId)"
                            placeholder="Choose File"/>
-                  </label>&nbsp;&nbsp;     <button type="submit" class="btn btn-dark" (click)="fileUpload()">Upload</button>
+                  </label>&nbsp;&nbsp;
+                  <button type="submit" class="btn btn-dark" (click)="fileUpload()">Upload</button>
                 </div>
               </td>
             </tr>

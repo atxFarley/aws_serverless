@@ -8,13 +8,13 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
+
 import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class AppTest {
-
 
 
     @Test
@@ -36,7 +36,7 @@ public class AppTest {
                 "    \"addressZip\": null,\n" +
                 "    \"addressCounty\": null,\n" +
                 "    \"addressDesc\": null,\n" +
-                "    \"fieldAttributes\": null,\n" +
+                " \"fieldAttributes\": [{ \"attributeValues\": [\"cotton\"],\"attributeName\": \"crop\", \"fieldId\": 4 },{\"attributeValues\": [\"none\"            ],            \"attributeName\": \"irrigation\",                \"fieldId\": 4        },        {            \"attributeValues\": [            \"flood/furrow\"            ],            \"attributeName\": \"irrigation\",                \"fieldId\": 4        }    ],\n" +
                 "    \"fieldHistory\": null,\n" +
                 "    \"fieldActivities\": null\n" +
                 "}";
@@ -47,6 +47,32 @@ public class AppTest {
         String content = result.getBody();
         assertNotNull(content);
         assertTrue(content.contains("updateFieldId"));
+
+                            /*
+                       "fieldAttributes": [
+        {
+            "attributeValues": [
+                "cotton"
+            ],
+            "attributeName": "crop",
+            "fieldId": 4
+        },
+        {
+            "attributeValues": [
+                "none"
+            ],
+            "attributeName": "irrigation",
+            "fieldId": 4
+        },
+        {
+            "attributeValues": [
+                "flood/furrow"
+            ],
+            "attributeName": "irrigation",
+            "fieldId": 4
+        }
+    ],
+                     */
     }
 
 

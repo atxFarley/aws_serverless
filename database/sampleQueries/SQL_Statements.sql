@@ -116,7 +116,7 @@ order by field_name;
 select (st_area(st_transform(field_geom,26914)) * 0.00024710538146717) as area_acres from field where field_id = 6;
 
 
-•	UPDATE field SET field_attributes = '{ "crop": "cotton", "irrigation": "none"}' WHERE field_id=2;
+UPDATE field SET field_attributes = '{ "crop": "cotton", "irrigation": "none"}' WHERE field_id=2;
 
 UPDATE field SET field_attributes = 
 		'{ "crop": "hay", "irrigation": "none"}'
@@ -186,3 +186,21 @@ SELECT jsonb_build_object(
                          on field.field_id = field_grower.field_id
                          inner join field_manage.field_user
                          on field_grower.grower_id = field_user.field_user_id  where (field_manage.field_user.last_name = 'Farley')) inputs) features;
+
+INSERT INTO field_attribute (attribute, attr_value, active_b, created_datetz) values('crop', 'cotton', true, current_timestamp);
+INSERT INTO field_attribute (attribute, attr_value, active_b, created_datetz) values('crop', 'peanuts', true, current_timestamp);
+INSERT INTO field_attribute (attribute, attr_value, active_b, created_datetz) values('crop', 'hay', true, current_timestamp);
+INSERT INTO field_attribute (attribute, attr_value, active_b, created_datetz) values('crop', 'melons', true, current_timestamp);
+
+INSERT INTO field_attribute (attribute, attr_value, active_b, created_datetz) values('irrigation', 'none', true, current_timestamp);
+INSERT INTO field_attribute (attribute, attr_value, active_b, created_datetz) values('irrigation', 'center-pivot', true, current_timestamp);
+INSERT INTO field_attribute (attribute, attr_value, active_b, created_datetz) values('irrigation', 'drip/microirrigation', true, current_timestamp);
+INSERT INTO field_attribute (attribute, attr_value, active_b, created_datetz) values('irrigation', 'flood/furrow', true, current_timestamp);
+INSERT INTO field_attribute (attribute, attr_value, active_b, created_datetz) values('irrigation', 'spray/sprinkler', true, current_timestamp);
+INSERT INTO field_attribute (attribute, attr_value, active_b, created_datetz) values('irrigation', 'subirrigation', true, current_timestamp);
+INSERT INTO field_attribute (attribute, attr_value, active_b, created_datetz) values('irrigation', 'surge flooding', true, current_timestamp);
+
+
+SELECT attribute, string_agg(attr_value, ', ')
+FROM field_attribute
+GROUP BY attribute;

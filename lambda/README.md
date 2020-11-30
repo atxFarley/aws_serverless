@@ -61,6 +61,7 @@ For this project, the Amazon API Gateway resources created are RESTful APIs.
 * GET /fieldusers - Lists all field users
 * GET /fieldactivitytypes- Lists all field activity types
 * GET /fieldactivityfiletypes - Lists all field activity file types
+* GET /fieldattributes - Lists all field attribute/value combinations
 * POST /fields - Adds a new field
 * GET /fields/{fieldid} - Retrieves a specific field
 * PUT /fields/{fieldid} - Updates a specific field
