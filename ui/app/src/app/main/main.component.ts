@@ -137,14 +137,15 @@ export class MainComponent implements OnInit, OnChanges {
   }
 
   removeFieldAttribute(fieldAttributeName, fieldAttributeValue): void {
-    console.log('field Attribute to remove: ' + fieldAttributeName + ": " + fieldAttributeValue);
-    for (var i = 0; i < this.selectedField.fieldAttributes.length; i++) {
-      if (this.selectedField.fieldAttributes[i].attributeName === fieldAttributeName && this.selectedField.fieldAttributes[i].attributeValues[0] === fieldAttributeValue) {
+    console.log('field Attribute to remove: ' + fieldAttributeName + ': ' + fieldAttributeValue);
+    for (let i = 0; i < this.selectedField.fieldAttributes.length; i++) {
+      if (this.selectedField.fieldAttributes[i].attributeName === fieldAttributeName
+        && this.selectedField.fieldAttributes[i].attributeValues[0] === fieldAttributeValue) {
         this.selectedField.fieldAttributes.splice(i, 1);
         i--;
       }
     }
-    console.log("select field attributes: " + this.selectedField.fieldAttributes);
+    console.log('select field attributes: ' + this.selectedField.fieldAttributes);
   }
 
   refreshSearch(): void {
@@ -192,28 +193,31 @@ export class MainComponent implements OnInit, OnChanges {
   }
 
   populateNewFieldAttributeValues(): void {
-    console.log("populateNewFieldAttributeValues: ");
-    if (this.newFieldAttribute.attributeName != '-') {
-      this.newFieldAttributeValues = this.fieldAttributes.find(name => name.attributeName === this.newFieldAttribute.attributeName).attributeValues;
+    console.log('populateNewFieldAttributeValues: ');
+    if (this.newFieldAttribute.attributeName !== '-') {
+      this.newFieldAttributeValues = this.fieldAttributes
+        .find(name => name.attributeName === this.newFieldAttribute.attributeName).attributeValues;
     } else {
       this.newFieldAttributeValues = {} as string[];
     }
   }
 
-  addFieldAttribute() {
-    console.log("addFieldAttribute: " + this.newFieldAttribute.attributeName + ": " + this.newFieldAttribute.attributeValues[0]);
-    if ((this.newFieldAttribute.attributeName != '' && this.newFieldAttribute.attributeName != undefined && this.newFieldAttribute.attributeName != 'undefined') && (this.newFieldAttribute.attributeValues[0] != '' && this.newFieldAttribute.attributeValues[0] != undefined && this.newFieldAttribute.attributeValues[0] != 'undefined')) {
+  addFieldAttribute(): void {
+    console.log('addFieldAttribute: ' + this.newFieldAttribute.attributeName + ': ' + this.newFieldAttribute.attributeValues[0]);
+    if ((this.newFieldAttribute.attributeName !== '' && this.newFieldAttribute.attributeName !== undefined
+      && this.newFieldAttribute.attributeName !== 'undefined') && (this.newFieldAttribute.attributeValues[0] !== ''
+      && this.newFieldAttribute.attributeValues[0] !== undefined && this.newFieldAttribute.attributeValues[0] !== 'undefined')) {
       this.newFieldAttribute.fieldId = this.selectedFieldId;
       console.log(this.newFieldAttribute.attributeValues[0].trim());
       console.log(this.newFieldAttribute.attributeValues);
-      let addFieldAttribute: FieldAttribute = {} as FieldAttribute;
+      const addFieldAttribute: FieldAttribute = {} as FieldAttribute;
       addFieldAttribute.attributeValues = [this.newFieldAttribute.attributeValues[0].trim()];
       addFieldAttribute.fieldId = this.selectedFieldId;
       addFieldAttribute.attributeName = this.newFieldAttribute.attributeName.trim();
-      console.log("addFieldAttribute: " + addFieldAttribute);
+      console.log('addFieldAttribute: ' + addFieldAttribute);
       this.selectedField.fieldAttributes.push(addFieldAttribute);
     }
-    console.log("select field attributes: " + this.selectedField.fieldAttributes);
+    console.log('select field attributes: ' + this.selectedField.fieldAttributes);
   }
 
   addFieldActivity(): void {
