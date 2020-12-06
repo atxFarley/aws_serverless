@@ -260,12 +260,10 @@ export class MainComponent implements OnInit, OnChanges {
       if (!Array.isArray(this.selectedField.fieldAttributes) || !this.selectedField.fieldAttributes.length) {
         console.log('need to reset fieldAttributes');
         const fieldAttrArray: FieldAttribute[] = [];
-        // fieldAttrArray[0] = addFieldAttribute;
         this.selectedField.fieldAttributes = fieldAttrArray;
       }
       console.log('pushing to field attributes');
       this.selectedField.fieldAttributes.push(addFieldAttribute);
-
     }
     console.log('selected field attributes: ' + this.selectedField.fieldAttributes);
   }
