@@ -19,6 +19,7 @@ import {FieldService} from '../field.service';
 import {FielduserService} from '../fielduser.service';
 import {FieldattributeService} from '../fieldattribute.service';
 import {FieldactivityService} from '../fieldactivity.service';
+import {FieldactivityfileService} from '../fieldactivityfile.service';
 import {FieldactivitytypeService} from '../fieldactivitytype.service';
 import {FieldactivityfiletypeService} from '../fieldactivityfiletype.service';
 import {FileuploadService} from '../fileupload.service';
@@ -60,6 +61,7 @@ export class MainComponent implements OnInit, OnChanges {
               private fieldUserService: FielduserService,
               private fieldAttributeService: FieldattributeService,
               private fieldactivityService: FieldactivityService,
+              private fieldactivityfileService: FieldactivityfileService,
               private fieldactivitytypeService: FieldactivitytypeService,
               private fieldactivityfiletypeService: FieldactivityfiletypeService,
               private fileuploadService: FileuploadService) {
@@ -146,6 +148,45 @@ export class MainComponent implements OnInit, OnChanges {
       }
     }
     console.log('select field attributes: ' + this.selectedField.fieldAttributes);
+  }
+
+  removeFieldActivity(fieldActivityId): void {
+    console.log('removeFieldActivity: fieldActivityId: ' + fieldActivityId);
+    const deleteFieldActivity: FieldActivity = {} as FieldActivity;
+    deleteFieldActivity.fieldActivityId = fieldActivityId;
+    deleteFieldActivity.fieldId = this.selectedFieldId;
+    const deleteActivityUrl = this.fieldactivityService.deleteFieldActivity(this.selectedFieldId.toString(), deleteFieldActivity)
+      .pipe(
+        concatMap((data: any) => {
+            this.getFieldDetails();
+            return of();
+          }
+        )
+      );
+    deleteActivityUrl.subscribe(() => console.log('completed entire delete activity sequence'));
+  }
+
+  removeFieldActivityFile(fieldActivityId, fieldActivityFileId, fieldActivityFileLocation): void {
+    console.log('removeFieldActivityFile(fieildActivityFileId: ' + fieldActivityFileId +
+      ', fieldActivityFileLocation: ' + fieldActivityFileLocation + ')');
+    const deleteFieldActivityFile: FieldActivityFile = {} as FieldActivityFile;
+    deleteFieldActivityFile.fieldActivityFileId = fieldActivityFileId;
+    deleteFieldActivityFile.fieldActivityFileLocation = fieldActivityFileLocation;
+    const deleteFileURL = this.fieldactivityfileService.deleteBucketFile(this.selectedFieldId.toString(), fieldActivityId.toString(),
+      deleteFieldActivityFile)
+      .pipe(
+        concatMap(fileUpload => this.fieldactivityfileService.deleteFieldActivityFile(this.selectedFieldId.toString(),
+          fieldActivityId.toString(), deleteFieldActivityFile)
+          .pipe(
+            concatMap((data: any) => {
+                this.getFieldDetails();
+                return of();
+              }
+            )
+          )
+        )
+      );
+    deleteFileURL.subscribe(() => console.log('completed entire delete file sequence'));
   }
 
   refreshSearch(): void {

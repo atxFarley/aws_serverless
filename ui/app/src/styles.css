@@ -16,6 +16,7 @@ body {
   height: 100%;
 }
 
+
 a:link {
   text-decoration: none;
 }
@@ -96,6 +97,30 @@ a.backLink:hover {
   font-size: small;
 }
 
+a.trash:link {
+  color: red;
+  font-size: small;
+  font-weight: bold;
+}
+
+a.trash:visited {
+  color: red;
+  font-size: small;
+  font-weight: bold;
+}
+
+a.trash:active {
+  color: red;
+  font-size: small;
+  font-weight: bold;
+}
+
+a.trash:hover {
+  color: red;
+  font-size: small;
+  font-weight: bold;
+}
+
 .backlink {
   padding-bottom: 2%;
 }
@@ -110,19 +135,34 @@ a.backLink:hover {
   padding-right: 3%;
   height: 100%;
 }
+
+
 table {
   border-collapse: collapse;
-}
-
-
-table, th, td {
   border: 0.5px solid lightgray;
+  border-spacing: 5px;
 }
 
+th {
+  background-color: #262626;
+  color: white;
+  padding: 10px;
+}
+
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: #c3c388;
+}
 
 td {
+  padding: 10px;
   vertical-align: top;
 }
+
 #mapid {
   text-align: left;
   height: 512px;
@@ -133,6 +173,7 @@ td {
 #infoid {
   padding-left: 3%;
 }
+
 #fieldActivities {
   margin-top: 3%;
   padding-left: 3%;

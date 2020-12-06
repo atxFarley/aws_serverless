@@ -142,7 +142,7 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
                 if (editFieldName != null) {
                     updateFieldSql.append("  field_name = ? ");
                 } else {
-                    updateFieldSql.append(" field_name == null ");
+                    updateFieldSql.append(" field_name = null ");
                 }
                 if (editFieldDesc != null) {
                     updateFieldSql.append(" ,field_desc = ? ");
@@ -157,6 +157,8 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
                     valsStr = valsStr.replace("]", "}");
                     lgr.log(Level.INFO, "valsStr: " + valsStr);
                     updateFieldSql.append(" , field_attributes = jsonb_object('").append(keysStr).append("', '").append(valsStr).append("') ");
+                } else {
+                    updateFieldSql.append(" , field_attributes = null ");
                 }
 
                 updateFieldSql.append("  where field_id = ?");

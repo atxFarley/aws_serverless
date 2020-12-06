@@ -73,6 +73,7 @@ For this project, the Amazon API Gateway resources created are RESTful APIs.
 * GET /fields/{fieldid}/activities/{activityid}/activityfiles/{activityfileid} - Retrieves a specific field activity file
 * DELETE /fields/{fieldid}/activities/{activityid}/activityfiles/{activityfileid} - Deletes a specific field activity file
 * POST /fields/s3url - Retrieves a presigned URL to the S3 bucket for file upload
+* DELETE /fields/s3object - Deletes a specific S3 Bucket object
 
 ### Roadmap
 1. Continue adding Lambda functions as functionality added to the UI

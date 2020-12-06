@@ -5,7 +5,6 @@ import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 
@@ -21,7 +20,8 @@ public class AppTest {
         App app = new App();
         APIGatewayProxyRequestEvent input = new APIGatewayProxyRequestEvent();
         String layerJSON = "{\n" +
-                "    \"activityfileid\": 999\n" +
+                "    \"fileKey\": \"4/2/test.pdf\",\n" +
+                "    \"fileContentType\": \"application/pdf\"\n" +
                 "}";
         input.setBody(layerJSON);
         APIGatewayProxyResponseEvent result = app.handleRequest(input, null);
@@ -29,9 +29,6 @@ public class AppTest {
         assertEquals(result.getHeaders().get("Content-Type"), "application/json");
         String content = result.getBody();
         assertNotNull(content);
-        assertTrue(content.contains("deleteFieldActivityFileId"));
+        assertTrue(content.contains("deleteFieldActivityFileKey"));
     }
-
-
 }
-

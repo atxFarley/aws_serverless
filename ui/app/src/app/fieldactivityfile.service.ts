@@ -3,16 +3,16 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 import {Observable, of} from 'rxjs';
 import {catchError, map, tap} from 'rxjs/operators';
-import {FieldActivityFileType} from './fieldActivityFileType';
+
 import {environment} from './../environments/environment';
-import {FieldActivity} from './fieldActivity';
 import {FieldActivityFile} from './fieldActivityFile';
-import {Field} from './field';
+import {FileUpload} from './fileUpload';
+
 
 @Injectable({
   providedIn: 'root'
 })
-export class FieldactivityService {
+export class FieldactivityfileService {
 
   private fieldsAPIUrl = environment.fieldsAPIUrl;
   httpOptions = {
@@ -23,19 +23,21 @@ export class FieldactivityService {
   }
 
 
-
-  addFieldActivity(newFieldActivity: FieldActivity): Observable<FieldActivity> {
-    console.log('addFieldActivity()');
-    console.log('fieldActivity: ' + JSON.stringify(newFieldActivity));
-    const url = `${this.fieldsAPIUrl}/${newFieldActivity.fieldId}/activities`;
+  deleteBucketFile(fieldId: string, fieldActivityId: string, fieldActivityFile: FieldActivityFile): Observable<FileUpload> {
+    console.log('deleteBucketFile(fieldId: ' + fieldId + ', fieldActivityId: ' + fieldActivityId + ')');
+    const fileKey = fieldActivityFile.fieldActivityFileLocation.substring(fieldActivityFile.fieldActivityFileLocation.indexOf('fieldactivityfiles.s3.amazonaws.com/') + 36);
+    console.log('fileKey: ' + fileKey);
+    const url = `${this.fieldsAPIUrl}/s3object`;
     console.log('url: ' + url);
-    return new Observable<FieldActivity>(observer => {
+    const bucketObject = {} as FileUpload;
+    bucketObject.fileKey = fileKey;
+    return new Observable<FileUpload>(observer => {
       fetch(url, {
-        method: 'POST',
+        method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(newFieldActivity)
+        body: JSON.stringify(bucketObject)
       })
         .then((response) => {
           // console.log('response: ' + response);
@@ -44,29 +46,24 @@ export class FieldactivityService {
         .then((data) => {
           console.log('data: ' + JSON.stringify(data));
           // addDataToMap(data, '');
-          observer.next(newFieldActivity);
+          observer.next(bucketObject);
           observer.complete();
         })
         .catch((error) => {
           console.error('Error:', error);
         });
     });
-    // return this.http.post<string>(url, fieldActivityFile, this.httpOptions).pipe(
-    //   tap(_ => console.log(`added field activity file =${fieldActivityFile.fieldActivityFileLocation}`)),
-    //   catchError(this.handleError<FieldActivityFile>('addFieldActivityFile'))
-    // );
   }
 
 
-
-  /** DELETE: delete the field activity from the server */
-  deleteFieldActivity(fieldId: string, fieldActivity: FieldActivity ): Observable<FieldActivity> {
-    const id = fieldActivity.fieldActivityId;
-    const url = `${this.fieldsAPIUrl}/${fieldId}/activities/${id}`;
-    console.log('delete field activity url: ' + url);
-    return this.http.delete<FieldActivity>(url, this.httpOptions).pipe(
-      tap(_ => console.log(`deleted field activity id=${id}`)),
-      catchError(this.handleError<FieldActivity>('deletefieldactivity'))
+  /** DELETE: delete the field activityfile from the server */
+  deleteFieldActivityFile(fieldId: string, fieldActivityId: string, fieldActivityFile: FieldActivityFile): Observable<FieldActivityFile> {
+    const id = fieldActivityFile.fieldActivityFileId;
+    const url = `${this.fieldsAPIUrl}/${fieldId}/activities/${fieldActivityId}/activityfiles/${id}`;
+    console.log('delete field activity file url: ' + url);
+    return this.http.delete<FieldActivityFile>(url, this.httpOptions).pipe(
+      tap(_ => console.log(`deleted field activity file id=${id}`)),
+      catchError(this.handleError<FieldActivityFile>('deletefieldactivityfile'))
     );
   }
 
