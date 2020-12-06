@@ -98,7 +98,8 @@
                 </tr>
                 <tr>
                   <td>
-                    <select id="newFieldAttributeName" name="newFieldAttributeName"
+                    <select id="newFieldAttributeName"
+                            name="newFieldAttributeName"
                             (change)="populateNewFieldAttributeValues()"
                             [(ngModel)]="newFieldAttribute.attributeName">
                       <option *ngFor="let attribute of fieldAttributes"

@@ -256,9 +256,18 @@ export class MainComponent implements OnInit, OnChanges {
       addFieldAttribute.fieldId = this.selectedFieldId;
       addFieldAttribute.attributeName = this.newFieldAttribute.attributeName.trim();
       console.log('addFieldAttribute: ' + addFieldAttribute);
+      console.log('this.selectedField.fieldAttributes: ' + this.selectedField.fieldAttributes);
+      if (!Array.isArray(this.selectedField.fieldAttributes) || !this.selectedField.fieldAttributes.length) {
+        console.log('need to reset fieldAttributes');
+        const fieldAttrArray: FieldAttribute[] = [];
+        // fieldAttrArray[0] = addFieldAttribute;
+        this.selectedField.fieldAttributes = fieldAttrArray;
+      }
+      console.log('pushing to field attributes');
       this.selectedField.fieldAttributes.push(addFieldAttribute);
+
     }
-    console.log('select field attributes: ' + this.selectedField.fieldAttributes);
+    console.log('selected field attributes: ' + this.selectedField.fieldAttributes);
   }
 
   addFieldActivity(): void {
