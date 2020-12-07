@@ -15,7 +15,7 @@ before_script:
   - npm install --save-dev @angular-devkit/build-angular
   - npm install --save-dev dotenv
 addons:
-  chrome: stable
+  chrome: beta
 #  apt:
 #    sources:
 #      - google-chrome
