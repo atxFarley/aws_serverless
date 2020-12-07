@@ -188,8 +188,9 @@ Each function in [lambda/fieldtrackerfunctions](lambda/fieldtrackerfunctions) ha
 `mvn clean install` on each function builds and executes tests
 
 ### Angular UI
-Tests can be defined in  [ui/app/e2e](ui/app/e2e) and [ui/app/src/test.ts](ui/app/src/test.ts)  
-Project contains the [.travis.yml](.travis.yml) required for [integration with Travis CI](https://angular.io/guide/testing#configure-project-for-travis-ci)  
+Files for Unit Tests, End-to-End tests, and configuration for Continuous integration (CI) test runs included in [ui/app](ui/app).  
+Specifics about Angular application testing detailed [here](ui/README.md).
+
 
 ## Roadmap
 * Performance and Load testing
