@@ -108,9 +108,16 @@ In the AWS Console, go to AWS Amplify
 7. Enter an App name   
 8. Edit the Build and test settings  
    1. __replace:__    
-   `        build:  `  
-    `         commands:  `  
-     `          - npm run build`  
+   ```
+           build:
+             commands:
+               - npm run 
+   ```
+   
+ 
+      `build:`  
+        `commands:`  
+          `- npm run build`  
    __with__    
    `        build:  `  
    `            commands:  `    
