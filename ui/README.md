@@ -55,33 +55,37 @@ Instructions for using the code:
     - [app/src/environments/environment.prod.ts](app/src/environments/environment.prod.ts)  
 
 ## Tests
-Because the Angular CLI tool is used to create the application, files for unit tests and end-to-end (e2e) testing are automatically generated.
-`ng new <project name>` automatically generates an end-to-end test project (in the e2e subfolder) along with the project's root directory, skeleton application/configuration files  
-`ng generate component <name>` or `ng generate service <name>` automatically generates corresponding UNIT test files for the component or service with file extensions of `.spec.ts`
+Because the Angular CLI tool is used to create the application, files for __unit tests__ and __end-to-end (e2e)__ testing are automatically generated.
+`ng new <project name>` automatically generates an end-to-end test project (in the e2e subfolder) along with the application source and configuration files.   
+`ng generate component <name>` or `ng generate service <name>` automatically generates corresponding __Unit Test files__ for the component or service with file extensions of `.spec.ts`
 
-Angular Unit Tests are generated using the [Jasmine Behavior Driven Development (BDD) test framework](https://jasmine.github.io/).  The unit test files auto-generated upon `ng generate` commands can contain multiple tests for each Angular component or service.  
+**__Unit Tests__**  
+Angular Unit Tests are generated using the [Jasmine Behavior Driven Development (BDD) test framework](https://jasmine.github.io/).  
+The unit test files auto-generated upon `ng generate` commands can contain multiple tests for each Angular component or service.    
 Angular uses the [Karma test runner](https://karma-runner.github.io/latest/index.html) to run all of the unit tests. 
 `ng test` executes all unit tests.   
 Additional tests can be added to each `.spec.ts` file.  
 
+**__E2E Tests__**  
 End-to-end (e2e) testing is contained in the e2e subfolder of the application.  
 Angular uses the open-source [Protractor test framework](https://www.protractortest.org/#/) to execute test code (written in Jasmine) in a browser by using [Selenium](https://www.selenium.dev/)
 `ng e2e` executes the e2e tests by opening a browser specified in the [app/e2/protractor.conf.js](app/e2e/protractor.conf.js) file.  
 Additional tests can be added ot the [app/e2e/src](app/e2e/src) directory.
 * For this project, the environment variables MUST be set for the e2e tests to pass successfully. 
 
+**__Continuous Integration__**  
 For headless testing and Continuous integration (CI) testing,  
-the [app/karma.conf.js](app/karma.conf.js) file for unit tests has been modified along with the [app/e2e/protractor-ci.conf.js](app/e2e/protractor-ci.conf.js) file for e2e testing. 
-`ng test --no-watch --no-progress --browsers=ChromeHeadlessCI`  
- `ng e2e --protractor-config=e2e/protractor-ci.conf.js`  
+the [app/karma.conf.js](app/karma.conf.js) file for unit tests has been modified along with the [app/e2e/protractor-ci.conf.js](app/e2e/protractor-ci.conf.js) file for e2e testing.  
+`ng test --no-watch --no-progress --browsers=ChromeHeadlessCI`    
+`ng e2e --protractor-config=e2e/protractor-ci.conf.js`  
    
-Setting up CI:  
+**__[Travis CI](https://travis-ci.org/)__**  
 This project contains the [.travis.yml](.travis.yml) required for [integration with Travis CI](https://angular.io/guide/testing#configure-project-for-travis-ci)  
 At this time, the Travis CI service is activated upon GitHub check-in.  Because environment variables must be set for the e2e tests to pass successfully, this CI only includes:  
 `ng lint`  
 `ng build`  
-`ng test --no-watch --no-progress --browsers=ChromeHeadlessCI`  
-
+`ng test --no-watch --no-progress --browsers=ChromeHeadlessCI`   
+*E2E testing is excluded at this time.*    
 
 ### AWS Service Configuration
 The [AWS Amplify](https://aws.amazon.com/amplify/) service is used to host the user interface and provide continuous deployments. 
