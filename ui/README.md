@@ -107,18 +107,18 @@ In the AWS Console, go to AWS Amplify
 6. Enter the path for the UI code: __ui/app__  
 7. Enter an App name   
 8. Edit the Build and test settings  
-   1. __replace:__    
+   __replace:__    
    ```
            build:
              commands:
                - npm run 
    ```
-      __with:__   
-      ```
-              build:
-                commands:
-                  - npm run -- --prod 
-      ``` 
+  __with:__   
+  ```
+          build:
+            commands:
+              - npm run -- --prod 
+  ``` 
 9. Add the environment variables.  Mimic what was defined in the local development environment.  
  ```
  MAPBOXURL: <url for mapbox>  
