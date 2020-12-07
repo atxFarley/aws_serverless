@@ -113,20 +113,18 @@ In the AWS Console, go to AWS Amplify
              commands:
                - npm run 
    ```
-   
- 
-      `build:`  
-        `commands:`  
-          `- npm run build`  
-   __with__    
-   `        build:  `  
-   `            commands:  `    
-   `             - npm run build -- --prod`
+   __with__   
+      ```
+              build:
+                commands:
+                  - npm run -- --prod 
+      ``` 
 9. Add the environment variables.  Mimic what was defined in the local development environment.  
-` MAPBOXURL: <url for mapbox>  `  
- `APIURL: <url of the lambda api>  `  
- `S3BUCKETURL: <public url for s3bucket>  
-`
+ ```
+ MAPBOXURL: <url for mapbox>  
+ APIURL: <url of the lambda api>   
+ S3BUCKETURL: <public url for s3bucket>  
+```
 10. Save and deploy
 
 - Each time code is checked into the repository, AWS Amplify will build and deploy the latest code automatically.   
