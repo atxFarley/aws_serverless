@@ -1,13 +1,13 @@
 language: node_js
 node_js:
   - "12"
-dist: trusty
 sudo: required
+dist: trusty
 branches:
   only:
     - master
-install:
-  - npm install -g protractor
+#install:
+#  - npm install -g protractor
 before_script:
   - cd ui/app
   - npm install -g @angular/cli
@@ -16,11 +16,11 @@ before_script:
   - npm install --save-dev @angular-builders/dev-server
   - npm install --save-dev @angular-devkit/build-angular
   - npm install --save-dev dotenv
-  - webdriver-manager update --versions.chrome=87.0.4280.88
-  - webdriver-manager start --versions.chrome=87.0.4280.88 &
-  - sleep 3
+#  - webdriver-manager update --versions.chrome=87.0.4280.88
+#  - webdriver-manager start --versions.chrome=87.0.4280.88 &
+#  - sleep 3
 addons:
-  chrome: stable
+  firefox: latest
 #  apt:
 #    sources:
 #      - google-chrome
