@@ -15,19 +15,19 @@ before_script:
   - npm install --save-dev @angular-devkit/build-angular
   - npm install --save-dev dotenv
 addons:
-  chrome: beta
+  chrome: stable
 #  apt:
 #    sources:
 #      - google-chrome
 #    packages:
 #      - google-chrome-stable --allow-unauthenticated
-#cache:
-#  directories:
-#    - ./node_modules
+cache:
+  directories:
+    - ./node_modules
 #install:
 #  - npm install
 script:
   - ng lint
   - ng build
-  - npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
-  - npm run e2e -- --protractor-config=e2e/protractor-ci.conf.js
+  - ng test --no-watch --no-progress --browsers=ChromeHeadlessCI
+  - ng e2e --protractor-config=e2e/protractor-ci.conf.js
