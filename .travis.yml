@@ -39,4 +39,4 @@ script:
   # run unit tests
   - ng test --no-watch --no-progress --browsers=ChromeHeadlessCI
   # run Protractor E2E tests
-  - ng e2e --protractor-config=e2e/protractor-ci.conf.js
+#  - ng e2e --protractor-config=e2e/protractor-ci.conf.js
