@@ -107,11 +107,11 @@ In the AWS Console, go to AWS Amplify
 6. Enter the path for the UI code: __ui/app__  
 7. Enter an App name   
 8. Edit the Build and test settings  
-   1. replace:  
+   1. __replace:__    
    `        build:  `  
     `         commands:  `  
      `          - npm run build`  
-   with  
+   __with__    
    `        build:  `  
    `            commands:  `    
    `             - npm run build -- --prod`
