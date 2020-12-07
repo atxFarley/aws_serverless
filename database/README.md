@@ -48,7 +48,7 @@ Follow [these instructions provided by AWS](https://docs.aws.amazon.com/AmazonRD
 > The AWS PostGIS extensions documentation closely mimic the [official PostGIS install instructions](https://postgis.net/install/).
 
 ### Database creation
-Once the database server is running and connectivity is confirmed, it is time to created the database used for this project.   
+Once the database server is running and connectivity is confirmed, it is time to create the database, schema, and tables used for this project.   
 
 1. Using the pgAdmin tool, create a new database in the AWS PostgreSQL database server. 
 
