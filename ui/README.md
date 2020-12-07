@@ -113,7 +113,7 @@ In the AWS Console, go to AWS Amplify
              commands:
                - npm run 
    ```
-   __with__   
+      __with:__   
       ```
               build:
                 commands:
