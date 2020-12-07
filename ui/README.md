@@ -84,7 +84,8 @@ the [app/karma.conf.js](app/karma.conf.js) file for unit tests has been modified
    
 **__[Travis CI](https://travis-ci.org/)__**  
 This project contains the [.travis.yml](.travis.yml) required for [integration with Travis CI](https://angular.io/guide/testing#configure-project-for-travis-ci)  
-At this time, the Travis CI service is activated upon GitHub check-in.  Because environment variables must be set for the e2e tests to pass successfully, this CI only includes:  
+At this time, the Travis CI service is activated upon GitHub check-in.  
+Because environment variables must be set for the e2e tests to pass successfully, this CI only includes:  
 `ng lint`  
 `ng build`  
 `ng test --no-watch --no-progress --browsers=ChromeHeadlessCI`   
