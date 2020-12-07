@@ -72,7 +72,7 @@ ___
 > With cloud-computing platforms expanding services that manage underlying infrastructure for you, this was an opportunity to build out an entire application using ONLY readily-available services. 
 
 * Complete solution that can be forked and deployed to subsequent AWS accounts with minimal configuration.
-* : heavy_dollar_sign:  Minimal Costs  
+* :heavy_dollar_sign:  Minimal Costs  
     * AWS Service(s) Use
     * Basemap option(s)
 
