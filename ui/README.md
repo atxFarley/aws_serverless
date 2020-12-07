@@ -65,13 +65,13 @@ Because the Angular CLI tool is used to create the application, files for __unit
 **__Unit Tests__**  
 Angular Unit Tests are generated using the [Jasmine Behavior Driven Development (BDD) test framework](https://jasmine.github.io/).  
 The unit test files auto-generated upon `ng generate` commands can contain multiple tests for each Angular component or service.    
-Angular uses the [Karma test runner](https://karma-runner.github.io/latest/index.html) to run all of the unit tests. 
+Angular uses the [Karma test runner](https://karma-runner.github.io/latest/index.html) to run all of the unit tests.   
 `ng test` executes all unit tests.   
 Additional tests can be added to each `.spec.ts` file.  
 
 **__E2E Tests__**  
 End-to-end (e2e) testing is contained in the e2e subfolder of the application.  
-Angular uses the open-source [Protractor test framework](https://www.protractortest.org/#/) to execute test code (written in Jasmine) in a browser by using [Selenium](https://www.selenium.dev/)
+Angular uses the open-source [Protractor test framework](https://www.protractortest.org/#/) to execute test code (written in Jasmine) in a browser by using [Selenium](https://www.selenium.dev/)  
 `ng e2e` executes the e2e tests by opening a browser specified in the [app/e2/protractor.conf.js](app/e2e/protractor.conf.js) file.  
 Additional tests can be added ot the [app/e2e/src](app/e2e/src) directory.
 * For this project, the environment variables MUST be set for the e2e tests to pass successfully. 
