@@ -45,7 +45,7 @@ This is not a complete list.  Further AWS toolkits and services are documented i
 
 ## Tech/Frameworks
 Open-source was a key goal of this project.  This project should be accessible and free to use, modify, distribute as needs evolve.  
-Costs of running this application should be limited to AWS service usage only.  :heavy_dollar_sign:  
+:heavy_dollar_sign:  Costs of running this application should be limited to AWS service usage only.   
 #### Database
 * PostgreSQL with PostGIS extensions
 
@@ -56,7 +56,7 @@ Costs of running this application should be limited to AWS service usage only.  
 * Angular 10
 * Bootstrap
 * Leaflet
-    * _One potential additional expense within the web-mapping interface depending on basemap services used._  :heavy_dollar_sign:  
+    * :heavy_dollar_sign:  _One potential additional expense within the web-mapping interface depending on basemap services used._  
         * For this project, a personal mapbox service is used for satellite imagery basemap option  
   
 ___     
@@ -72,7 +72,7 @@ ___
 > With cloud-computing platforms expanding services that manage underlying infrastructure for you, this was an opportunity to build out an entire application using ONLY readily-available services. 
 
 * Complete solution that can be forked and deployed to subsequent AWS accounts with minimal configuration.
-* Minimal Costs :heavy_dollar_sign:  
+* : heavy_dollar_sign:  Minimal Costs  
     * AWS Service(s) Use
     * Basemap option(s)
 
