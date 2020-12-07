@@ -54,7 +54,7 @@ Instructions for using the code:
     - [app/src/environments/environment.ts](app/src/environments/environment.ts)  
     - [app/src/environments/environment.prod.ts](app/src/environments/environment.prod.ts)  
 
-## Tests
+### Tests
 Because the Angular CLI tool is used to create the application, files for __unit tests__ and __end-to-end (e2e)__ testing are automatically generated.
 `ng new <project name>` automatically generates an end-to-end test project (in the e2e subfolder) along with the application source and configuration files.   
 `ng generate component <name>` or `ng generate service <name>` automatically generates corresponding __Unit Test files__ for the component or service with file extensions of `.spec.ts`
@@ -86,7 +86,9 @@ At this time, the Travis CI service is activated upon GitHub check-in.  Because 
 `ng build`  
 `ng test --no-watch --no-progress --browsers=ChromeHeadlessCI`   
 *E2E testing is excluded at this time.*    
-
+  
+      
+          
 ### AWS Service Configuration
 The [AWS Amplify](https://aws.amazon.com/amplify/) service is used to host the user interface and provide continuous deployments. 
 > *"The Amplify Console provides a git-based workflow for continuous deployment & hosting of fullstack web apps."*
