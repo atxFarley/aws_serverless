@@ -34,8 +34,8 @@ __Very important: The mapbox URL will need to be defined or replaced!__
 
 
 Instructions for using the code: 
-1. Set up local environment for Angular following [these instructions](https://angular.io/guide/setup-local).
-  1. Be sure to install [npm](https://docs.npmjs.com/about-npm) since Angular requires an npm package manager.   
+1. Set up local environment for Angular following [these instructions](https://angular.io/guide/setup-local).  
+   1. Be sure to install [npm](https://docs.npmjs.com/about-npm) since Angular requires an npm package manager.   
 1. Clone the GitHub repository
 2. Define __3__ environment variables for local development based on personal AWS account and Mapbox (or other) basemap account.
    1. MAPBOXURL - This is the satellite imagery basemap option 
@@ -46,8 +46,7 @@ Instructions for using the code:
 5. Execute `npm build`
 6. Execute `ng serve`
 7. The application will run on localhost:4200.  Open browser on http://localhost:4200  
-
-![FieldTracker UI](../fieldTrackerUI.png)  
+    ![FieldTracker UI](../fieldTrackerUI.png)  
 8. Once the application runs successfully in a local environment, push the code to a personal GitHub repository.  
 9. Do __NOT__ push personal AWS account information (such as API URLs) to the GitHub repository.  
 10. Do __NOT__ push personal mapping service URLs to the GitHub repository.  Replace these with environment variables following the MAPBOX URL pattern.     
