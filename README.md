@@ -56,7 +56,7 @@ Costs of running this application should be limited to AWS service usage only.  
 * Angular 10
 * Bootstrap
 * Leaflet
-    * _One potential additional expense within the web-mapping interface depending on basemap services used.  :heavy_dollar_sign:  
+    * _One potential additional expense within the web-mapping interface depending on basemap services used._  :heavy_dollar_sign:  
         * For this project, a personal mapbox service is used for satellite imagery basemap option  
   
 ___     
