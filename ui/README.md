@@ -58,8 +58,8 @@ Instructions for using the code:
     - [app/src/environments/environment.prod.ts](app/src/environments/environment.prod.ts)  
 
 ### Tests
-Because the Angular CLI tool is used to create the application, files for __unit tests__ and __end-to-end (e2e)__ testing are automatically generated.
-`ng new <project name>` automatically generates an end-to-end test project (in the e2e subfolder) along with the application source and configuration files.   
+Because the Angular CLI tool is used to create the application, files for __unit tests__ and __end-to-end (e2e)__ testing are automatically generated.  
+`ng new <project name>` automatically generates an __end-to-end test project__ (in the e2e subfolder) along with the application source and configuration files.   
 `ng generate component <name>` or `ng generate service <name>` automatically generates corresponding __Unit Test files__ for the component or service with file extensions of `.spec.ts`
 
 **__Unit Tests__**  
