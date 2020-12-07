@@ -10,13 +10,13 @@ This directory holds all UI artifacts.
 
 ### Development Environment Configuration
 The user interface is written as a single-page application (SPA) using the [Angular](https://angular.io/) framework
-> If you are new to Angular, set up Angular development environment by following the instructions [here](https://angular.io/guide/setup-local).
-
+  
 The Angular Command Line Interface (CLI) must installed  to create projects and generate the project objects.  
-   
+     
 **__The Angular CLI automatically generates necessary building and testing files.__**   
 `npm install -g @angulare/cli`   
-
+  
+> If you are new to Angular, set up Angular development environment by following the instructions [here](https://angular.io/guide/setup-local).
 >> After environment setup, complete the [Tour of Heroes Tutorial](https://angular.io/tutorial).
 
 ### Code
