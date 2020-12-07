@@ -13,13 +13,16 @@ The user interface is written as a single-page application (SPA) using the [Angu
 > If you are new to Angular, set up Angular development environment by following the instructions [here](https://angular.io/guide/setup-local).
 
 The Angular Command Line Interface (CLI) must installed  to create projects and generate the project objects.  
-**__The Angular CLI automatically generates necessary building and testing files.__** 
+   
+**__The Angular CLI automatically generates necessary building and testing files.__**   
 `npm install -g @angulare/cli`   
 
 >> After environment setup, complete the [Tour of Heroes Tutorial](https://angular.io/tutorial).
 
 ### Code
-The open-source Javascript library [Leaflet](https://leafletjs.com/) is used to create the interactive map within the Angular application. 
+Angular is written in HTML and TypeScript.  
+  
+In addition to Angular, the open-source Javascript library [Leaflet](https://leafletjs.com/) is used to create the interactive map within the Angular application. 
 
 >All of the Leaflet mapping code is contained in [map.js](app/src/js/map.js) and is added to the Angular app as an external Javascript file.  
 This keeps all the code around Leaflet mapping contained in one place as opposed to spread across the Angular components.  
