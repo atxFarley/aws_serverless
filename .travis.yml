@@ -16,11 +16,12 @@ before_script:
   - npm install --save-dev @angular-builders/dev-server
   - npm install --save-dev @angular-devkit/build-angular
   - npm install --save-dev dotenv
-  - webdriver-manager update
+#  - webdriver-manager update
 #  - webdriver-manager start --versions.chrome=87.0.4280.88 &
 #  - sleep 3
 addons:
-  firefox: latest
+  chrome: stable
+#  firefox: latest
 #  apt:
 #    sources:
 #      - google-chrome
