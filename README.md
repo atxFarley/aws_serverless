@@ -189,9 +189,12 @@ Each function in [lambda/fieldtrackerfunctions](lambda/fieldtrackerfunctions) ha
 
 ### Angular UI
 Files for Unit Tests, End-to-End tests, and configuration for Continuous integration (CI) test runs included in [ui/app](ui/app).  
-Specifics about Angular application testing detailed [here](ui/README.md).
-
-
+Specifics about Angular application testing detailed [here](ui/README.md).  
+  
+### Load/Performance Testing
+*Coming Soon*  
+  
+    
 ## Roadmap
 * Performance and Load testing
 * User authentication 
