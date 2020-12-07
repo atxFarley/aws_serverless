@@ -15,16 +15,17 @@ before_script:
   - npm install --save-dev @angular-devkit/build-angular
   - npm install --save-dev dotenv
 addons:
-  apt:
-    sources:
-      - google-chrome
-    packages:
-      - google-chrome-stable --allow-unauthenticated
-cache:
-  directories:
-    - ./node_modules
-install:
-  - npm install
+  chrome: stable
+#  apt:
+#    sources:
+#      - google-chrome
+#    packages:
+#      - google-chrome-stable --allow-unauthenticated
+#cache:
+#  directories:
+#    - ./node_modules
+#install:
+#  - npm install
 script:
   - ng lint
   - ng build
