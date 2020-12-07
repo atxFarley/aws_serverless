@@ -20,7 +20,9 @@ addons:
       - google-chrome
     packages:
       - google-chrome-stable --allow-unauthenticated
-
+cache:
+  directories:
+    - ./node_modules
 
 script:
   - ng lint
