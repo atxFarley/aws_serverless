@@ -5,6 +5,7 @@
 target/
 */target
 dependency-reduced-pom.xml
+loadtest/script.yml
 
 # IntelliJ artifacts
 /.idea
