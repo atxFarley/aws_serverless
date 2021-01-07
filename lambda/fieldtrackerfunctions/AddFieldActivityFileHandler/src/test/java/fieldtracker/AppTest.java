@@ -19,9 +19,9 @@ public class AppTest {
         App app = new App();
         APIGatewayProxyRequestEvent input = new APIGatewayProxyRequestEvent();
         String layerJSON = "{\n" +
-                "    \"fieldActivityId\": 1,\n" +
+                "    \"fieldActivityId\": 44,\n" +
                 "    \"fieldActivityFileId\": null,\n" +
-                "    \"fieldActivityFileLocation\": \"https://fieldactivityfiles.s3.amazonaws.com/fieldactivityfiles/testfile.txt\"\n" +
+                "    \"fieldActivityFileLocation\": \"https://fieldactivityfiles.s3.amazonaws.com/fieldactivityfiles/fertilizerNotes.txt\"\n" +
                 "}";
         input.setBody(layerJSON);
         APIGatewayProxyResponseEvent result = app.handleRequest(input, null);
