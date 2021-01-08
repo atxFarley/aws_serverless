@@ -63,7 +63,7 @@ ___
 ![Architecture Diagram](ArchDiagram2.png)
 ___
 ## Key Features
-* Open-source!
+* Open-source! - All code and instructions available in public GitHub repository
 * Serverless - absolutely no EC2 instances.  
 
 > As a software developer, maintaining infrastructure (configuring virtual machines, allocating appropriate sizes) is soul-sucking.  
