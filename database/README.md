@@ -179,7 +179,8 @@ ST_Perimeter()
 
 
 ### Roadmap
-1. Database Triggers for populating history tables
-2. Validating attributes upon insert/update
+1. Migrate to a “serverless” version using the Amazon Aurora with PostgreSQL compatibility service
+2. Database Triggers for populating history tables
+3. Validating attributes upon insert/update
 
 
