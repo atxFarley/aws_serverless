@@ -5,7 +5,7 @@ This repository holds all the code, instructions, and documentation related to m
 
 The purpose of this project is to create a geospatial data management and visualization tool to make sense of all the data inundating the agriculture industry
 
-[![DOI](https://zenodo.org/badge/280723442.svg)](https://zenodo.org/badge/latestdoi/280723442)  
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4446179.svg)](https://doi.org/10.5281/zenodo.4446179)  
 
 [![Build Status](https://travis-ci.com/atxFarley/aws_serverless.svg?branch=master)](https://travis-ci.com/atxFarley/aws_serverless) [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/atxFarley/aws_serverless/blob/master/LICENSE.txt) [![Open Source? Yes!](https://badgen.net/badge/Open%20Source%20%3F/Yes%21/blue?icon=github)](https://github.com/Naereen/badges/)
 
