@@ -80,5 +80,6 @@ For this project, the Amazon API Gateway resources created are RESTful APIs.
 2. [Create a custom domain for REST APIs](https://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-custom-domains.html)
 3. Utilize [AWS Lambda layers](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html) for shared code across functions (and eliminate code duplication)
 4. Tighten security/access to Amazon S3 bucket adding functions that also list bucket objects and generate presigned URLS for UI bucket resource viewing
+5. Update GetFieldHandler to accommodate more dynamic SRID assignment as specified in the [database instructions](../database/README.md) for use in measurement functionality.
 
 
