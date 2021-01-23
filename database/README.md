@@ -65,7 +65,7 @@ Once the database server is running and connectivity is confirmed, it is time to
 
 3. Run [this DDL](DDL/initial/field_tracker.sql) to create all the __field_manage__ schema.
 
-4. Download and import a shapefile with the geographic coordinates in the coordinate system that you will ultimately use for measurements and define the measurement spatial reference identifier (SRID) for your geographic area. 
+4. Download and import a shapefile with the geographic coordinates in the __PROJECTED__ coordinate system that you will ultimately use for measurements and define the measurement spatial reference identifier (SRID) for your geographic area. 
     * For this prototype, the USA State Plane Zones shapefile from [here](https://hub.arcgis.com/datasets/23178a639bdc4d658816b3ea8ee6c3ae_0?page=10) was used.
 
 5. Using the PostGIS Shapefile Import/Export Manager tool, import the shapefile to the database:
@@ -182,5 +182,6 @@ ST_Perimeter()
 1. Migrate to a “serverless” version using the Amazon Aurora with PostgreSQL compatibility service
 2. Database Triggers for populating history tables
 3. Validating attributes upon insert/update
+4. Upon field record insert/update, intersect with the shapefile with the boundaries for the projected coordinate system and store the resulting SRID as an attribute of the field to be used for any sort of measurement functionality.  
 
 
