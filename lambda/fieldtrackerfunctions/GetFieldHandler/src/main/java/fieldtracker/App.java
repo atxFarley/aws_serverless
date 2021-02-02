@@ -10,9 +10,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.text.DateFormat;
+
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -163,6 +164,18 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
                             fieldActivity.setFieldActivityDate(rs.getString("activity_datetz"));
                             fieldActivityArrayList.add(fieldActivity);
                         }
+                        Collections.sort(fieldActivityArrayList, new Comparator<Field.FieldActivity>() {
+                            DateFormat f = new SimpleDateFormat("MM/dd/yyyy");
+
+                            @Override
+                            public int compare(Field.FieldActivity o1, Field.FieldActivity o2) {
+                                try {
+                                    return f.parse(o2.getFieldActivityDate()).compareTo(f.parse(o1.getFieldActivityDate()));
+                                } catch (Exception e) {
+                                    throw new IllegalArgumentException(e);
+                                }
+                            }
+                        });
                         fieldDetail.setFieldActivities(fieldActivityArrayList);
                     } catch (SQLException innerEx) {
                         lgr.log(Level.SEVERE, "SQLException caught: " + innerEx.getMessage(), innerEx);
