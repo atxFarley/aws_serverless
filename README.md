@@ -52,6 +52,7 @@ Open-source was a key goal of this project.  This project should be accessible a
 
 #### Lambda - serves as the layer between database and UI (and the UI and S3 bucket)
 * Written in Java
+* [Apache Maven](https://maven.apache.org/) for dependency management and build automation
 
 #### UI
 * Angular 10
