@@ -115,7 +115,7 @@ Instructions for project fall into 5 larger sequential steps:
 #### Amazon S3
 This project requires a bucket that is publicly accessible.  It stores files associated with database records that must be viewable to users of the web applicaiton. 
 1. Create Bucket: 
-    * __Bucket name:__ieldactivityfiles
+    * __Bucket name:__fieldactivityfiles
     * __Permissions --> Access Control List:__Allow Everyone List Objects
     * __Permissions --> Cross-origin resource sharing (CORS):__
     ````
