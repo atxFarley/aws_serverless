@@ -152,7 +152,7 @@ Further AWS Service configuration will be documented in subsequent steps.
 ### Development Environment Configuration
 
 IntelliJ IDEA users *Rejoice!*  
-The [AWS Toolkit for Jetbrains](https://docs.aws.amazon.com/toolkit-for-jetbrains/latest/userguide/welcome.html) makes serverless application development and deployment super easy.  
+The [AWS Toolkit for JetBrains](https://docs.aws.amazon.com/toolkit-for-jetbrains/latest/userguide/welcome.html) makes serverless application development and deployment super easy.  
 #### __Follow [these instructions](https://docs.aws.amazon.com/toolkit-for-jetbrains/latest/userguide/setup-toolkit.html) to install the Toolkit.__
 
 Tools required by the Toolkit for AWS serverless/Lambda function development, testing, and deployment:     
