@@ -4,7 +4,7 @@
       <div id=mapsearch>
         <div class="form-group has-search">
           <span class="fa fa-search form-control-feedback"></span>
-          <input type="text" #searchbox class="form-control" placeholder="Search by Grower"
+          <input type="text" #searchbox class="form-control" autocapitalize="none" placeholder="Search by Grower"
                  (keyup.enter)="searchFields(searchbox.value)">
         </div>
       </div>
