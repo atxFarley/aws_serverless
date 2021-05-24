@@ -36,8 +36,8 @@ This directory holds all the AWS Lambda functions that serve as the layer betwee
    1. Each function has a pom.xml defining required dependencies.
    2. Each function has a test to confirm AWS resource connectivity. 
    3. Each function is built independently with `mvn clean install`.  All tests are run upon function build.  
-6. Once all functions build (and pass tests) successfully, deploy to AWS using AWS Toolkit for JetBrains by righ-clicking on the template.yaml and selecting "Deploy Serverless Application".
-   1. If IntelliJ has been configured correctly to connect to the desired AWS account, this will Create a new Stack upon the first deployment.  Subsequent deployments will update the stack. 
+6. Once all functions build (and pass tests) successfully, deploy to AWS using AWS Toolkit for JetBrains by right-clicking on the template.yaml and selecting "Deploy Serverless Application".
+   1. If IntelliJ has been configured correctly to connect to the desired AWS account, this will Create a new CloudFormation Stack upon the first deployment.  Subsequent deployments will update the stack. 
 7. Confirm Lambda functions have been deployed by going to the AWS Console/Lambda.  
    1. Functions will be listed.  
    2. Each function can be tested in the console independently. 
